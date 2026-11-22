@@ -358,6 +358,9 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 .pw-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .powers .pw-row button{font:inherit;display:flex;flex-direction:column;align-items:center;gap:0;background:var(--sel);color:var(--fg);border:2px solid var(--accent);border-radius:14px;padding:6px 12px;cursor:pointer;min-height:48px;min-width:88px}
 .powers .pw-row button b{font-size:.95rem}
+.powers .pw-row button.urge{border-color:var(--gold);animation:urge 1s ease-in-out infinite}
+@keyframes urge{50%{box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 45%,transparent)}}
+@media (prefers-reduced-motion:reduce){.powers .pw-row button.urge{animation:none;box-shadow:0 0 0 3px var(--gold)}}
 .powers .pw-row button small{font-size:.68rem;color:var(--muted)}
 .pw-prog{position:relative;display:flex;justify-content:center;font-size:.72rem;color:var(--muted);padding-bottom:5px}
 .pw-prog i{position:absolute;bottom:0;inset-inline-start:0;height:3px;border-radius:99px;background:var(--blue);transition:width .3s}
@@ -1329,7 +1332,7 @@ const SP = (function(){
   document.documentElement.setAttribute('dir', 'rtl'); document.documentElement.setAttribute('lang', 'ar');
   const VERSION = 16;
   const CHANGELOG = [
-    [16, 'اسم الاستوديو <span dir="ltr">Deshret Games</span>، وصفحات أوضح، وزرار الإيقاف تحت، والصوت بيرجع بعد قفل الموبايل.'],
+    [16, 'اسم الاستوديو <span dir="ltr">Deshret Games</span>، وصفحات أوضح، والقصة بقت أصعب من الفصل التاني: الغيلان أقوى، والغلطة قدامهم بترجّعلهم ضربة، والنجمة التانية محتاجة دقة ٨٥٪. وزرار القدرة بينوّر لما تبقى في ورطة.'],
     [15, 'نسخة النشر: مراجعة لغوية وإملائية شاملة لكل الكلام في اللعبة، الخطوط جوه اللعبة نفسها فتشتغل من غير نت، نسخة احتياطية لتقدمك (حفظ واسترجاع)، وتثبيت اللعبة على الموبايل كتطبيق'],
     [14, 'تحدي جديد «سؤال الوقت» بيزودك ثواني، أصوات غيلان جديدة أهدى وأتقل، زرار «عيد الفصل» لو النجوم ناقصة، نصيحة عم سيد بعد كل فصل، الإنجازات بتتجمع وتظهر في آخر الجولة بدل ما تغطي الشاشة، التلميحات مش بتتكرر، وأحسن رقم بيظهر صح'],
     [13, 'القصة من غير حرق: الغيلان مش بتتعرف غير لما تطلع، وعم سيد بيلمّح بدل ما يشرح. المكتب اللي بيتغير بقى ظاهر في كارت القصة، أصوات الغيلان بقت أوضح، زرار تخطي للتدريب، وتصليح كارت الخطوة الجاية'],
@@ -1365,7 +1368,7 @@ const SP = (function(){
 
   /* ---------- The story: fog leaks out of the office air conditioning; the ghoul blowing it lives on the roof ---------- */
   const CHAPTERS = [
-    {id:1, label:'الفصل الأول', name:'المكتب', place:'المكتب', clock:'الساعة ٢ الضهر', recap:null, scene:'office', time:40, target:200, lvl0:0, music:1,
+    {id:1, label:'الفصل الأول', name:'المكتب', place:'المكتب', clock:'الساعة ٢ الضهر', recap:null, scene:'office', time:40, target:200, lvl0:0, music:1, minus:3,
       pool:['color','color','color','math','math','num','num','arrow','clock','clock'], newType:'clock',
       boss:{name:'الغول الصغير', hp:5, time:25, fav:['color','color','clock','num'], hint:'الغول الصغير بيحب يلخبط الألوان ويقدّم الساعة. اقرا المطلوب الأول: لون الحبر ولا معنى الكلمة؟ متبصش على الكلمة قبل ما تقرا.'},
       sayedPre:'شايف الضباب طالع منين؟ من فتحات التكييف. أنا مبتأثرش بيه، دمي بقى نصه قهوة من ٣٠ سنة. انت بقى خليك ورايا، ومتغمّضش.',
@@ -1375,16 +1378,16 @@ const SP = (function(){
       intro:['الدور كله نايم، والضباب البنفسجي مغطي المكاتب.','وفي آخر الدور، جنب فتحة التكييف، حاجة صغيرة بتتحرك في الضباب… ومش زميل.'],
       outro:'زمايلك صحيوا واحد ورا التاني، والغول الصغير هرب من فتحة التكييف.',
       sayedPost:'أول مرة أشوفهم شغالين بعد الغدا، حاجة تفرّح. بس المدير والجماعة في أوضة الاجتماعات من ساعة ومحدش طلع. يا إما الضباب دخل عندهم، يا إما الاجتماع ده فعلا مالوش آخر.'},
-    {id:2, label:'الفصل التاني', name:'اجتماع الساعة ٣', place:'أوضة الاجتماعات', clock:'الساعة ٣ العصر', recap:'اللي فات: صحّيت الدور، بس المدير والجماعة لسه محبوسين في الاجتماع.', scene:'meeting', time:40, target:260, lvl0:1, music:2,
+    {id:2, label:'الفصل التاني', name:'اجتماع الساعة ٣', place:'أوضة الاجتماعات', clock:'الساعة ٣ العصر', recap:'اللي فات: صحّيت الدور، بس المدير والجماعة لسه محبوسين في الاجتماع.', scene:'meeting', time:40, target:290, lvl0:1, music:2, minus:3,
       pool:['math','math','num','major','major','odd','odd','color','arrow','seq','seq'], newType:'seq',
-      boss:{name:'المدير الغول', hp:6, time:25, fav:['major','seq','seq','math','num'], hint:'المدير الغول بيرمي أرقام ورسومات وشرايح ناقصة. خد ثانية وعدّ صح، زي ما بتعدّ مرتبك أول الشهر.'},
+      boss:{name:'المدير الغول', hp:7, time:25, heal:true, fav:['major','seq','seq','math','num'], hint:'المدير الغول بيرمي أرقام ورسومات وشرايح ناقصة. خد ثانية وعدّ صح، زي ما بتعدّ مرتبك أول الشهر.'},
       sayedPre:'المدير كان بيعرض تقرير الربع سنة. بصراحة نص الحضور كانوا نايمين من الشريحة التالتة، الضباب بس كمّل الشغل. بس خلي بالك… المدير بقاله ساعة ما اتكلمش، وده عمره ما حصل.',
       intro:['أوضة الاجتماعات ضلمة، والبروجكتور واقف على نفس الشريحة من ساعة.','كل الحضور نايمين على الكراسي… إلا كرسي المدير. الكرسي فاضي.'],
       outro:'المدير فتح عينه، وبص في الساعة، وقال: «الاجتماع خلص، روّحوا».',
       sayedPost:'أول اجتماع في تاريخ الشركة يخلص بدري. يلا نروّح، أنا راكب نفس المترو بتاعك… بس بص وراك كده. الضباب ده بيمشي ورانا، ولا أنا اللي عيني تعبت؟'},
-    {id:3, label:'الفصل التالت', name:'مترو الساعة ٥', place:'عربية المترو', clock:'الساعة ٥ العصر', recap:'اللي فات: المدير صحي وروّحكم بدري… والضباب خرج وراكم من باب الشركة.', scene:'metro', time:40, target:320, lvl0:2, music:3, sway:true,
+    {id:3, label:'الفصل التالت', name:'مترو الساعة ٥', place:'عربية المترو', clock:'الساعة ٥ العصر', recap:'اللي فات: المدير صحي وروّحكم بدري… والضباب خرج وراكم من باب الشركة.', scene:'metro', time:40, target:360, lvl0:2, music:3, sway:true, minus:4,
       pool:['arrow','arrow','reflex','reflex','memory','color','num','odd','math','stations','stations'], newType:'stations',
-      boss:{name:'غول المترو', hp:7, time:25, fav:['reflex','arrow','stations','stations'], hint:'غول المترو بيلعب على سرعة رد فعلك وبيلخبطك في المحطات. في النور استنى الأخضر، وفي المحطات عدّ بصباعك لو لازم، محدش شايفك.'},
+      boss:{name:'غول المترو', hp:9, time:26, heal:true, fav:['reflex','arrow','stations','stations'], hint:'غول المترو بيلعب على سرعة رد فعلك وبيلخبطك في المحطات. في النور استنى الأخضر، وفي المحطات عدّ بصباعك لو لازم، محدش شايفك.'},
       sayedPre:'احنا في نفس العربية. الضباب ركب ورانا من غير تذكرة، وأي حد يغمّض هيصحى في آخر الخط.',
       choice:{ask:'ترد تقول إيه؟', opts:[
         ['هو الغول عايز مني إيه؟','انت الوحيد اللي صحّى الشركة، فبقيت مشكلته الشخصية. مبروك، بقى ليك عدو.'],
@@ -1392,16 +1395,16 @@ const SP = (function(){
       intro:['العربية زحمة وبتتهز، والضباب داخل من الشبابيك.','والنور بيرعش… وكل ما يطفي، في عينين بتلمع في آخر العربية.'],
       outro:'المترو وقف في محطتك، ونزلت صاحي. والضباب فضل في العربية وراح لآخر الخط.',
       sayedPost:'إنك تنزل في محطتك صاحي، دي لوحدها معجزة. بس فكّر معايا: الضباب ده طلع من التكييف، ومشي ورانا لحد المترو. يعني ليه بيت. والتكييف كله بيطلع من مكان واحد في الشركة: السطح. معايا مفتاحه. بالليل، أنا وانت، وهات فنجانك.'},
-    {id:4, label:'الفصل الأخير', name:'السطح', place:'السطح', clock:'الساعة ١١ بالليل', recap:'اللي فات: عم سيد شاكك إن الضباب ليه بيت فوق سطح الشركة، ومعاه المفتاح.', scene:'roof', time:40, target:380, lvl0:3, music:4, final:true,
+    {id:4, label:'الفصل الأخير', name:'السطح', place:'السطح', clock:'الساعة ١١ بالليل', recap:'اللي فات: عم سيد شاكك إن الضباب ليه بيت فوق سطح الشركة، ومعاه المفتاح.', scene:'roof', time:40, target:430, lvl0:3, music:4, final:true, minus:4,
       pool:ALL_TYPES.concat(['windows','windows']), newType:'windows',
-      boss:{name:'الغول الكبير', hp:8, time:30, fav:null, hint:'الغول الكبير بيستخدم كل الحيل مع بعض. استخدم «تجميد» لما الوقت يقل، و«درع» قبل الأسئلة اللي بتلخبطك. القدرات مش للزينة.'},
+      boss:{name:'الغول الكبير', hp:11, time:30, heal:true, fav:null, hint:'الغول الكبير بيستخدم كل الحيل مع بعض. استخدم «تجميد» لما الوقت يقل، و«درع» قبل الأسئلة اللي بتلخبطك. القدرات مش للزينة.'},
       sayedPre:'هو ده السطح. سامع الصوت ده؟ ده مش التكييف… التكييف مش بيتنفّس. روح انت، وأنا هفضل هنا جنب الباب… عشان أأمّن الانسحاب.',
       intro:['سطح الشركة بالليل، والقاهرة منورة حوالينا.','الضباب طالع من وحدة التكييف زي الدخان… وحد كبير قاعد جنبها، بينفخ.'],
       outro:'الغول اتكمّش لحد ما بقى قد الفنجان، واختفى. والتكييف رجع يطلّع هوا عادي.',
       sayedPost:'كده بكرة الساعة ٢ الضهر محدش هينام. يعني هيشتغلوا… مش متأكد ده خبر حلو ليهم. بس استنى، هو اختفى ولا نام؟ اللي زي ده لما بيتزنق، بيستخبى في أحلامه.'},
-    {id:5, label:'الفصل السري', name:'جوه حلم الغول', place:'الحلم', clock:'الساعة؟ مفيش ساعة هنا', recap:'اللي فات: طردت الغول الكبير من السطح، بس هو هرب جوه حلمه.', scene:'dream', time:40, target:450, lvl0:3, music:5, secret:true, speed:1.15, dreamy:true,
+    {id:5, label:'الفصل السري', name:'جوه حلم الغول', place:'الحلم', clock:'الساعة؟ مفيش ساعة هنا', recap:'اللي فات: طردت الغول الكبير من السطح، بس هو هرب جوه حلمه.', scene:'dream', time:40, target:500, lvl0:3, music:5, secret:true, minus:4, speed:1.15, dreamy:true,
       pool:ALL_TYPES.concat(['memory']),
-      boss:{name:'الغول الحالم', hp:8, time:30, fav:['memory','memory','odd','major','color'], hint:'جوه الحلم الوقت أسرع، والغول بيحب الذاكرة. قول الألوان في سرك وهي بتنوّر.'},
+      boss:{name:'الغول الحالم', hp:12, time:30, heal:true, fav:['memory','memory','odd','major','color'], hint:'جوه الحلم الوقت أسرع، والغول بيحب الذاكرة. قول الألوان في سرك وهي بتنوّر.'},
       sayedPre:'طول ما هو نايم، الضباب ممكن يرجع في أي لحظة. حد لازم يدخل يصحّيه. أنا مش داخل معاك، آخر حلم شفته كان عن الشاي ومحبتش النهاية.',
       intro:['غمّضت عينك ثانية… ولقيت نفسك جوه حلم الغول.','الساعات بتلف بالعكس، والقمر عين بتبصلك.'],
       outro:'الغول فتح عينه، وبصلك كتير… وبعدين قال بصوت واطي: «هو في قهوة؟».',
@@ -2320,7 +2323,8 @@ const SP = (function(){
   function renderPowers(){
     const box = $('powers'); if (!st) return;
     let h = '';
-    st.powers.forEach((p, i) => { h += `<button id="pw${i}" data-i="${i}"><b>${POW[p][0]}</b><small>${POW[p][1]}</small></button>`; });
+    const urge = st.running && ((st.wrongStreak || 0) >= 2 || (st.fight && !st.fight.won && st.time <= 8));
+    st.powers.forEach((p, i) => { h += `<button id="pw${i}" data-i="${i}"${urge ? ' class="urge"' : ''}><b>${POW[p][0]}</b><small>${POW[p][1]}</small></button>`; });
     const n = st.combo % 8, full = st.powers.length >= 3;
     const prog = full ? 'معاك أقصى عدد قدرات (٣)' : `القدرة الجاية: ${ar(n)} من ٨ إجابات صح ورا بعض`;
     box.innerHTML = (h ? `<div class="pw-row">${h}</div>` : '') + `<div class="pw-prog"><span>${prog}</span><i style="width:${full ? 100 : n/8*100}%"></i></div>`;
@@ -2514,7 +2518,7 @@ const SP = (function(){
     $('card').classList.add('bossmode'); $('cup').classList.add('boss');
     BG.p.eyes = 1;
     musicScene('boss');
-    const sub = isS ? `صحته ${hits(b.hp)}، ووقته ${ar(b.time)} ثانية. ${b.hint}`
+    const sub = isS ? `صحته ${hits(b.hp)}، ووقته ${ar(b.time)} ثانية.${b.heal ? ' وكل غلطة بترجّعله ضربة.' : ''} ${b.hint}`
       : tut ? 'كل إجابة صح بتضربه ضربة.'
       : `اختياري: اطرده في ٣ ضربات وخد ١٥٠ نقطة و${mode === 'surv' ? 'روح زيادة' : '٥ ثواني'}.`;
     showBanner(isS ? b.name + ' طلعلك!' : b.name + ' ظهر!', sub);
@@ -2643,7 +2647,7 @@ const SP = (function(){
     const [bx, by] = st.lastEl && document.body.contains(st.lastEl) ? mid(st.lastEl) : mid($('stage'));
     st.lastEl = null;
     if (ok){
-      rec.ok++; st.right++;
+      rec.ok++; st.right++; st.wrongStreak = 0;
       const rt = now - st.shownAt; st.rts.push(rt);
       st.combo++; st.maxCombo = Math.max(st.maxCombo, st.combo);
       const mult = Math.min(5, 1 + Math.floor(st.combo/4)), fire = now < st.feverUntil;
@@ -2687,7 +2691,9 @@ const SP = (function(){
         if (hitBoss(st.golden || fire ? 2 : 1) === 'stop'){ hud(); renderPowers(); return; }
       }
     } else {
-      st.wrong++; st.combo = 0; st.fogBump = Math.min(.4, st.fogBump + .22);
+      st.wrong++; st.combo = 0; st.wrongStreak = (st.wrongStreak || 0) + 1;
+      if (st.fight && !st.fight.won && st.fight.kind === 'story' && chapter.boss.heal && st.fight.hp < st.fight.max){ st.fight.hp++; renderHp(); setTimeout(() => floatText(st.fight.name + ' استرجع ضربة', 'var(--boss)'), 420); }
+      st.fogBump = Math.min(.4, st.fogBump + .22);
       card.classList.add('flash-bad'); vib(70); sfx('bad');
       burst(bx, by, {n:10, color:[`rgba(${tok('--fogc')},.9)`], speed:2.5, g:-.03, grow:.25, size:6, life:40});
       if (mode === 'surv'){
@@ -2754,7 +2760,7 @@ const SP = (function(){
     if (mode === 'daily'){ const k = dayKey().replace(/-/g,''); R = mulberry32(+k*2654435761 % 4294967296); }
     else if (mode === 'duel') R = mulberry32(duel.seed);
     else R = Math.random;
-    if (mode === 'story') MODES.story = {time:chapter.time, plus:0, minus:3, lvl0:chapter.lvl0, rankK:1, over:'', name:chapter.label + ': ' + chapter.name};
+    if (mode === 'story') MODES.story = {time:chapter.time, plus:0, minus:chapter.minus || 3, lvl0:chapter.lvl0, rankK:1, over:'', name:chapter.label + ': ' + chapter.name};
     const bestBefore = mode === 'story' ? (+store.get('fawwa2-best-ch' + chapter.id) || 0) : (mode === 'duel' || mode === 'tut' ? 0 : getBest(mode));
     st = {score:0, shownScore:0, combo:0, maxCombo:0, right:0, wrong:0, rts:[], by:{}, running:false, starting:true, timers:[], lvlShown:MODES[mode].lvl0,
           time: MODES[mode].time || 0, lives: MODES[mode].lives || 0, feverUntil:0, freezeUntil:0, wasFire:false, splitUntil:0,
@@ -2953,13 +2959,13 @@ const SP = (function(){
   const isOpen = (c, i) => c.secret ? secretOpen() : i < story.open;
   const bossKnown = ch => !!story.stars[ch.id] || !!story.met[ch.id];
   const bossLabel = ch => bossKnown(ch) ? ch.boss.name : 'اللي هيطلعلك';
-  const critText = ch => [`اطرد ${bossLabel(ch)}`, 'دقة ٨٠٪ أو أكتر في الفصل', 'اطرده وفاضل ١٠ ثواني أو أكتر من وقته'];
+  const critText = ch => [`اطرد ${bossLabel(ch)}`, 'دقة ٨٥٪ أو أكتر في الفصل', 'اطرده وفاضل ١٠ ثواني أو أكتر من وقته'];
   function storyEnd(){
     const ch = chapter, s = st.score, total = st.right + st.wrong, acc = total ? st.right/total : 0;
     const bonus = recordGame();
     const bk = 'fawwa2-best-ch' + ch.id; if (s > (+store.get(bk) || 0)) store.set(bk, s);
     if (st.won){
-      const crit = [true, acc >= .8, (st.bossLeft || 0) >= 10];
+      const crit = [true, acc >= .85, (st.bossLeft || 0) >= 10];
       const stars = crit.filter(Boolean).length, prev = story.stars[ch.id] || 0;
       const secretBefore = secretOpen();
       let starBonus = 0;
