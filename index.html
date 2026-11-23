@@ -454,43 +454,32 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 .nbbook .reddot{box-shadow:0 0 0 2px var(--nb-paper)}
 #nbBtn{position:relative}
 .reddot.pgdot{top:.85em;inset-inline-start:-16px;inset-inline-end:auto;width:8px;height:8px;box-shadow:none}
-.nbfrag .reddot.pgdot{top:50%;margin-top:-4px;inset-inline-start:7px}
-.nbfrag.nbfresh{padding-inline-start:22px}
 
 .ghost{position:relative}
 #nbScreen{text-align:start}
-.nbbook{width:100%;background:var(--nb-paper);color:var(--nb-ink);border-radius:6px 14px 14px 6px;padding:14px 12px 16px;min-height:420px;position:relative;box-shadow:inset 0 0 40px rgba(120,80,20,.35),inset 0 0 0 2px var(--nb-edge),0 6px 18px rgba(0,0,0,.5);background-image:repeating-linear-gradient(transparent 0 27px,rgba(120,90,40,.15) 27px 28px);overflow:hidden}
-.nbbook.nbpg{padding-inline-start:28px}
-.nbbook h2{margin:0 0 8px;font-size:1.25rem;text-align:center;border-bottom:2px dashed rgba(90,60,20,.4);padding-bottom:6px;color:var(--nb-ink)}
+.nbbook{width:100%;height:min(620px,calc(100dvh - 200px));box-sizing:border-box;background:var(--nb-paper);color:var(--nb-ink);border-radius:6px 14px 14px 6px;padding:24px 12px 16px;padding-inline-start:28px;position:relative;box-shadow:inset 0 0 40px rgba(120,80,20,.35),inset 0 0 0 2px var(--nb-edge),0 6px 18px rgba(0,0,0,.5);background-image:repeating-linear-gradient(transparent 0 27px,rgba(120,90,40,.15) 27px 28px);overflow-x:hidden;overflow-y:auto}
+.nbbook h2{height:28px;box-sizing:border-box;margin:0 0 8px;font-size:1.25rem;text-align:center;border-bottom:2px dashed rgba(90,60,20,.4);padding-bottom:6px;color:var(--nb-ink)}
 .nbtabs{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin:0 0 10px}
 .nbtab{font:inherit;font-size:.78rem;padding:4px 10px;border-radius:10px;background:var(--nb-paper2);border:1px solid var(--nb-edge);color:var(--nb-ink);position:relative;cursor:pointer;min-height:32px}
 .nbtab[aria-pressed="true"]{background:#f3e6bf;font-weight:700}
 .nbitem{display:flex;align-items:center;gap:8px;width:100%;font:inherit;text-align:start;padding:9px 10px;margin:6px 0;background:rgba(255,255,255,.3);border:0;border-inline-start:3px solid var(--nb-edge);border-radius:8px;color:var(--nb-ink);position:relative;cursor:pointer;min-height:44px}
 .nbitem b{flex:1}.nbitem small{color:var(--nb-faint);font-size:.72rem}
 .nbitem.locked{opacity:.6}.nbitem.locked b{letter-spacing:2px}
-.nbfx{position:fixed;z-index:30;perspective:8000px;perspective-origin:100% 40%;pointer-events:none;direction:rtl;text-align:start}
-.nbfx>*{position:absolute;inset:0;pointer-events:none}
-.nbfx .nbbook{height:100%;min-height:0;box-sizing:border-box;margin:0}
-.nbleaf{transform-origin:100% 50%;transform-style:preserve-3d;will-change:transform}
-.nbface{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:6px 14px 14px 6px;overflow:hidden}
-.nbbackf{transform:rotateY(180deg);background:var(--nb-paper2) repeating-linear-gradient(transparent 0 27px,rgba(90,60,20,.14) 27px 28px);box-shadow:inset 0 0 40px rgba(120,80,20,.45),inset 0 0 0 2px var(--nb-edge)}
-.nbshade{background:linear-gradient(to left,rgba(0,0,0,.3),rgba(255,255,255,.16) 60%,rgba(0,0,0,.08));opacity:0;will-change:opacity}
-.nbbackf .nbshade{background:linear-gradient(to right,rgba(0,0,0,.35),rgba(0,0,0,0) 75%);opacity:1}
-.nbcast{border-radius:6px 14px 14px 6px;background:linear-gradient(to left,rgba(0,0,0,0),rgba(0,0,0,.42) 35%,rgba(0,0,0,.04));opacity:0;will-change:opacity}
-.nbart{display:flex;justify-content:center;margin:4px 0 8px}
+.nbart{display:flex;justify-content:center;height:130px;margin:4px 0 8px}
 .nbart canvas{width:220px;height:130px;max-width:100%}
 .nbart.sil canvas{filter:brightness(0)}
-.nbsaber{display:block;color:var(--nb-saber);transform:rotate(-1.5deg) skewX(-6deg);margin:8px 0;font-size:.95rem;line-height:1.8}
-.nbpencil{display:block;color:var(--nb-pencil);font-size:.85rem;margin:8px 0;padding-inline-start:12px;border-inline-start:1px dashed #9a9a9a;transform:rotate(.8deg);line-height:1.8}
+.nbsaber{display:block;color:var(--nb-saber);transform:rotate(-1.5deg) skewX(-6deg);margin:8px 0;font-size:.9rem;line-height:1.8}
+.nbpencil{display:block;color:var(--nb-pencil);font-size:.9rem;margin:8px 0;padding-inline-start:12px;border-inline-start:1px dashed #9a9a9a;transform:rotate(.8deg);line-height:1.8}
 .nbtext{display:block;margin:8px 0;font-size:.9rem;line-height:1.8}
 .nbghq{display:block;color:#5b3a8c;margin:8px 0;font-size:.9rem;line-height:1.8}
-.nbweak{margin-top:10px;padding:8px 10px;background:rgba(58,95,158,.08);border:1px dashed var(--nb-saber);border-radius:6px;font-size:.88rem;line-height:1.8}
+.nbweak{margin:8px 0;padding:8px 10px;background:rgba(58,95,158,.08);border:1px dashed var(--nb-saber);border-radius:6px;font-size:.9rem;line-height:1.8}
 .nbweak b{color:var(--nb-saber)}
 .nbfresh{position:relative}
 .nbbig{font-size:2.6rem;text-align:center;letter-spacing:6px;color:rgba(90,60,20,.5);margin:44px 0 8px}
 .nbblank{text-align:center;color:var(--nb-faint);font-size:.85rem}
-.nbtear{height:16px;margin:-6px -12px 10px;background:var(--bg);clip-path:polygon(0 0,100% 0,100% 40%,96% 80%,92% 30%,87% 90%,82% 40%,76% 85%,70% 25%,64% 80%,58% 35%,52% 90%,46% 30%,40% 85%,34% 40%,28% 80%,22% 30%,16% 90%,10% 35%,5% 80%,0 40%)}
-.nbfrag{padding:8px 10px;margin:8px 0;background:rgba(255,255,255,.3);position:relative}
+.nbtear{position:absolute;top:0;left:0;right:0;height:14px;margin:0;background:var(--bg);clip-path:polygon(0 0,100% 0,100% 40%,96% 80%,92% 30%,87% 90%,82% 40%,76% 85%,70% 25%,64% 80%,58% 35%,52% 90%,46% 30%,40% 85%,34% 40%,28% 80%,22% 30%,16% 90%,10% 35%,5% 80%,0 40%)}
+.nbfragw{position:relative;margin:8px 0;font-size:.9rem;line-height:1.8}
+.nbfrag{padding:8px 10px;margin:0;background:rgba(255,255,255,.3);position:relative}
 .nbfrag small{color:var(--nb-faint);font-size:.7rem}
 .nbfrag.k1{clip-path:polygon(0 0,100% 4%,98% 100%,3% 96%)}.nbfrag.k2{clip-path:polygon(2% 3%,100% 0,97% 96%,0 100%)}.nbfrag.k3{clip-path:polygon(0 4%,98% 0,100% 100%,2% 97%)}.nbfrag.k4{clip-path:polygon(3% 0,100% 5%,96% 100%,0 95%)}
 .nbfrag.locked{background:rgba(90,60,20,.12);text-align:center;color:var(--nb-faint)}
@@ -1388,8 +1377,9 @@ const SP = (function(){
 (function(){
   const $ = id => document.getElementById(id);
   document.documentElement.setAttribute('dir', 'rtl'); document.documentElement.setAttribute('lang', 'ar');
-  const VERSION = 21;
+  const VERSION = 22;
   const CHANGELOG = [
+    [22, 'الدفتر القديم بقى صفحاته كلها بنفس الحجم ونفس ترتيب الكلام، وشلنا حركة قلب الصفحة وصوتها: الصفحة بتتغير فوراً.'],
     [21, 'قلب صفحة الدفتر بقى أهدى: الكلام مابقاش يكبّر ويصغّر وإنت بتقلّب، وصوت الورق بقى أخف وأقرب لصوت الورق الحقيقي.'],
     [20, 'الدفتر القديم بقى بيقلّب الصفحة بجد (رايح وراجع) بصوت ورق، والعلامة الحمرا بقت نقطة صغيرة في الهامش من غير ما تغطي الكلام. زرار الرجوع بيرجّعك للشاشة اللي جيت منها، وشلنا الأزرار المكررة من الإعدادات و«إزاي تلعب»، وصلّحنا علامة كانت بتفضل تحت «العب» على الآيفون.'],
     [19, 'الرئيسية بقت أهدى: كلام أقل وتلات أزرار بس تحت. التدريب بقى جوه «إزاي تلعب»، والمقدمة جوه «خزنتي»، والمهمات بتتقفل في سطر وتتفتح بالدوس.'],
@@ -1753,7 +1743,7 @@ const SP = (function(){
     applySettings();
     if (rerender && !(st && (st.running || st.starting)) && $('cine').hidden){
       const vis = SCREENS.find(s => !$(s).hidden);
-      if (vis === 'vaultScreen') openVault(); else if (vis === 'nbScreen') nbHome(); else if (vis === 'setScreen') openSettings(); else if (vis === 'startScreen' || vis === 'mapScreen') show(vis);
+      if (vis === 'vaultScreen') openVault(); else if (vis === 'nbScreen') nbHomeRender(); else if (vis === 'setScreen') openSettings(); else if (vis === 'startScreen' || vis === 'mapScreen') show(vis);
     }
   }
   const saveProf = () => store.put('fawwa2-profile', prof);
@@ -1826,10 +1816,10 @@ const SP = (function(){
     if (o.lp){ const f = c.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = o.lp; osc.connect(f); node = f; }
     node.connect(g); g.connect(out); env(g,t,vol,o.a||.005,dur); osc.start(t); osc.stop(t+(o.a||0)+dur+.06);
   }
-  function noise(out,t,dur,vol,type,freq,q,to){
+  function noise(out,t,dur,vol,type,freq,q){
     if (busy()) return;
     const c = A.ctx, s = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain(); voice(s);
-    s.buffer = A.noise; f.type = type; f.frequency.setValueAtTime(freq,t); if (to) f.frequency.exponentialRampToValueAtTime(to,t+dur); if (q) f.Q.value = q;
+    s.buffer = A.noise; f.type = type; f.frequency.setValueAtTime(freq,t); if (q) f.Q.value = q;
     s.connect(f); f.connect(g); g.connect(out); env(g,t,vol,.003,dur); s.start(t, Math.random()*.5); s.stop(t+dur+.06);
   }
   /* Instruments: darbuka (dum, tak, ka), riq, bass, oud pluck, pizzicato, nay, brass, bell, pad, swell, boom, clock */
@@ -2089,7 +2079,6 @@ const SP = (function(){
       case 'voice': tone(o,t,150+Math.random()*60,.05,'triangle',.045,{lp:900}); break;
       case 'hit': iDum(t,.5,o); noise(o,t,.12,.16,'bandpass',1400,1); tone(o,t,330,.15,'square',.045,{to:160,lp:1500}); break;
       case 'drop': tone(o,t,110,1.2,'sine',.45,{to:30,force:true}); noise(o,t,1,.22,'lowpass',300); break;
-      case 'flip': noise(o,t,.26,.05,'bandpass',1100,.7,2400); noise(o,t+.07,.1,.018,'highpass',5200,.7); noise(o,t+.2,.05,.01,'highpass',6000,.7); break;
       case 'whoosh': noise(o,t,.4,.14,'bandpass',900,.7); break;
       case 'power': [0,4,7,12].forEach((s,i)=>iPluck(t+i*.06,587*Math.pow(2,s/12),.2,.06,o)); break;
       case 'gold': [0,7,12,16].forEach((s,i)=>tone(o,t+i*.05,880*Math.pow(2,s/12),.18,'sine',.07)); break;
@@ -3439,35 +3428,6 @@ const SP = (function(){
     if (nbVisible()) gain('nb', 'صفحة جديدة: ' + name);
   }
   const NBV = {sec:'fog', page:null}, DOT = '<i class="reddot pgdot"></i>';
-  /* Page turn: the old (or new) page is snapshotted into a fixed leaf hinged on the spine (right edge); transforms and opacity only */
-  let NBT = null;
-  function nbSnap(){
-    const book = $('nbBook'), c = book.cloneNode(true), src = book.querySelectorAll('canvas'), dst = c.querySelectorAll('canvas');
-    src.forEach((cv, i) => { try { dst[i].getContext('2d').drawImage(cv, 0, 0); } catch(e){} });
-    c.removeAttribute('id'); c.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
-    return c;
-  }
-  function nbTurn(dir, render){
-    if (NBT) NBT.end();
-    const book = $('nbBook'), lite = document.body.classList.contains('lite') || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
-    const old = nbSnap(); render(); sfx('flip');
-    if (!book.animate) return;
-    if (lite){ book.animate([{opacity:.2, transform:'translateX(18px)'}, {opacity:1, transform:'none'}], {duration:200, easing:'ease-out'}); return; }
-    const r = book.getBoundingClientRect(), fx = document.createElement('div');
-    fx.className = 'nbfx'; fx.style.cssText = `left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px`;
-    const leaf = document.createElement('div'), front = document.createElement('div'), back = document.createElement('div'), shade = document.createElement('i'), bshade = document.createElement('i'), cast = document.createElement('i');
-    leaf.className = 'nbleaf'; front.className = 'nbface'; back.className = 'nbface nbbackf'; shade.className = 'nbshade'; bshade.className = 'nbshade'; cast.className = 'nbcast';
-    front.append(dir === 'fwd' ? old : nbSnap(), shade); back.append(bshade); leaf.append(front, back);
-    if (dir === 'back') fx.append(old);
-    fx.append(cast, leaf); document.body.appendChild(fx);
-    const o = {duration:640, easing:'cubic-bezier(.45,.1,.3,1)', fill:'both', direction: dir === 'fwd' ? 'normal' : 'reverse'};
-    const a = leaf.animate([{transform:'rotateY(0deg)'}, {transform:'rotateY(180deg)'}], o);
-    shade.animate([{opacity:0}, {opacity:1, offset:.5}, {opacity:1}], o);
-    cast.animate([{opacity:0}, {opacity:.7, offset:.45}, {opacity:0}], o);
-    const end = () => { fx.remove(); if (NBT && NBT.fx === fx) NBT = null; };
-    NBT = {fx, end}; a.onfinish = end; a.oncancel = end;
-  }
-  function nbHome(turn){ if (turn) return nbTurn(turn, nbHomeRender); nbHomeRender(); }
   function nbHomeRender(){
     nbEnsure(); NBV.page = null;
     const book = $('nbBook'), tabs = NB_SECS.map(([k, n]) => `<button class="nbtab" data-sec="${k}" aria-pressed="${NBV.sec === k}">${n}${NB.some(p => p.sec === k && nbNew(p)) ? '<i class="reddot"></i>' : ''}</button>`).join('');
@@ -3478,8 +3438,8 @@ const SP = (function(){
     const n = NB.filter(p => p.open()).length;
     book.className = 'nbbook';
     book.innerHTML = `<h2>الدفتر القديم (${ar(n)} من ${ar(NB.length)})</h2><div class="nbtabs">${tabs}</div>${items}`;
-    book.querySelectorAll('.nbtab').forEach(b => b.addEventListener('click', () => { NBV.sec = b.dataset.sec; nbHome(); }));
-    book.querySelectorAll('.nbitem').forEach(b => b.addEventListener('click', () => nbTurn('fwd', () => nbPageRender(b.dataset.pg))));
+    book.querySelectorAll('.nbtab').forEach(b => b.addEventListener('click', () => { NBV.sec = b.dataset.sec; nbHomeRender(); }));
+    book.querySelectorAll('.nbitem').forEach(b => b.addEventListener('click', () => nbPageRender(b.dataset.pg)));
   }
   function nbPageRender(id){
     const p = NB.find(x => x.id === id), book = $('nbBook'); NBV.page = id;
@@ -3494,7 +3454,7 @@ const SP = (function(){
     if (p.art) h += '<div class="nbart' + (rev ? '' : ' sil') + '" id="nbArt"></div>';
     const hint = ch => CHAPTERS.find(c => c.id === ch).boss.hint;
     if (p.frag){
-      h += p.parts.map((x, i) => x.ok() ? `<div class="nbfrag k${i + 1}${fresh.has(p.id + ':' + x.k) ? ' nbfresh' : ''}">${fresh.has(p.id + ':' + x.k) ? DOT : ''}<span class="nbsaber">${x.x}</span><small>${ar(x.n)} نجوم</small></div>` : `<div class="nbfrag k${i + 1} locked">؟؟؟<br><small>${x.n === 12 ? 'كل النجوم (١٢)' : ar(x.n) + ' نجوم'}</small></div>`).join('');
+      h += p.parts.map((x, i) => x.ok() ? `<div class="nbfragw${fresh.has(p.id + ':' + x.k) ? ' nbfresh' : ''}">${fresh.has(p.id + ':' + x.k) ? DOT : ''}<div class="nbfrag k${i + 1}"><span class="nbsaber">${x.x}</span><small>${ar(x.n)} نجوم</small></div></div>` : `<div class="nbfragw"><div class="nbfrag k${i + 1} locked">؟؟؟<br><small>${x.n === 12 ? 'كل النجوم (١٢)' : ar(x.n) + ' نجوم'}</small></div></div>`).join('');
     } else {
       h += p.parts.filter(x => !x.ok || x.ok()).map(x => {
         const f = fresh.has(p.id + ':' + x.k) ? ' nbfresh' : '', d = f ? DOT : '';
@@ -3507,7 +3467,7 @@ const SP = (function(){
     if (p.art){ const c = document.createElement('canvas'); c.width = 440; c.height = 260; try { SP.ghoul(c.getContext("2d"), 440, 260, 0, 1, 130, p.art); } catch(e){ console.error("nbart", e.message); } $('nbArt').appendChild(c); }
     keys.forEach(k => { nbSeen[k] = 1; }); store.put('fawwa2-nb-seen', nbSeen);
   }
-  function openNb(){ nbEnsure(); NBV.sec = NBV.sec || 'fog'; nbHome(); show('nbScreen'); }
+  function openNb(){ nbEnsure(); NBV.sec = NBV.sec || 'fog'; nbHomeRender(); show('nbScreen'); }
   function openVault(){
     $('chartBox').innerHTML = chartHTML();
     const acc = prof.answered ? Math.round(prof.right/prof.answered*100) : 0;
@@ -3559,7 +3519,7 @@ const SP = (function(){
   $('misToggle').addEventListener('click', () => { const o = $('misToggle').getAttribute('aria-expanded') !== 'true'; $('misToggle').setAttribute('aria-expanded', String(o)); $('misBody').hidden = !o; });
   $('vaultBack').addEventListener('click', () => goBack('vaultScreen'));
   $('nbBtn').addEventListener('click', openNb);
-  $('nbBack').addEventListener('click', () => { if (NBV.page){ nbHome('back'); } else { renderNbBtn(); goBack('nbScreen'); } });
+  $('nbBack').addEventListener('click', () => { if (NBV.page){ nbHomeRender(); } else { renderNbBtn(); goBack('nbScreen'); } });
   $('vaultPrologue').addEventListener('click', () => prologue('vault'));
   $('scenesBtn').addEventListener('click', openScenes);
   $('scenesBack').addEventListener('click', () => show('mapScreen'));
