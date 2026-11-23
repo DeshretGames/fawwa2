@@ -350,8 +350,6 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 .next-card p{margin:0;color:var(--fg);font-size:.92rem;line-height:1.7;max-width:none}
 .next-card .btn{align-self:stretch}
 .sub{margin:-6px 0 0;color:var(--muted);font-size:.8rem;line-height:1.6;text-align:start;width:100%;max-width:none}
-.row.wrap4{display:grid;grid-template-columns:1fr 1fr;width:100%}
-.row.wrap4 .ghost{width:100%}
 /* v19 home simplify */
 .next-card{flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px 10px;border:1px solid var(--line);padding:9px 12px;border-radius:14px}
 .next-card .nx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
@@ -364,10 +362,9 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 .row.wrap3{display:flex;width:100%;gap:8px;flex-wrap:nowrap}
 .row.wrap3 .ghost{flex:1;min-width:0;padding-inline:8px}
 .mis{width:100%;text-align:start}
-.mis summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--tile);border-radius:10px;padding:9px 12px;font-size:.86rem;min-height:44px}
-.mis summary::-webkit-details-marker{display:none}
-.mis summary small{color:var(--muted)}
-.mis[open] summary{margin-bottom:6px}
+.mis-head{font:inherit;color:inherit;border:0;width:100%;text-align:start;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--tile);border-radius:10px;padding:9px 12px;font-size:.86rem;min-height:44px}
+.mis-head small{color:var(--muted)}
+#misBody{padding-top:6px}
 
 .coach-ov{z-index:7;background:color-mix(in srgb,var(--panel) 97%,transparent)}
 .coach-ov .who{display:flex;align-items:center;gap:8px;color:var(--accent);font-weight:700;font-size:.85rem}
@@ -453,10 +450,17 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 @keyframes cshake{20%{transform:translate(-6px,3px)}40%{transform:translate(5px,-3px)}60%{transform:translate(-4px,2px)}80%{transform:translate(3px,-1px)}}
 /* ---- old notebook (v18). All notebook colors live here, in one place, so the FW-C04 retune can change them together ---- */
 :root{--nb-paper:#e8d6a8;--nb-paper2:#cdb783;--nb-edge:#b89a5e;--nb-ink:#3b2a14;--nb-saber:#3a5f9e;--nb-pencil:#6b6b6b;--nb-dot:#e0392d;--nb-faint:#7a5f30;--nb-bg:#1c1410}
-.reddot{position:absolute;top:5px;inset-inline-start:5px;width:11px;height:11px;border-radius:50%;background:var(--nb-dot);box-shadow:0 0 0 2px var(--panel,#2a1e18);pointer-events:none}
+.reddot{position:absolute;top:-4px;inset-inline-end:-4px;width:10px;height:10px;border-radius:50%;background:var(--nb-dot);box-shadow:0 0 0 2px var(--panel,#2a1e18);pointer-events:none}
+.nbbook .reddot{box-shadow:0 0 0 2px var(--nb-paper)}
+#nbBtn{position:relative}
+.reddot.pgdot{top:.85em;inset-inline-start:-16px;inset-inline-end:auto;width:8px;height:8px;box-shadow:none}
+.nbfrag .reddot.pgdot{top:50%;margin-top:-4px;inset-inline-start:7px}
+.nbfrag.nbfresh{padding-inline-start:22px}
+
 .ghost{position:relative}
 #nbScreen{text-align:start}
 .nbbook{width:100%;background:var(--nb-paper);color:var(--nb-ink);border-radius:6px 14px 14px 6px;padding:14px 12px 16px;min-height:420px;position:relative;box-shadow:inset 0 0 40px rgba(120,80,20,.35),inset 0 0 0 2px var(--nb-edge),0 6px 18px rgba(0,0,0,.5);background-image:repeating-linear-gradient(transparent 0 27px,rgba(120,90,40,.15) 27px 28px);overflow:hidden}
+.nbbook.nbpg{padding-inline-start:28px}
 .nbbook h2{margin:0 0 8px;font-size:1.25rem;text-align:center;border-bottom:2px dashed rgba(90,60,20,.4);padding-bottom:6px;color:var(--nb-ink)}
 .nbtabs{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;margin:0 0 10px}
 .nbtab{font:inherit;font-size:.78rem;padding:4px 10px;border-radius:10px;background:var(--nb-paper2);border:1px solid var(--nb-edge);color:var(--nb-ink);position:relative;cursor:pointer;min-height:32px}
@@ -464,8 +468,15 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 .nbitem{display:flex;align-items:center;gap:8px;width:100%;font:inherit;text-align:start;padding:9px 10px;margin:6px 0;background:rgba(255,255,255,.3);border:0;border-inline-start:3px solid var(--nb-edge);border-radius:8px;color:var(--nb-ink);position:relative;cursor:pointer;min-height:44px}
 .nbitem b{flex:1}.nbitem small{color:var(--nb-faint);font-size:.72rem}
 .nbitem.locked{opacity:.6}.nbitem.locked b{letter-spacing:2px}
-.nbpage{animation:nbflip .45s ease-out;transform-origin:100% 50%}
-@keyframes nbflip{from{transform:perspective(900px) rotateY(70deg);opacity:.2}to{transform:perspective(900px) rotateY(0);opacity:1}}
+.nbfx{position:fixed;z-index:30;perspective:1300px;perspective-origin:100% 40%;pointer-events:none;direction:rtl;text-align:start}
+.nbfx>*{position:absolute;inset:0;pointer-events:none}
+.nbfx .nbbook{height:100%;min-height:0;box-sizing:border-box;margin:0}
+.nbleaf{transform-origin:100% 50%;transform-style:preserve-3d;will-change:transform}
+.nbface{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:6px 14px 14px 6px;overflow:hidden}
+.nbbackf{transform:rotateY(180deg);background:var(--nb-paper2) repeating-linear-gradient(transparent 0 27px,rgba(90,60,20,.14) 27px 28px);box-shadow:inset 0 0 40px rgba(120,80,20,.45),inset 0 0 0 2px var(--nb-edge)}
+.nbshade{background:linear-gradient(to left,rgba(0,0,0,.3),rgba(255,255,255,.16) 60%,rgba(0,0,0,.08));opacity:0;will-change:opacity}
+.nbbackf .nbshade{background:linear-gradient(to right,rgba(0,0,0,.35),rgba(0,0,0,0) 75%);opacity:1}
+.nbcast{border-radius:6px 14px 14px 6px;background:linear-gradient(to left,rgba(0,0,0,0),rgba(0,0,0,.42) 35%,rgba(0,0,0,.04));opacity:0;will-change:opacity}
 .nbart{display:flex;justify-content:center;margin:4px 0 8px}
 .nbart canvas{width:220px;height:130px;max-width:100%}
 .nbart.sil canvas{filter:brightness(0)}
@@ -475,7 +486,7 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 .nbghq{display:block;color:#5b3a8c;margin:8px 0;font-size:.9rem;line-height:1.8}
 .nbweak{margin-top:10px;padding:8px 10px;background:rgba(58,95,158,.08);border:1px dashed var(--nb-saber);border-radius:6px;font-size:.88rem;line-height:1.8}
 .nbweak b{color:var(--nb-saber)}
-.nbfresh{position:relative}.nbfresh:after{content:"جديد";position:absolute;top:0;inset-inline-end:0;font-size:.62rem;color:var(--nb-dot);font-weight:700}
+.nbfresh{position:relative}
 .nbbig{font-size:2.6rem;text-align:center;letter-spacing:6px;color:rgba(90,60,20,.5);margin:44px 0 8px}
 .nbblank{text-align:center;color:var(--nb-faint);font-size:.85rem}
 .nbtear{height:16px;margin:-6px -12px 10px;background:var(--bg);clip-path:polygon(0 0,100% 0,100% 40%,96% 80%,92% 30%,87% 90%,82% 40%,76% 85%,70% 25%,64% 80%,58% 35%,52% 90%,46% 30%,40% 85%,34% 40%,28% 80%,22% 30%,16% 90%,10% 35%,5% 80%,0 40%)}
@@ -483,7 +494,6 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 .nbfrag small{color:var(--nb-faint);font-size:.7rem}
 .nbfrag.k1{clip-path:polygon(0 0,100% 4%,98% 100%,3% 96%)}.nbfrag.k2{clip-path:polygon(2% 3%,100% 0,97% 96%,0 100%)}.nbfrag.k3{clip-path:polygon(0 4%,98% 0,100% 100%,2% 97%)}.nbfrag.k4{clip-path:polygon(3% 0,100% 5%,96% 100%,0 95%)}
 .nbfrag.locked{background:rgba(90,60,20,.12);text-align:center;color:var(--nb-faint)}
-@media (prefers-reduced-motion:reduce){.nbpage{animation:none}}
 @media (prefers-reduced-motion:reduce){.cine-slate.in *{animation:none}.cine-slate i{width:min(220px,50vw)}#cine.shake{animation:none}}
 .sub.world{margin-top:-4px;color:var(--fg);opacity:.85;font-size:.82rem}
 .scene-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;text-align:start}
@@ -576,8 +586,8 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
         <button class="mode duel" id="mode-duel" data-mode="duel" aria-pressed="false"><b>اتنين على موبايل واحد</b><small>الأعلى يكسب</small></button>
       </div>
       <button class="btn" id="startBtn" style="width:100%">العب</button>
-      <details class="mis" id="misBox"><summary><span>مهمات النهارده</span><small id="misSum"></small></summary>
-        <ul class="missions" id="missions"></ul></details>
+      <div class="mis" id="misBox"><button type="button" class="mis-head" id="misToggle" aria-expanded="false" aria-controls="misBody"><span>مهمات النهارده</span><small id="misSum"></small></button>
+        <div id="misBody" hidden><ul class="missions" id="missions"></ul></div></div>
       <div class="row wrap3">
         <button class="ghost" id="guideBtn">إزاي تلعب</button>
         <button class="ghost" id="vaultBtn">خزنتي</button>
@@ -629,7 +639,7 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
         <section><h3>النجوم</h3><p>كل فصل فيه ٣ نجوم: نجمة لما تطرد الغول، ونجمة لو دقتك ٨٥٪ أو أكتر، ونجمة لو طردته وفاضل ١٠ ثواني من وقته. ولو جمعت ١٠ نجوم، بيتفتح فصل سري.</p></section>
         <section><h3>حبّات البُن</h3><p>كل نقطة بتبقى حبّة بُن. الحبّات بتطلّع مستواك من «زبون جديد» لحد «أسطورة البُن»، وبتفتح ألوان جديدة للعبة من «خزنتي». وفي «خزنتي» كمان «الدفتر القديم»، فيه صفحات عن القصة والغيلان بتتفتح وانت بتلعب. ومهمات النهارده بتديك حبّات زيادة.</p></section>
       </div>
-      <div class="row"><button class="btn" id="guideTut2">جرّب التدريب</button><button class="ghost" id="guideBack">رجوع</button></div>
+      <div class="row"><button class="ghost" id="guideBack">رجوع</button></div>
     </section>
 
     <section class="screen" id="scenesScreen" hidden>
@@ -710,7 +720,7 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
         <div class="set-row"><span>التلميحات أول مرة</span><button class="seg" id="sTips" aria-pressed="true">شغالة</button></div>
         <div class="set-row"><span>سرعة كلام القصة</span><div class="segs"><button data-tx="normal" id="txNormal">عادية</button><button data-tx="fast" id="txFast">سريعة</button></div></div>
         <div class="set-note" id="saveStatus"></div>
-        <div class="row wrap4"><button class="ghost" id="setTut">التدريب</button><button class="ghost" id="setGuide">إزاي تلعب</button><button class="ghost" id="tipsReset">رجّع التلميحات</button><button class="ghost" id="replayIntro">المقدمة</button></div>
+        <div class="row"><button class="ghost" id="tipsReset">رجّع التلميحات</button></div>
         <div class="row"><button class="ghost" id="saveNow" hidden>احفظ دلوقتي</button></div>
         <div class="sect">نسخة احتياطية</div>
         <p class="set-note">التقدم محفوظ على المتصفح ده. خد نسخة منه عشان تنقله لموبايل تاني، أو ترجعه لو بيانات المتصفح اتمسحت.</p>
@@ -1378,8 +1388,9 @@ const SP = (function(){
 (function(){
   const $ = id => document.getElementById(id);
   document.documentElement.setAttribute('dir', 'rtl'); document.documentElement.setAttribute('lang', 'ar');
-  const VERSION = 19;
+  const VERSION = 20;
   const CHANGELOG = [
+    [20, 'الدفتر القديم بقى بيقلّب الصفحة بجد (رايح وراجع) بصوت ورق، والعلامة الحمرا بقت نقطة صغيرة في الهامش من غير ما تغطي الكلام. زرار الرجوع بيرجّعك للشاشة اللي جيت منها، وشلنا الأزرار المكررة من الإعدادات و«إزاي تلعب»، وصلّحنا علامة كانت بتفضل تحت «العب» على الآيفون.'],
     [19, 'الرئيسية بقت أهدى: كلام أقل وتلات أزرار بس تحت. التدريب بقى جوه «إزاي تلعب»، والمقدمة جوه «خزنتي»، والمهمات بتتقفل في سطر وتتفتح بالدوس.'],
     [18, '«الدفتر القديم» بقى دفتر حقيقي: ورق مصفّر وخطين إيد (عم صابر بالأزرق وعم سيد بالرصاص)، بيظهر في الرئيسية بعد الفصل الأول، وصفحات الغيلان بتتكشف مع القصة، وقصاصات صفحة سُبات بتتفتح بالنجوم، وصفحة لكل غول شارد تطرده، ونقطة حمرا على أي صفحة جديدة'],
     [17, 'القصة اتكتبت من جديد: مقدمة وفصول ونهاية جديدة، وأسماء الغيلان بتتكشف بعد ما تطردهم، وغيلان الأوضاع السريعة ليها أسماء، و«الدفتر القديم» بصفحات جديدة، ودقة النجمة ٨٥٪ في الدليل'],
@@ -2077,6 +2088,7 @@ const SP = (function(){
       case 'voice': tone(o,t,150+Math.random()*60,.05,'triangle',.045,{lp:900}); break;
       case 'hit': iDum(t,.5,o); noise(o,t,.12,.16,'bandpass',1400,1); tone(o,t,330,.15,'square',.045,{to:160,lp:1500}); break;
       case 'drop': tone(o,t,110,1.2,'sine',.45,{to:30,force:true}); noise(o,t,1,.22,'lowpass',300); break;
+      case 'flip': noise(o,t,.3,.11,'bandpass',1500,.8); noise(o,t+.05,.2,.05,'highpass',4200,.7); noise(o,t+.46,.035,.1,'lowpass',900); tone(o,t+.46,150,.06,'sine',.06,{to:90}); break;
       case 'whoosh': noise(o,t,.4,.14,'bandpass',900,.7); break;
       case 'power': [0,4,7,12].forEach((s,i)=>iPluck(t+i*.06,587*Math.pow(2,s/12),.2,.06,o)); break;
       case 'gold': [0,7,12,16].forEach((s,i)=>tone(o,t+i*.05,880*Math.pow(2,s/12),.18,'sine',.07)); break;
@@ -2450,7 +2462,13 @@ const SP = (function(){
   /* ================= GAME FLOW ================= */
   function clearTimers(){ if (st){ (st.timers||[]).forEach(clearTimeout); st.timers = []; } }
   const SCREENS = ['startScreen','mapScreen','gameScreen','endScreen','vaultScreen','nbScreen','duelScreen','handScreen','duelResult','setScreen','guideScreen','welcomeScreen','scenesScreen'];
+  /* Back navigation: a sub-screen remembers the screen it was opened from; going back returns there, home is the fallback */
+  let CUR = null, NAVBACK = false, TUTFROM = null;
+  const SUBS = ['guideScreen','vaultScreen','setScreen','nbScreen'], OPENERS = ['startScreen','welcomeScreen','mapScreen','guideScreen','vaultScreen','setScreen','nbScreen'], OPENER = {};
+  function goBack(id){ const t = OPENER[id]; NAVBACK = true; try { show(t && t !== id ? t : 'startScreen'); } finally { NAVBACK = false; } }
   function show(id){
+    if (!NAVBACK && SUBS.includes(id) && CUR !== id){ if (OPENERS.includes(CUR)) OPENER[id] = CUR; else delete OPENER[id]; }
+    CUR = id;
     $('card').classList.remove('flash-good','flash-bad','golden','bossmode','fever','sway','dreamy');
     SCREENS.forEach(s => $(s).hidden = s !== id);
     if (id !== 'gameScreen' && id !== 'endScreen') setChTheme(null);
@@ -2682,7 +2700,7 @@ const SP = (function(){
     $('pauseOv').hidden = true;
     st.isPaused = false; stopRun();
     musicScene('menu', {set:0});
-    blink(() => { $('bar').style.width = '100%'; if (mode === 'story') show('mapScreen'); else { setMode(store.get('fawwa2-mode') || 'classic'); show('startScreen'); } });
+    blink(() => { $('bar').style.width = '100%'; if (mode === 'story') show('mapScreen'); else { const t = mode === 'tut' && TUTFROM; TUTFROM = null; setMode(store.get('fawwa2-mode') || 'classic'); show(t || 'startScreen'); } });
   }
   function restartRun(){
     $('pauseOv').hidden = true;
@@ -2972,7 +2990,7 @@ const SP = (function(){
   }
 
   /* ================= TUTORIAL ================= */
-  function startTut(){ TUT.forEach(s => delete s.shown); mode = 'tut'; chapter = null; start(); }
+  function startTut(){ if (OPENERS.includes(CUR)) TUTFROM = CUR; TUT.forEach(s => delete s.shown); mode = 'tut'; chapter = null; start(); }
   function tutNext(){
     const step = TUT[st.tutI];
     if (!step) return finishTut();
@@ -3021,7 +3039,7 @@ const SP = (function(){
     musicScene('menu', {set:0});
     const first = MAIN.find(c => !story.stars[c.id]);
     if (first && first.id === 1) playChapter(first);
-    else blink(() => show('startScreen'));
+    else blink(() => { const t = TUTFROM; TUTFROM = null; setMode(store.get('fawwa2-mode') || 'classic'); show(t || 'startScreen'); });
   }
 
   /* ================= STORY ================= */
@@ -3419,8 +3437,37 @@ const SP = (function(){
     nbStray[name] = 1; store.put('fawwa2-nb-strays', nbStray);
     if (nbVisible()) gain('nb', 'صفحة جديدة: ' + name);
   }
-  const NBV = {sec:'fog', page:null};
-  function nbHome(){
+  const NBV = {sec:'fog', page:null}, DOT = '<i class="reddot pgdot"></i>';
+  /* Page turn: the old (or new) page is snapshotted into a fixed leaf hinged on the spine (right edge); transforms and opacity only */
+  let NBT = null;
+  function nbSnap(){
+    const book = $('nbBook'), c = book.cloneNode(true), src = book.querySelectorAll('canvas'), dst = c.querySelectorAll('canvas');
+    src.forEach((cv, i) => { try { dst[i].getContext('2d').drawImage(cv, 0, 0); } catch(e){} });
+    c.removeAttribute('id'); c.querySelectorAll('[id]').forEach(e => e.removeAttribute('id'));
+    return c;
+  }
+  function nbTurn(dir, render){
+    if (NBT) NBT.end();
+    const book = $('nbBook'), lite = document.body.classList.contains('lite') || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    const old = nbSnap(); render(); sfx('flip');
+    if (!book.animate) return;
+    if (lite){ book.animate([{opacity:.2, transform:'translateX(18px)'}, {opacity:1, transform:'none'}], {duration:200, easing:'ease-out'}); return; }
+    const r = book.getBoundingClientRect(), fx = document.createElement('div');
+    fx.className = 'nbfx'; fx.style.cssText = `left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px`;
+    const leaf = document.createElement('div'), front = document.createElement('div'), back = document.createElement('div'), shade = document.createElement('i'), bshade = document.createElement('i'), cast = document.createElement('i');
+    leaf.className = 'nbleaf'; front.className = 'nbface'; back.className = 'nbface nbbackf'; shade.className = 'nbshade'; bshade.className = 'nbshade'; cast.className = 'nbcast';
+    front.append(dir === 'fwd' ? old : nbSnap(), shade); back.append(bshade); leaf.append(front, back);
+    if (dir === 'back') fx.append(old);
+    fx.append(cast, leaf); document.body.appendChild(fx);
+    const o = {duration:640, easing:'cubic-bezier(.45,.1,.3,1)', fill:'both', direction: dir === 'fwd' ? 'normal' : 'reverse'};
+    const a = leaf.animate([{transform:'rotateY(0deg)'}, {transform:'rotateY(180deg)'}], o);
+    shade.animate([{opacity:0}, {opacity:1, offset:.5}, {opacity:1}], o);
+    cast.animate([{opacity:0}, {opacity:.7, offset:.45}, {opacity:0}], o);
+    const end = () => { fx.remove(); if (NBT && NBT.fx === fx) NBT = null; };
+    NBT = {fx, end}; a.onfinish = end; a.oncancel = end;
+  }
+  function nbHome(turn){ if (turn) return nbTurn(turn, nbHomeRender); nbHomeRender(); }
+  function nbHomeRender(){
     nbEnsure(); NBV.page = null;
     const book = $('nbBook'), tabs = NB_SECS.map(([k, n]) => `<button class="nbtab" data-sec="${k}" aria-pressed="${NBV.sec === k}">${n}${NB.some(p => p.sec === k && nbNew(p)) ? '<i class="reddot"></i>' : ''}</button>`).join('');
     const items = NB.filter(p => p.sec === NBV.sec).map(p => {
@@ -3431,11 +3478,11 @@ const SP = (function(){
     book.className = 'nbbook';
     book.innerHTML = `<h2>الدفتر القديم (${ar(n)} من ${ar(NB.length)})</h2><div class="nbtabs">${tabs}</div>${items}`;
     book.querySelectorAll('.nbtab').forEach(b => b.addEventListener('click', () => { NBV.sec = b.dataset.sec; nbHome(); }));
-    book.querySelectorAll('.nbitem').forEach(b => b.addEventListener('click', () => nbPage(b.dataset.pg)));
+    book.querySelectorAll('.nbitem').forEach(b => b.addEventListener('click', () => nbTurn('fwd', () => nbPageRender(b.dataset.pg))));
   }
-  function nbPage(id){
+  function nbPageRender(id){
     const p = NB.find(x => x.id === id), book = $('nbBook'); NBV.page = id;
-    book.className = 'nbbook'; void book.offsetWidth; book.className = 'nbbook nbpage';
+    book.className = 'nbbook nbpg';
     if (!p.open()){
       book.innerHTML = `<h2>؟؟؟</h2><div class="nbbig">؟؟؟</div><div class="nbblank">الصفحة دي لسه مقفولة: ${p.when}.</div>`; return;
     }
@@ -3446,13 +3493,13 @@ const SP = (function(){
     if (p.art) h += '<div class="nbart' + (rev ? '' : ' sil') + '" id="nbArt"></div>';
     const hint = ch => CHAPTERS.find(c => c.id === ch).boss.hint;
     if (p.frag){
-      h += p.parts.map((x, i) => x.ok() ? `<div class="nbfrag k${i + 1}${fresh.has(p.id + ':' + x.k) ? ' nbfresh' : ''}"><span class="nbsaber">${x.x}</span><small>${ar(x.n)} نجوم</small></div>` : `<div class="nbfrag k${i + 1} locked">؟؟؟<br><small>${x.n === 12 ? 'كل النجوم (١٢)' : ar(x.n) + ' نجوم'}</small></div>`).join('');
+      h += p.parts.map((x, i) => x.ok() ? `<div class="nbfrag k${i + 1}${fresh.has(p.id + ':' + x.k) ? ' nbfresh' : ''}">${fresh.has(p.id + ':' + x.k) ? DOT : ''}<span class="nbsaber">${x.x}</span><small>${ar(x.n)} نجوم</small></div>` : `<div class="nbfrag k${i + 1} locked">؟؟؟<br><small>${x.n === 12 ? 'كل النجوم (١٢)' : ar(x.n) + ' نجوم'}</small></div>`).join('');
     } else {
       h += p.parts.filter(x => !x.ok || x.ok()).map(x => {
-        const f = fresh.has(p.id + ':' + x.k) ? ' nbfresh' : '';
-        if (x.w === 'weak') return `<div class="nbweak${f}"><b>نقطة ضعفه${x.h ? ' (' + x.h + ')' : ''}:</b> ${hint(x.ch || p.ch)}</div>`;
+        const f = fresh.has(p.id + ':' + x.k) ? ' nbfresh' : '', d = f ? DOT : '';
+        if (x.w === 'weak') return `<div class="nbweak${f}">${d}<b>نقطة ضعفه${x.h ? ' (' + x.h + ')' : ''}:</b> ${hint(x.ch || p.ch)}</div>`;
         const cl = {saber:'nbsaber', pencil:'nbpencil', ghq:'nbghq', text:'nbtext'}[x.w];
-        return `<span class="${cl}${f}">${x.h ? '<b>' + x.h + ':</b> ' : ''}${x.x}</span>`;
+        return `<span class="${cl}${f}">${d}${x.h ? '<b>' + x.h + ':</b> ' : ''}${x.x}</span>`;
       }).join('');
     }
     book.innerHTML = h;
@@ -3502,22 +3549,22 @@ const SP = (function(){
   $('startBtn').addEventListener('click', () => { setMode(store.get('fawwa2-mode') || 'classic'); mode === 'duel' ? show('duelScreen') : start(); });
   $('againBtn').addEventListener('click', () => { if (mode === 'story') start(retryCp ? {cp: retryCp} : {}); else start(); });
   $('againAlt').addEventListener('click', () => { retryCp = null; start(); });
-  $('menuBtn').addEventListener('click', () => { $('bar').style.width = '100%'; if (mode === 'story') show('mapScreen'); else { setMode(store.get('fawwa2-mode') || 'classic'); show('startScreen'); } });
+  $('menuBtn').addEventListener('click', () => { $('bar').style.width = '100%'; if (mode === 'story') show('mapScreen'); else { const t = mode === 'tut' && TUTFROM; TUTFROM = null; setMode(store.get('fawwa2-mode') || 'classic'); show(t || 'startScreen'); } });
   $('storyHero').addEventListener('click', () => { sfx('tick'); blink(() => show('mapScreen')); });
   $('nextGo').addEventListener('click', () => { sfx('tick'); nextGo && nextGo(); });
   $('nextSkip').addEventListener('click', () => { store.set('fawwa2-tut','1'); renderNext(); toast('تمام، التدريب موجود في «إزاي تلعب»'); });
   $('mapBack').addEventListener('click', () => { setMode(store.get('fawwa2-mode') || 'classic'); show('startScreen'); });
   $('vaultBtn').addEventListener('click', openVault);
-  $('vaultBack').addEventListener('click', () => show('startScreen'));
+  $('misToggle').addEventListener('click', () => { const o = $('misToggle').getAttribute('aria-expanded') !== 'true'; $('misToggle').setAttribute('aria-expanded', String(o)); $('misBody').hidden = !o; });
+  $('vaultBack').addEventListener('click', () => goBack('vaultScreen'));
   $('nbBtn').addEventListener('click', openNb);
-  $('nbBack').addEventListener('click', () => { if (NBV.page){ nbHome(); } else { renderNbBtn(); show('startScreen'); } });
+  $('nbBack').addEventListener('click', () => { if (NBV.page){ nbHome('back'); } else { renderNbBtn(); goBack('nbScreen'); } });
   $('vaultPrologue').addEventListener('click', () => prologue('vault'));
   $('scenesBtn').addEventListener('click', openScenes);
   $('scenesBack').addEventListener('click', () => show('mapScreen'));
   $('guideBtn').addEventListener('click', () => show('guideScreen'));
-  $('guideBack').addEventListener('click', () => show('startScreen'));
+  $('guideBack').addEventListener('click', () => goBack('guideScreen'));
   $('guideTut').addEventListener('click', startTut);
-  $('guideTut2').addEventListener('click', startTut);
   $('welTut').addEventListener('click', startTut);
   $('welSkip').addEventListener('click', () => { store.set('fawwa2-tut','1'); playChapter(CHAPTERS[0]); });
   $('welGuide').addEventListener('click', () => show('guideScreen'));
@@ -3535,7 +3582,7 @@ const SP = (function(){
   $('coachGo').addEventListener('click', coachDone);
   $('muteBtn').addEventListener('click', () => { muted = !muted; store.set('fawwa2-muted', muted ? '1' : '0'); ac(); setAudio(); });
   $('setBtn').addEventListener('click', () => { if (st && (st.running || st.starting)){ pause(); return; } openSettings(); });
-  $('setBack').addEventListener('click', () => show('startScreen'));
+  $('setBack').addEventListener('click', () => goBack('setScreen'));
   $('sMusic').addEventListener('input', e => { SET.music = +e.target.value; $('oMusic').textContent = ar(SET.music) + '٪'; ac(); setAudio(); });
   $('sMusic').addEventListener('change', saveSettings);
   $('sSfx').addEventListener('input', e => { SET.sfx = +e.target.value; $('oSfx').textContent = ar(SET.sfx) + '٪'; setAudio(); });
@@ -3543,11 +3590,8 @@ const SP = (function(){
   $('sVib').addEventListener('click', () => { SET.vib = !SET.vib; saveSettings(); openSettings(); vib(40); });
   $('sTips').addEventListener('click', () => { SET.tips = !SET.tips; saveSettings(); openSettings(); });
   $('tipsReset').addEventListener('click', () => { TIPSEEN = {}; store.put('fawwa2-tips', TIPSEEN); SET.tips = true; saveSettings(); openSettings(); toast('التلميحات هتظهر تاني من الأول'); });
-  $('setTut').addEventListener('click', startTut);
-  $('setGuide').addEventListener('click', () => show('guideScreen'));
   document.querySelectorAll('[data-fx]').forEach(b => b.addEventListener('click', () => { SET.fx = b.dataset.fx; saveSettings(); openSettings(); }));
   document.querySelectorAll('[data-tx]').forEach(b => b.addEventListener('click', () => { SET.text = b.dataset.tx; saveSettings(); openSettings(); }));
-  $('replayIntro').addEventListener('click', () => prologue());
   $('saveNow').addEventListener('click', async () => { if (!CL.ready){ toast(CL.status === 'cloud' ? 'محفوظ' : 'الحفظ على المتصفح ده بس'); return; } CL.lastJson = ''; await cloudSave(); toast('اتحفظ على حسابك'); });
   $('bkExport').addEventListener('click', async () => {
     const text = exportSave(), name = 'fawwa2-' + dayKey() + '.json';
