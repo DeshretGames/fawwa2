@@ -352,6 +352,23 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 .sub{margin:-6px 0 0;color:var(--muted);font-size:.8rem;line-height:1.6;text-align:start;width:100%;max-width:none}
 .row.wrap4{display:grid;grid-template-columns:1fr 1fr;width:100%}
 .row.wrap4 .ghost{width:100%}
+/* v19 home simplify */
+.next-card{flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px 10px;border:1px solid var(--line);padding:9px 12px;border-radius:14px}
+.next-card .nx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.next-card b{font-size:1.05rem}
+.next-card p{font-size:.8rem;line-height:1.5}
+.next-card .btn{width:auto;align-self:center;background:none;color:var(--accent);border:1.5px solid var(--accent);border-radius:99px;padding:6px 14px;min-height:36px;font-size:.82rem;white-space:nowrap}
+.next-card .ghost{flex-basis:100%}
+.hero{aspect-ratio:16/10;max-height:240px}
+.hero .play{background:none;border:1.5px solid #f2a93b;color:#f2a93b;padding:6px 14px}
+.row.wrap3{display:flex;width:100%;gap:8px;flex-wrap:nowrap}
+.row.wrap3 .ghost{flex:1;min-width:0;padding-inline:8px}
+.mis{width:100%;text-align:start}
+.mis summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--tile);border-radius:10px;padding:9px 12px;font-size:.86rem;min-height:44px}
+.mis summary::-webkit-details-marker{display:none}
+.mis summary small{color:var(--muted)}
+.mis[open] summary{margin-bottom:6px}
+
 .coach-ov{z-index:7;background:color-mix(in srgb,var(--panel) 97%,transparent)}
 .coach-ov .who{display:flex;align-items:center;gap:8px;color:var(--accent);font-weight:700;font-size:.85rem}
 .coach-ov .who i{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-style:normal;font-weight:700}
@@ -540,36 +557,30 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 
   <main class="card" id="card">
     <section class="screen" id="startScreen">
-      <div class="next-card" id="nextCard"><b id="nextT"></b><p id="nextD"></p><button class="btn" id="nextGo"></button><button class="ghost" id="nextSkip" hidden>أنا فاهم، مش محتاج التدريب</button></div>
+      <div class="next-card" id="nextCard"><div class="nx"><b id="nextT"></b><p id="nextD"></p></div><button class="btn" id="nextGo"></button><button class="ghost" id="nextSkip" hidden>أنا فاهم، مش محتاج التدريب</button></div>
       <button class="hero" id="storyHero" aria-label="خريطة طور القصة">
         <canvas id="heroCv"></canvas>
         <span class="cap"><span><b>طور القصة</b><small id="heroSub"></small></span><span class="play" id="heroPlay">الخريطة</span></span>
       </button>
-      <p class="sub world" id="worldLine"></p>
       <div class="lvl">
         <div><b id="lvlName"></b><small id="lvlNext"></small></div>
         <div class="bar"><i id="lvlBar"></i></div>
       </div>
       <div class="sect">أوضاع سريعة</div>
-      <p class="sub">جولات قصيرة لما يكون عندك دقيقة. بتكسب فيها حبّات بُن، وفي آخرها بيطلعلك غول صغير اختياري.</p>
+      <p class="sub">جولات قصيرة، وفي آخرها غول صغير اختياري.</p>
       <div class="modes" id="modes">
-        <button class="mode daily" id="mode-daily" data-mode="daily" aria-pressed="false"><b>تحدي النهارده</b><small id="dailySub">نفس الأسئلة لكل الناس</small></button>
-        <button class="mode" id="mode-classic" data-mode="classic" aria-pressed="true"><b>فنجان</b><small>٤٠ ثانية، والصح بيزود وقت</small></button>
-        <button class="mode" id="mode-esp" data-mode="esp" aria-pressed="false"><b>إسبريسو</b><small>٢٠ ثانية، وأصعب</small></button>
-        <button class="mode" id="mode-surv" data-mode="surv" aria-pressed="false"><b>٣ أرواح</b><small>كل سؤال ليه وقته</small></button>
-        <button class="mode duel" id="mode-duel" data-mode="duel" aria-pressed="false"><b>اتنين على موبايل واحد</b><small>نفس الأسئلة لكل واحد، والأعلى يكسب</small></button>
+        <button class="mode daily" id="mode-daily" data-mode="daily" aria-pressed="false"><b>تحدي النهارده</b><small id="dailySub">نفس الأسئلة للكل</small></button>
+        <button class="mode" id="mode-classic" data-mode="classic" aria-pressed="true"><b>فنجان</b><small>٤٠ ثانية</small></button>
+        <button class="mode" id="mode-esp" data-mode="esp" aria-pressed="false"><b>إسبريسو</b><small>٢٠ ثانية، أصعب</small></button>
+        <button class="mode" id="mode-surv" data-mode="surv" aria-pressed="false"><b>٣ أرواح</b><small>كل سؤال بوقته</small></button>
+        <button class="mode duel" id="mode-duel" data-mode="duel" aria-pressed="false"><b>اتنين على موبايل واحد</b><small>الأعلى يكسب</small></button>
       </div>
       <button class="btn" id="startBtn" style="width:100%">العب</button>
-      <div class="sect">مهمات النهارده</div>
-      <p class="sub">بتتجدد كل يوم، وبتخلص لوحدها وانت بتلعب أي وضع. كل مهمة ليها مكافأة.</p>
-      <ul class="missions" id="missions"></ul>
-      <p class="beans" id="beansLine"></p>
-      <p class="sub">كل نقطة بتجيبها بتبقى حبّة بُن. الحبّات بتطلّع مستواك وبتفتح ألوان جديدة للعبة من «خزنتي».</p>
-      <div class="row wrap4">
-        <button class="ghost" id="tutBtn">التدريب</button>
+      <details class="mis" id="misBox"><summary><span>مهمات النهارده</span><small id="misSum"></small></summary>
+        <ul class="missions" id="missions"></ul></details>
+      <div class="row wrap3">
         <button class="ghost" id="guideBtn">إزاي تلعب</button>
         <button class="ghost" id="vaultBtn">خزنتي</button>
-        <button class="ghost" id="storyBtn">المقدمة</button>
         <button class="ghost" id="nbBtn" hidden>الدفتر القديم</button>
       </div>
     </section>
@@ -588,6 +599,7 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 
     <section class="screen" id="guideScreen" hidden>
       <h2>إزاي تلعب</h2>
+      <button class="btn" id="guideTut" style="width:100%">جرّب التدريب</button>
       <div class="guide">
         <section><h3>الفكرة</h3><p>ضباب نعاس طالع من تكييف الشركة، وأي حد بيشمّه بينام. انت بتطرده بإنك تجاوب أسئلة سريعة صح. الصح بيجيب نقط ويطرد الضباب، والغلط بياكل من وقتك.</p></section>
         <section><h3>تتنقل إزاي</h3>
@@ -617,7 +629,7 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
         <section><h3>النجوم</h3><p>كل فصل فيه ٣ نجوم: نجمة لما تطرد الغول، ونجمة لو دقتك ٨٥٪ أو أكتر، ونجمة لو طردته وفاضل ١٠ ثواني من وقته. ولو جمعت ١٠ نجوم، بيتفتح فصل سري.</p></section>
         <section><h3>حبّات البُن</h3><p>كل نقطة بتبقى حبّة بُن. الحبّات بتطلّع مستواك من «زبون جديد» لحد «أسطورة البُن»، وبتفتح ألوان جديدة للعبة من «خزنتي». وفي «خزنتي» كمان «الدفتر القديم»، فيه صفحات عن القصة والغيلان بتتفتح وانت بتلعب. ومهمات النهارده بتديك حبّات زيادة.</p></section>
       </div>
-      <div class="row"><button class="btn" id="guideTut">جرّب التدريب</button><button class="ghost" id="guideBack">رجوع</button></div>
+      <div class="row"><button class="btn" id="guideTut2">جرّب التدريب</button><button class="ghost" id="guideBack">رجوع</button></div>
     </section>
 
     <section class="screen" id="scenesScreen" hidden>
@@ -674,6 +686,7 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 
     <section class="screen" id="vaultScreen" hidden>
       <h2>خزنتي</h2>
+      <button class="ghost" id="vaultPrologue" style="width:100%">اتفرج على المقدمة تاني</button>
       <div class="vault-scroll">
         <div class="sect">تقدمك في آخر الجولات</div>
         <div class="chartbox" id="chartBox"></div>
@@ -1365,8 +1378,9 @@ const SP = (function(){
 (function(){
   const $ = id => document.getElementById(id);
   document.documentElement.setAttribute('dir', 'rtl'); document.documentElement.setAttribute('lang', 'ar');
-  const VERSION = 18;
+  const VERSION = 19;
   const CHANGELOG = [
+    [19, 'الرئيسية بقت أهدى: كلام أقل وتلات أزرار بس تحت. التدريب بقى جوه «إزاي تلعب»، والمقدمة جوه «خزنتي»، والمهمات بتتقفل في سطر وتتفتح بالدوس.'],
     [18, '«الدفتر القديم» بقى دفتر حقيقي: ورق مصفّر وخطين إيد (عم صابر بالأزرق وعم سيد بالرصاص)، بيظهر في الرئيسية بعد الفصل الأول، وصفحات الغيلان بتتكشف مع القصة، وقصاصات صفحة سُبات بتتفتح بالنجوم، وصفحة لكل غول شارد تطرده، ونقطة حمرا على أي صفحة جديدة'],
     [17, 'القصة اتكتبت من جديد: مقدمة وفصول ونهاية جديدة، وأسماء الغيلان بتتكشف بعد ما تطردهم، وغيلان الأوضاع السريعة ليها أسماء، و«الدفتر القديم» بصفحات جديدة، ودقة النجمة ٨٥٪ في الدليل'],
     [16, 'اسم الاستوديو <span dir="ltr">Deshret Games</span>، وصفحات أوضح، والقصة بقت أصعب من الفصل التاني: الغيلان أقوى، والغلطة قدامهم بترجّعلهم ضربة، والنجمة التانية محتاجة دقة ٨٥٪. وزرار القدرة بينوّر لما تبقى في ورطة.'],
@@ -2213,10 +2227,8 @@ const SP = (function(){
   function renderLevel(){
     const i = levelOf(prof.beans), maxed = i === TITLES.length-1;
     $('lvlName').textContent = `مستوى ${ar(i+1)}: ${TITLES[i]}`;
-    $('lvlNext').textContent = maxed ? 'وصلت للقمة' : `${ar(lvlAt(i+1) - prof.beans)} حبّة للمستوى الجاي`;
+    $('lvlNext').textContent = maxed ? `${ar(prof.beans)} حبّة · وصلت للقمة` : `${ar(prof.beans)} حبّة · ${ar(lvlAt(i+1) - prof.beans)} للمستوى الجاي`;
     $('lvlBar').style.width = (maxed ? 100 : (prof.beans - lvlAt(i)) / (lvlAt(i+1) - lvlAt(i)) * 100) + '%';
-    const ns = SKINS.find(x => x[2] > prof.beans);
-    $('beansLine').textContent = `معاك ${ar(prof.beans)} حبّة بُن` + (ns ? `، وألوان «${ns[1]}» بتتفتح عند ${ar(ns[2])}.` : '، وفتحت كل ألوان اللعبة.');
   }
   function missionsToday(){
     let m = store.json('fawwa2-missions', null); const d = dayKey();
@@ -2241,7 +2253,9 @@ const SP = (function(){
     return reward;
   }
   function renderMissions(){
-    $('missions').innerHTML = missionsToday().list.map(it => {
+    const ML = missionsToday().list;
+    $('misSum').textContent = `خلصت ${ar(ML.filter(it => it.done).length)} من ${ar(ML.length)} ◂`;
+    $('missions').innerHTML = ML.map(it => {
       const def = MISSIONS.find(x => x.id === it.id);
       return `<li class="${it.done ? 'done' : ''}"><span>${def.t}</span><small>${it.done ? 'خلصت' : ar(it.p) + ' من ' + ar(def.g)} · +${ar(def.r)}</small><i style="width:${Math.round(it.p/def.g*100)}%"></i></li>`;
     }).join('');
@@ -2470,7 +2484,7 @@ const SP = (function(){
     else if (story.stars[1]){ p = {fog:.05, sleep:0, eyes:0, cup:0}; line = 'الدور صحي، والناس رجعت لشغلها. بس أوضة الاجتماعات لسه قافلة.'; }
     else { p = {fog:.45, sleep:1, eyes:0, cup:0}; line = 'المكتب كله نايم، والضباب مغطي الدور.'; }
     WORLD.scene = sc; WORLD.p = p;
-    BG.name = sc; BG.p = Object.assign({}, p, {cup:0}); $('worldLine').textContent = line; bgDraw(performance.now(), true);
+    BG.name = sc; BG.p = Object.assign({}, p, {cup:0}); bgDraw(performance.now(), true);
   }
   const BONUS_MODES = ['daily','classic','esp','story'], BONUS_TYPES = ['color','math','num','arrow','odd','major','clock','seq','stations'];
   const bonusWin = () => mode === 'esp' ? 2.6 : 3.4, bonusSec = () => mode === 'esp' ? 3 : 5;
@@ -3182,10 +3196,10 @@ const SP = (function(){
     let t, d, b;
     const ch = currentChapter();
     $('nextSkip').hidden = true;
-    if (!tutDone()){ t = 'ابدأ من هنا'; d = 'تدريب قصير، حوالي دقيقتين، بيشرحلك كل نوع سؤال من غير وقت ومن غير خسارة.'; b = 'ابدأ التدريب'; nextGo = startTut; $('nextSkip').hidden = false; }
-    else if (ch){ t = 'الخطوة الجاية'; d = `${ch.label}: ${ch.name}. اجمع ${ar(ch.target)} نقطة، وبعدها ` + (bossKnown(ch) ? `اطرد ${ch.boss.name}.` : 'خلي عينك مفتوحة.'); b = story.stars[ch.id] || ch.id > 1 ? 'كمّل القصة' : 'ابدأ القصة'; nextGo = () => playChapter(ch); }
-    else if (!getBest('daily')){ t = 'الخطوة الجاية'; d = 'خلصت القصة! تحدي النهارده بيتجدد كل يوم، ونفس الأسئلة لكل الناس.'; b = 'العب تحدي النهارده'; nextGo = () => { setMode('daily'); start(); }; }
-    else if (totalStars() < MAIN.length*3){ t = 'الخطوة الجاية'; d = `خلصت القصة ومعاك ${ar(totalStars())} نجمة من ${ar(MAIN.length*3)}. ارجع للفصول وكمّل النجوم.`; b = 'افتح الخريطة'; nextGo = () => blink(() => show('mapScreen')); }
+    if (!tutDone()){ t = 'ابدأ من هنا'; d = 'دقيقتين بتجرّب فيهم كل نوع سؤال، من غير وقت.'; b = 'ابدأ التدريب'; nextGo = startTut; $('nextSkip').hidden = false; }
+    else if (ch){ t = 'الخطوة الجاية'; d = `${ch.label}: ${ch.name}، الهدف ${ar(ch.target)} نقطة.`; b = story.stars[ch.id] || ch.id > 1 ? 'كمّل القصة' : 'ابدأ القصة'; nextGo = () => playChapter(ch); }
+    else if (!getBest('daily')){ t = 'الخطوة الجاية'; d = 'خلصت القصة! جرّب تحدي النهارده.'; b = 'العب تحدي النهارده'; nextGo = () => { setMode('daily'); start(); }; }
+    else if (totalStars() < MAIN.length*3){ t = 'الخطوة الجاية'; d = `خلصت القصة ومعاك ${ar(totalStars())} نجمة من ${ar(MAIN.length*3)}. كمّل النجوم.`; b = 'افتح الخريطة'; nextGo = () => blink(() => show('mapScreen')); }
     else { t = 'انت بطل الصحيان'; d = 'خلصت كل حاجة. جرّب تكسر أرقامك في الأوضاع السريعة.'; b = 'العب فنجان'; nextGo = () => { setMode('classic'); start(); }; }
     $('nextT').textContent = t; $('nextD').textContent = d; $('nextGo').textContent = b;
   }
@@ -3328,7 +3342,7 @@ const SP = (function(){
   function prologue(fromGallery){
     cine({scene:'office', label:'المقدمة', music:0, lines: PROLOGUE, slate:{k:'فوّق!', t:'يوم عادي في الشركة', c:'الساعة ٢ الضهر'},
       title:{h:'فوّق!', p:'صحّي الشركة، واعرف الضباب ده جاي منين.', btn:'يلا نبدأ'},
-      done: () => { store.set('fawwa2-intro','1'); musicScene('menu', {set:0}); if (fromGallery === true) openScenes(); else show(tutDone() ? 'startScreen' : 'welcomeScreen'); }});
+      done: () => { store.set('fawwa2-intro','1'); musicScene('menu', {set:0}); if (fromGallery === true) openScenes(); else if (fromGallery === 'vault') openVault(); else show(tutDone() ? 'startScreen' : 'welcomeScreen'); }});
   }
 
   /* ================= DUEL ================= */
@@ -3468,7 +3482,7 @@ const SP = (function(){
     $('badges').innerHTML = ACH.map(a => `<div class="badge${ach[a[0]] ? '' : ' locked'}"><b>${a[1]}</b><small>${a[2]}</small></div>`).join('');
     show('vaultScreen');
   }
-  function updateDailySub(){ const b = getBest('daily'); $('dailySub').textContent = b ? `رقمك النهارده ${ar(b)}` : 'نفس الأسئلة لكل الناس'; }
+  function updateDailySub(){ const b = getBest('daily'); $('dailySub').textContent = b ? `رقمك النهارده ${ar(b)}` : 'نفس الأسئلة للكل'; }
   function setMode(m){
     if (!MODES[m] || m === 'story' || m === 'tut') m = 'classic';
     mode = m; store.set('fawwa2-mode', m);
@@ -3491,19 +3505,19 @@ const SP = (function(){
   $('menuBtn').addEventListener('click', () => { $('bar').style.width = '100%'; if (mode === 'story') show('mapScreen'); else { setMode(store.get('fawwa2-mode') || 'classic'); show('startScreen'); } });
   $('storyHero').addEventListener('click', () => { sfx('tick'); blink(() => show('mapScreen')); });
   $('nextGo').addEventListener('click', () => { sfx('tick'); nextGo && nextGo(); });
-  $('nextSkip').addEventListener('click', () => { store.set('fawwa2-tut','1'); renderNext(); toast('تمام، التدريب موجود في الرئيسية لو احتجته'); });
+  $('nextSkip').addEventListener('click', () => { store.set('fawwa2-tut','1'); renderNext(); toast('تمام، التدريب موجود في «إزاي تلعب»'); });
   $('mapBack').addEventListener('click', () => { setMode(store.get('fawwa2-mode') || 'classic'); show('startScreen'); });
   $('vaultBtn').addEventListener('click', openVault);
   $('vaultBack').addEventListener('click', () => show('startScreen'));
   $('nbBtn').addEventListener('click', openNb);
   $('nbBack').addEventListener('click', () => { if (NBV.page){ nbHome(); } else { renderNbBtn(); show('startScreen'); } });
-  $('storyBtn').addEventListener('click', () => prologue());
+  $('vaultPrologue').addEventListener('click', () => prologue('vault'));
   $('scenesBtn').addEventListener('click', openScenes);
   $('scenesBack').addEventListener('click', () => show('mapScreen'));
-  $('tutBtn').addEventListener('click', startTut);
   $('guideBtn').addEventListener('click', () => show('guideScreen'));
   $('guideBack').addEventListener('click', () => show('startScreen'));
   $('guideTut').addEventListener('click', startTut);
+  $('guideTut2').addEventListener('click', startTut);
   $('welTut').addEventListener('click', startTut);
   $('welSkip').addEventListener('click', () => { store.set('fawwa2-tut','1'); playChapter(CHAPTERS[0]); });
   $('welGuide').addEventListener('click', () => show('guideScreen'));
