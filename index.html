@@ -468,7 +468,7 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 .nbitem{display:flex;align-items:center;gap:8px;width:100%;font:inherit;text-align:start;padding:9px 10px;margin:6px 0;background:rgba(255,255,255,.3);border:0;border-inline-start:3px solid var(--nb-edge);border-radius:8px;color:var(--nb-ink);position:relative;cursor:pointer;min-height:44px}
 .nbitem b{flex:1}.nbitem small{color:var(--nb-faint);font-size:.72rem}
 .nbitem.locked{opacity:.6}.nbitem.locked b{letter-spacing:2px}
-.nbfx{position:fixed;z-index:30;perspective:1300px;perspective-origin:100% 40%;pointer-events:none;direction:rtl;text-align:start}
+.nbfx{position:fixed;z-index:30;perspective:8000px;perspective-origin:100% 40%;pointer-events:none;direction:rtl;text-align:start}
 .nbfx>*{position:absolute;inset:0;pointer-events:none}
 .nbfx .nbbook{height:100%;min-height:0;box-sizing:border-box;margin:0}
 .nbleaf{transform-origin:100% 50%;transform-style:preserve-3d;will-change:transform}
@@ -1388,8 +1388,9 @@ const SP = (function(){
 (function(){
   const $ = id => document.getElementById(id);
   document.documentElement.setAttribute('dir', 'rtl'); document.documentElement.setAttribute('lang', 'ar');
-  const VERSION = 20;
+  const VERSION = 21;
   const CHANGELOG = [
+    [21, 'قلب صفحة الدفتر بقى أهدى: الكلام مابقاش يكبّر ويصغّر وإنت بتقلّب، وصوت الورق بقى أخف وأقرب لصوت الورق الحقيقي.'],
     [20, 'الدفتر القديم بقى بيقلّب الصفحة بجد (رايح وراجع) بصوت ورق، والعلامة الحمرا بقت نقطة صغيرة في الهامش من غير ما تغطي الكلام. زرار الرجوع بيرجّعك للشاشة اللي جيت منها، وشلنا الأزرار المكررة من الإعدادات و«إزاي تلعب»، وصلّحنا علامة كانت بتفضل تحت «العب» على الآيفون.'],
     [19, 'الرئيسية بقت أهدى: كلام أقل وتلات أزرار بس تحت. التدريب بقى جوه «إزاي تلعب»، والمقدمة جوه «خزنتي»، والمهمات بتتقفل في سطر وتتفتح بالدوس.'],
     [18, '«الدفتر القديم» بقى دفتر حقيقي: ورق مصفّر وخطين إيد (عم صابر بالأزرق وعم سيد بالرصاص)، بيظهر في الرئيسية بعد الفصل الأول، وصفحات الغيلان بتتكشف مع القصة، وقصاصات صفحة سُبات بتتفتح بالنجوم، وصفحة لكل غول شارد تطرده، ونقطة حمرا على أي صفحة جديدة'],
@@ -1825,10 +1826,10 @@ const SP = (function(){
     if (o.lp){ const f = c.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = o.lp; osc.connect(f); node = f; }
     node.connect(g); g.connect(out); env(g,t,vol,o.a||.005,dur); osc.start(t); osc.stop(t+(o.a||0)+dur+.06);
   }
-  function noise(out,t,dur,vol,type,freq,q){
+  function noise(out,t,dur,vol,type,freq,q,to){
     if (busy()) return;
     const c = A.ctx, s = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain(); voice(s);
-    s.buffer = A.noise; f.type = type; f.frequency.value = freq; if (q) f.Q.value = q;
+    s.buffer = A.noise; f.type = type; f.frequency.setValueAtTime(freq,t); if (to) f.frequency.exponentialRampToValueAtTime(to,t+dur); if (q) f.Q.value = q;
     s.connect(f); f.connect(g); g.connect(out); env(g,t,vol,.003,dur); s.start(t, Math.random()*.5); s.stop(t+dur+.06);
   }
   /* Instruments: darbuka (dum, tak, ka), riq, bass, oud pluck, pizzicato, nay, brass, bell, pad, swell, boom, clock */
@@ -2088,7 +2089,7 @@ const SP = (function(){
       case 'voice': tone(o,t,150+Math.random()*60,.05,'triangle',.045,{lp:900}); break;
       case 'hit': iDum(t,.5,o); noise(o,t,.12,.16,'bandpass',1400,1); tone(o,t,330,.15,'square',.045,{to:160,lp:1500}); break;
       case 'drop': tone(o,t,110,1.2,'sine',.45,{to:30,force:true}); noise(o,t,1,.22,'lowpass',300); break;
-      case 'flip': noise(o,t,.3,.11,'bandpass',1500,.8); noise(o,t+.05,.2,.05,'highpass',4200,.7); noise(o,t+.46,.035,.1,'lowpass',900); tone(o,t+.46,150,.06,'sine',.06,{to:90}); break;
+      case 'flip': noise(o,t,.26,.05,'bandpass',1100,.7,2400); noise(o,t+.07,.1,.018,'highpass',5200,.7); noise(o,t+.2,.05,.01,'highpass',6000,.7); break;
       case 'whoosh': noise(o,t,.4,.14,'bandpass',900,.7); break;
       case 'power': [0,4,7,12].forEach((s,i)=>iPluck(t+i*.06,587*Math.pow(2,s/12),.2,.06,o)); break;
       case 'gold': [0,7,12,16].forEach((s,i)=>tone(o,t+i*.05,880*Math.pow(2,s/12),.18,'sine',.07)); break;
