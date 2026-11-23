@@ -317,6 +317,10 @@ body.slowmo #scene{filter:brightness(1.6)}
 .cine-who canvas{width:72px;height:72px;flex:none}
 .cine-who b{font-family:var(--display);font-weight:400;font-size:1.5rem;color:#f2a93b}
 .cine-text.talk p{background:rgba(242,169,59,.08);border:1px solid rgba(242,169,59,.35);border-radius:16px;padding:10px 14px}
+.cine-text.other p{background:rgba(170,190,225,.08);border:1px solid rgba(170,190,225,.35);border-radius:16px;padding:10px 14px}
+.cine-text.other .cine-who b{color:#bcd0ee}
+.cine-text.ghoul p{background:rgba(var(--fogc),.16);border:1px solid rgba(var(--fogc),.55);border-radius:16px;padding:10px 14px;color:#e6dcff;font-weight:500}
+.cine-text.ghoul .cine-who b{color:#c9b5ff}
 .cine-gate,.cine-title{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:14px;text-align:center;padding:24px}
 .cine-gate::before,.cine-gate::after,.cine-title::before,.cine-title::after{content:"";flex:1 0 0}
 .cine-gate{background:rgba(8,5,6,.72)}
@@ -582,8 +586,8 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
           <li><b>سؤال الوقت:</b> الكارت بينوّر لبني وفوقه شريط بيخلص. جاوب صح قبل ما يخلص، وتكسب ثواني زيادة.</li>
           <li><b>القدرات:</b> بتظهر تحت الأسئلة. بتبدأ كل جولة بواحدة، وكل ٨ صح ورا بعض بتكسبك واحدة كمان (لحد ٣). «تجميد» بيوقف الوقت ٥ ثواني، «تخطي» بيعدّي السؤال، و«درع» بيحميك من غلطة.</li></ul></section>
         <section><h3>الغيلان</h3><p>في القصة، كل فصل على مرحلتين: الأول تجمع النقط المطلوبة عشان تصحّي المكان، وبعدها الغول بيطلعلك بشريط صحة. كل إجابة صح بتضربه، ولازم تطرده قبل وقته ما يخلص عشان تعدّي الفصل. لو خسرت قدامه، تقدر ترجعله على طول.</p><p>في الأوضاع السريعة، غول صغير بيطلع قرب الآخر. طرده اختياري، بس بيديك نقط ووقت.</p></section>
-        <section><h3>النجوم</h3><p>كل فصل فيه ٣ نجوم: نجمة لما تطرد الغول، ونجمة لو دقتك ٨٠٪ أو أكتر، ونجمة لو طردته وفاضل ١٠ ثواني من وقته. ولو جمعت ١٠ نجوم، بيتفتح فصل سري.</p></section>
-        <section><h3>حبّات البُن</h3><p>كل نقطة بتبقى حبّة بُن. الحبّات بتطلّع مستواك من «زبون جديد» لحد «أسطورة البُن»، وبتفتح ألوان جديدة للعبة من «خزنتي». وفي «خزنتي» كمان «دفتر عم سيد»، فيه صفحات عن القصة والغيلان بتتفتح وانت بتلعب. ومهمات النهارده بتديك حبّات زيادة.</p></section>
+        <section><h3>النجوم</h3><p>كل فصل فيه ٣ نجوم: نجمة لما تطرد الغول، ونجمة لو دقتك ٨٥٪ أو أكتر، ونجمة لو طردته وفاضل ١٠ ثواني من وقته. ولو جمعت ١٠ نجوم، بيتفتح فصل سري.</p></section>
+        <section><h3>حبّات البُن</h3><p>كل نقطة بتبقى حبّة بُن. الحبّات بتطلّع مستواك من «زبون جديد» لحد «أسطورة البُن»، وبتفتح ألوان جديدة للعبة من «خزنتي». وفي «خزنتي» كمان «الدفتر القديم»، فيه صفحات عن القصة والغيلان بتتفتح وانت بتلعب. ومهمات النهارده بتديك حبّات زيادة.</p></section>
       </div>
       <div class="row"><button class="btn" id="guideTut">جرّب التدريب</button><button class="ghost" id="guideBack">رجوع</button></div>
     </section>
@@ -642,7 +646,7 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
         <div class="chartbox" id="chartBox"></div>
         <div class="sect">إحصائياتك</div>
         <div class="endstats" id="vaultStats"></div>
-        <div class="sect" id="codexHead">دفتر عم سيد</div>
+        <div class="sect" id="codexHead">الدفتر القديم</div>
         <div class="codex" id="codex"></div>
         <div class="sect" id="skinHead">ألوان اللعبة</div>
         <div class="skins" id="skins"></div>
@@ -740,13 +744,13 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
   <canvas id="cineCv"></canvas>
   <span class="cine-label" id="cineLabel"></span>
   <button class="cine-skip" id="cineSkip">تخطي</button>
-  <div class="cine-text" id="cineText" hidden><div class="cine-who" id="cineWho" hidden><canvas id="cinePor"></canvas><b>عم سيد</b></div><p id="cineLine"></p><div class="cine-choice" id="cineChoice" hidden></div><small>دوس في أي حتة عشان تكمل</small></div>
+  <div class="cine-text" id="cineText" hidden><div class="cine-who" id="cineWho" hidden><canvas id="cinePor"></canvas><b id="cineWhoName">عم سيد</b></div><p id="cineLine"></p><div class="cine-choice" id="cineChoice" hidden></div><small>دوس في أي حتة عشان تكمل</small></div>
   <div class="credits" id="credits" hidden><div>
     <b>فوّق!</b>
     <b>فكرة وتصميم</b><span>عبدالرحمن فؤاد</span>
     <b>برمجة ورسم وموسيقى</b><span class="en">Claude</span>
     <b>بطولة</b><span>عم سيد بتاع البوفيه</span>
-    <b>الشرير</b><span>غول النوم، اللي بقى بيشرب قهوة</span>
+    <b>الغيلان</b><span>غفوة، وَسَن، رُقاد، وسُبات</span>
     <b>شكر خاص</b><span>لكل حد غمّض عينه في الشغل بعد الغدا</span>
     <b>استوديو</b><span class="en">Deshret Games</span>
   </div></div>
@@ -1330,14 +1334,15 @@ const SP = (function(){
 (function(){
   const $ = id => document.getElementById(id);
   document.documentElement.setAttribute('dir', 'rtl'); document.documentElement.setAttribute('lang', 'ar');
-  const VERSION = 16;
+  const VERSION = 17;
   const CHANGELOG = [
+    [17, 'القصة اتكتبت من جديد: مقدمة وفصول ونهاية جديدة، وأسماء الغيلان بتتكشف بعد ما تطردهم، وغيلان الأوضاع السريعة ليها أسماء، و«الدفتر القديم» بصفحات جديدة، ودقة النجمة ٨٥٪ في الدليل'],
     [16, 'اسم الاستوديو <span dir="ltr">Deshret Games</span>، وصفحات أوضح، والقصة بقت أصعب من الفصل التاني: الغيلان أقوى، والغلطة قدامهم بترجّعلهم ضربة، والنجمة التانية محتاجة دقة ٨٥٪. وزرار القدرة بينوّر لما تبقى في ورطة.'],
     [15, 'نسخة النشر: مراجعة لغوية وإملائية شاملة لكل الكلام في اللعبة، الخطوط جوه اللعبة نفسها فتشتغل من غير نت، نسخة احتياطية لتقدمك (حفظ واسترجاع)، وتثبيت اللعبة على الموبايل كتطبيق'],
     [14, 'تحدي جديد «سؤال الوقت» بيزودك ثواني، أصوات غيلان جديدة أهدى وأتقل، زرار «عيد الفصل» لو النجوم ناقصة، نصيحة عم سيد بعد كل فصل، الإنجازات بتتجمع وتظهر في آخر الجولة بدل ما تغطي الشاشة، التلميحات مش بتتكرر، وأحسن رقم بيظهر صح'],
     [13, 'القصة من غير حرق: الغيلان مش بتتعرف غير لما تطلع، وعم سيد بيلمّح بدل ما يشرح. المكتب اللي بيتغير بقى ظاهر في كارت القصة، أصوات الغيلان بقت أوضح، زرار تخطي للتدريب، وتصليح كارت الخطوة الجاية'],
     [12, 'المكتب في الرئيسية بيتغير مع تقدمك، مشهد بعد التترات، صوت مختلف لكل غول، وشاشة «مشاهد القصة» تتفرج فيها على أي مشهد شفته'],
-    [11, 'سرد أوضح: بطاقة افتتاح لكل فصل بالساعة، «اللي فات» في أول كل فصل، مشهد النهاية بيوريك الناس وهي بتصحى، «دفتر عم سيد» في خزنتي، وتوحيد المصطلحات في اللعبة كلها'],
+    [11, 'سرد أوضح: بطاقة افتتاح لكل فصل بالساعة، «اللي فات» في أول كل فصل، مشهد النهاية بيوريك الناس وهي بتصحى، «الدفتر القديم» في خزنتي، وتوحيد المصطلحات في اللعبة كلها'],
     [10, '٤ تحديات جديدة مربوطة بالفصول: ساعة الحضور، الرقم الناقص، عدّ المحطات، والشبابيك المنورة. وكلام عم سيد اتكتب من جديد بروح أخف'],
     [9, 'تدريب أول مرة، دليل «إزاي تلعب»، كارت الخطوة الجاية، قصة متكتبة من جديد، غول بشريط صحة في كل فصل ولازم تطرده عشان تعدّي، نجوم بشروط واضحة، القدرات متوضحة، موسيقى خاصة بكل فصل وقت اللعب، انتقالات موسيقى ناعمة، وألوان لكل فصل'],
     [8, 'رسم أوضح للناس، فنجان وكنكة جداد، زرار وقفة مؤقتة، معركة الغول بشريط صحة، حوار باختيارات، وتترات النهاية'],
@@ -1367,68 +1372,66 @@ const SP = (function(){
   const ALL_TYPES = ['color','color','math','math','num','arrow','arrow','odd','odd','reflex','memory','major','major','clock','seq','stations','windows'];
 
   /* ---------- The story: fog leaks out of the office air conditioning; the ghoul blowing it lives on the roof ---------- */
+  /* dialogue line makers: nar = narrator, say = Uncle Sayed, mgr = the manager, sab = Subat (ghoul voice), gh = narrator line holding a ghoul quote */
+  const nar = t => ({t}), say = t => ({t, who:'sayed'}), mgr = t => ({t, who:'manager'}), sab = t => ({t, who:'sabat', g:1}), gh = t => ({t, g:1});
   const CHAPTERS = [
     {id:1, label:'الفصل الأول', name:'المكتب', place:'المكتب', clock:'الساعة ٢ الضهر', recap:null, scene:'office', time:40, target:200, lvl0:0, music:1, minus:3,
       pool:['color','color','color','math','math','num','num','arrow','clock','clock'], newType:'clock',
-      boss:{name:'الغول الصغير', hp:5, time:25, fav:['color','color','clock','num'], hint:'الغول الصغير بيحب يلخبط الألوان ويقدّم الساعة. اقرا المطلوب الأول: لون الحبر ولا معنى الكلمة؟ متبصش على الكلمة قبل ما تقرا.'},
-      sayedPre:'شايف الضباب طالع منين؟ من فتحات التكييف. أنا مبتأثرش بيه، دمي بقى نصه قهوة من ٣٠ سنة. انت بقى خليك ورايا، ومتغمّضش.',
+      boss:{name:'غفوة', hp:5, time:25, fav:['color','color','clock','num'], hint:'بيلخبطك في الألوان والساعة. اقرا المطلوب الأول، وبعدين بص على الكلمة.'},
+      sayedPre:['الضباب طالع من فتحات التكييف. طول ما إحنا ماشيين فيه، ركّز ومتسرحش. خليك ورايا.'],
       choice:{ask:'تسأل عم سيد عن إيه؟', opts:[
-        ['وانت ليه مش نايم زيهم؟','أنا شارب ٧ فناجين من الصبح. لو نمت دلوقتي، هصحى السنة الجاية.'],
-        ['هو الضباب ده طبيعي؟','التكييف ده بقاله عشر سنين بيطلّع هوا سخن. أول مرة يشتغل بجد، يشتغل علينا. لا يا ابني، مش طبيعي.']]},
-      intro:['الدور كله نايم، والضباب البنفسجي مغطي المكاتب.','وفي آخر الدور، جنب فتحة التكييف، حاجة صغيرة بتتحرك في الضباب… ومش زميل.'],
-      outro:'زمايلك صحيوا واحد ورا التاني، والغول الصغير هرب من فتحة التكييف.',
-      sayedPost:'أول مرة أشوفهم شغالين بعد الغدا، حاجة تفرّح. بس المدير والجماعة في أوضة الاجتماعات من ساعة ومحدش طلع. يا إما الضباب دخل عندهم، يا إما الاجتماع ده فعلا مالوش آخر.'},
-    {id:2, label:'الفصل التاني', name:'اجتماع الساعة ٣', place:'أوضة الاجتماعات', clock:'الساعة ٣ العصر', recap:'اللي فات: صحّيت الدور، بس المدير والجماعة لسه محبوسين في الاجتماع.', scene:'meeting', time:40, target:290, lvl0:1, music:2, minus:3,
+        ['طب ما نكلم حد؟','نقوله إيه؟ التكييف نيّم الشركة؟ محدش هيصدق، ولو جه هينام هو كمان.'],
+        ['هو الضباب ده طبيعي؟','التكييف ده عمره ما اشتغل كويس من عشر سنين. إنه يطلّع حاجة زي دي فجأة؟ لأ، مش طبيعي.']]},
+      intro:['الدور كله نايم على مكاتبه، وضباب بنفسجي خفيف مالي المكان.', 'في آخر الدور، تحت فتحة التكييف، فيه حاجة صغيرة بتتحرك جوه الضباب.'],
+      outro:[nar('الناس بدأت تصحى، والحاجة الصغيرة دخلت فتحة التكييف. صوتها مسموع جوه المجرى وهي طالعة لفوق.'), say('استنى… الشكل ده أنا شفته قبل كده. مش في الحقيقة، مرسوم.'), nar('عم سيد طلّع من درج البوفيه دفتر قديم. في نصه رسمة لنفس الحاجة، وتحتها اسم: غفوة.'), say('ده خط عم صابر، اللي كان في البوفيه قبلي. وكاتب تحت الاسم: «مش بييجي لوحده».'), say('والمدير والجماعة في الاجتماع من ساعة، ومحدش طلع.')]},
+    {id:2, label:'الفصل التاني', name:'اجتماع الساعة ٣', place:'أوضة الاجتماعات', clock:'الساعة ٣ العصر', recap:'اللي فات: الدور صحي، وعم سيد لقى دفتر قديم فيه رسمة الغول. والاجتماع لسه مقفول.', scene:'meeting', time:40, target:290, lvl0:1, music:2, minus:3,
       pool:['math','math','num','major','major','odd','odd','color','arrow','seq','seq'], newType:'seq',
-      boss:{name:'المدير الغول', hp:7, time:25, heal:true, fav:['major','seq','seq','math','num'], hint:'المدير الغول بيرمي أرقام ورسومات وشرايح ناقصة. خد ثانية وعدّ صح، زي ما بتعدّ مرتبك أول الشهر.'},
-      sayedPre:'المدير كان بيعرض تقرير الربع سنة. بصراحة نص الحضور كانوا نايمين من الشريحة التالتة، الضباب بس كمّل الشغل. بس خلي بالك… المدير بقاله ساعة ما اتكلمش، وده عمره ما حصل.',
-      intro:['أوضة الاجتماعات ضلمة، والبروجكتور واقف على نفس الشريحة من ساعة.','كل الحضور نايمين على الكراسي… إلا كرسي المدير. الكرسي فاضي.'],
-      outro:'المدير فتح عينه، وبص في الساعة، وقال: «الاجتماع خلص، روّحوا».',
-      sayedPost:'أول اجتماع في تاريخ الشركة يخلص بدري. يلا نروّح، أنا راكب نفس المترو بتاعك… بس بص وراك كده. الضباب ده بيمشي ورانا، ولا أنا اللي عيني تعبت؟'},
-    {id:3, label:'الفصل التالت', name:'مترو الساعة ٥', place:'عربية المترو', clock:'الساعة ٥ العصر', recap:'اللي فات: المدير صحي وروّحكم بدري… والضباب خرج وراكم من باب الشركة.', scene:'metro', time:40, target:360, lvl0:2, music:3, sway:true, minus:4,
+      boss:{name:'وَسَن', hp:7, time:25, heal:true, fav:['major','seq','seq','math','num'], hint:'بيرمي أرقام وشرايح ناقصة. خد ثانية وعدّ صح قبل ما تجاوب.'},
+      sayedPre:['كان بيعرض تقرير الربع. نصهم كانوا بينعسوا من غير ضباب أصلًا. بس بص الضباب متجمع حواليه إزاي.', 'في الدفتر صفحة لغول تاني، اسمه ممسوح. ومكتوب تحته: «مش بيبان في الضباب… بيستخبى جوه الناس».'],
+      intro:['الأوضة ضلمة، والبروجكتور واقف على نفس الشريحة من ساعة.', 'الكل نايم على الكراسي، والضباب أتقل حوالين كرسي المدير.'],
+      outro:[nar('المدير فتح عينه، وبص حواليه على الناس اللي لسه بتصحى، وعلى الدخان اللي طالع من السقف.'), mgr('«التكييف فيه حاجة. الكل يخرج من المبنى حالًا، ومحدش يرجع غير لما الفني يكشف عليه بكرة».'), nar('والضباب اللي في الأوضة طلع في فتحة السقف بالراحة، كأن حد فوق بيسحبه.'), say('بص في الدفتر. الاسم اللي كان ممسوح بقى باين: وَسَن. والصفحات اللي بعده متقطعة.'), say('المدير فاكرها عطل في التكييف. بس الموضوع أكبر من كده بكتير.'), say('غفوة هرب لفوق، والضباب ده طلع لفوق. وتكييف الشركة كله طالع من وحدة واحدة على السطح.'), say('بس قبل ما نطلع لحاجة منعرفهاش، لازم نفهم. عم صابر اللي كاتب الدفتر لسه عايش، وساكن جنب آخر محطة في الخط. يلا نروحله.')]},
+    {id:3, label:'الفصل التالت', name:'مترو الساعة ٥', place:'عربية المترو', clock:'الساعة ٥ العصر', recap:'اللي فات: المبنى اتقفل، وانت وعم سيد راكبين المترو رايحين لعم صابر، اللي كتب الدفتر.', scene:'metro', time:40, target:360, lvl0:2, music:3, sway:true, minus:4,
       pool:['arrow','arrow','reflex','reflex','memory','color','num','odd','math','stations','stations'], newType:'stations',
-      boss:{name:'غول المترو', hp:9, time:26, heal:true, fav:['reflex','arrow','stations','stations'], hint:'غول المترو بيلعب على سرعة رد فعلك وبيلخبطك في المحطات. في النور استنى الأخضر، وفي المحطات عدّ بصباعك لو لازم، محدش شايفك.'},
-      sayedPre:'احنا في نفس العربية. الضباب ركب ورانا من غير تذكرة، وأي حد يغمّض هيصحى في آخر الخط.',
-      choice:{ask:'ترد تقول إيه؟', opts:[
-        ['هو الغول عايز مني إيه؟','انت الوحيد اللي صحّى الشركة، فبقيت مشكلته الشخصية. مبروك، بقى ليك عدو.'],
-        ['ولو نمت هيحصل إيه؟','هتصحى في آخر الخط، وتدفع تذكرة تانية عشان ترجع. أنا عارف الكلام ده كويس.']]},
-      intro:['العربية زحمة وبتتهز، والضباب داخل من الشبابيك.','والنور بيرعش… وكل ما يطفي، في عينين بتلمع في آخر العربية.'],
-      outro:'المترو وقف في محطتك، ونزلت صاحي. والضباب فضل في العربية وراح لآخر الخط.',
-      sayedPost:'إنك تنزل في محطتك صاحي، دي لوحدها معجزة. بس فكّر معايا: الضباب ده طلع من التكييف، ومشي ورانا لحد المترو. يعني ليه بيت. والتكييف كله بيطلع من مكان واحد في الشركة: السطح. معايا مفتاحه. بالليل، أنا وانت، وهات فنجانك.'},
-    {id:4, label:'الفصل الأخير', name:'السطح', place:'السطح', clock:'الساعة ١١ بالليل', recap:'اللي فات: عم سيد شاكك إن الضباب ليه بيت فوق سطح الشركة، ومعاه المفتاح.', scene:'roof', time:40, target:430, lvl0:3, music:4, final:true, minus:4,
+      boss:{name:'رُقاد', hp:9, time:26, heal:true, fav:['reflex','arrow','stations','stations'], hint:'بيلعب على سرعتك. في النور استنى الأخضر، وفي المحطات عدّ بهدوء.'},
+      sayedPre:['ده مش غفوة. ده أكبر… ومش في الصفحات اللي فاضلة من الدفتر.'],
+      choice:{ask:'تسأل عم سيد عن إيه؟', opts:[
+        ['هو جه هنا إزاي؟','مجاش لوحده. حد بعته ورانا.'],
+        ['يعني فيه غيره؟','لو فيه اتنين، يبقى فيه تالت. ركّز دلوقتي ومتعدّيش محطتك.']]},
+      intro:['المترو زحمة. وفي نص الطريق بدأ يطلع ضباب بنفسجي من آخر العربية.', 'هنا مفيش تكييف شركة… وفيه حاجة قاعدة في الركن.'],
+      outro:[gh('الغول رجع لحد باب العربية، وقبل ما الباب يقفل قال: «قولوا لصابر إن رُقاد لسه فاكره… وإن سُبات صحي».'), say('ده عارف إحنا رايحين لمين. يبقى صابر قابله قبل كده، وصفحته كانت من اللي اتقطعوا.'), say('عم صابر ساب الشغل من ٢٥ سنة فجأة، ومحدش عرف ليه. ونفس السنة دي رفض يدخّل تكييف للبوفيه. يعني اللي بيحصل ده حصل قبل كده.'), nar('نزلتوا في آخر محطة، ومشيتوا لحد بيت عم صابر. خبطتوا كتير، ومحدش فتح.'), nar('جار في الدور اللي تحت قالكم إن عم صابر مسافر بقاله أيام، ومحدش يعرف راح فين.'), say('الفني طالع السطح الصبح بدري لوحده. لو سُبات صحي فعلًا، الراجل ده هينام فوق ومحدش هيحس بيه.'), say('هنرجع الشركة بالليل، ونطلع قبله. ومعايا مفتاح السطح من أيام عم صابر.')]},
+    {id:4, label:'الفصل الأخير', name:'السطح', place:'السطح', clock:'الساعة ١١ بالليل', recap:'اللي فات: رُقاد قال إن سُبات صحي، وعم صابر مش في بيته. والفني طالع السطح الصبح بدري.', scene:'roof', time:40, target:430, lvl0:3, music:4, final:true, minus:4,
       pool:ALL_TYPES.concat(['windows','windows']), newType:'windows',
-      boss:{name:'الغول الكبير', hp:11, time:30, heal:true, fav:null, hint:'الغول الكبير بيستخدم كل الحيل مع بعض. استخدم «تجميد» لما الوقت يقل، و«درع» قبل الأسئلة اللي بتلخبطك. القدرات مش للزينة.'},
-      sayedPre:'هو ده السطح. سامع الصوت ده؟ ده مش التكييف… التكييف مش بيتنفّس. روح انت، وأنا هفضل هنا جنب الباب… عشان أأمّن الانسحاب.',
-      intro:['سطح الشركة بالليل، والقاهرة منورة حوالينا.','الضباب طالع من وحدة التكييف زي الدخان… وحد كبير قاعد جنبها، بينفخ.'],
-      outro:'الغول اتكمّش لحد ما بقى قد الفنجان، واختفى. والتكييف رجع يطلّع هوا عادي.',
-      sayedPost:'كده بكرة الساعة ٢ الضهر محدش هينام. يعني هيشتغلوا… مش متأكد ده خبر حلو ليهم. بس استنى، هو اختفى ولا نام؟ اللي زي ده لما بيتزنق، بيستخبى في أحلامه.'},
-    {id:5, label:'الفصل السري', name:'جوه حلم الغول', place:'الحلم', clock:'الساعة؟ مفيش ساعة هنا', recap:'اللي فات: طردت الغول الكبير من السطح، بس هو هرب جوه حلمه.', scene:'dream', time:40, target:500, lvl0:3, music:5, secret:true, minus:4, speed:1.15, dreamy:true,
+      boss:{name:'سُبات', known:true, hp:11, time:30, heal:true, fav:null, hint:'بيستخدم كل الأنواع مع بعض. «تجميد» لما الوقت يقل، و«درع» قبل الأسئلة اللي بتلخبطك.'},
+      sayedPre:['آخر صفحة في الدفتر نصها متقطع، ومفيش فيها غير كلمة واحدة باينة: سُبات. روح انت، وأنا هفضل جنب الباب.'],
+      intro:['سطح الشركة الساعة ١١ بالليل. هادي، ومفيش غير صوت التكييف.', 'بس الصوت ده مش صوت موتور. فيه حاجة كبيرة قاعدة جنب الوحدة، وكل نَفَس بيطلع منها ضباب.'],
+      outro:[nar('سُبات هدي ونام نوم تقيل، والضباب وقف.'), say('الضباب وقف، بس سُبات لسه نايم. وطول ما هو نايم هنا، ممكن يرجع في أي لحظة.')]},
+    {id:5, label:'الفصل السري', name:'جوه الحلم', place:'الحلم', clock:'الساعة؟ مفيش ساعة هنا', recap:'اللي فات: سُبات نام فوق السطح، وطول ما هو نايم الضباب ممكن يرجع.', scene:'dream', time:40, target:500, lvl0:3, music:5, secret:true, minus:4, speed:1.15, dreamy:true,
       pool:ALL_TYPES.concat(['memory']),
-      boss:{name:'الغول الحالم', hp:12, time:30, heal:true, fav:['memory','memory','odd','major','color'], hint:'جوه الحلم الوقت أسرع، والغول بيحب الذاكرة. قول الألوان في سرك وهي بتنوّر.'},
-      sayedPre:'طول ما هو نايم، الضباب ممكن يرجع في أي لحظة. حد لازم يدخل يصحّيه. أنا مش داخل معاك، آخر حلم شفته كان عن الشاي ومحبتش النهاية.',
-      intro:['غمّضت عينك ثانية… ولقيت نفسك جوه حلم الغول.','الساعات بتلف بالعكس، والقمر عين بتبصلك.'],
-      outro:'الغول فتح عينه، وبصلك كتير… وبعدين قال بصوت واطي: «هو في قهوة؟».',
-      sayedPost:'يعني الحكاية كلها عشان الغول كان محتاج فنجان قهوة؟ ده أنا بعمل ٢٠٠ فنجان في اليوم. تعالى يا غول، أعملك واحد مظبوط، وبعدين نتكلم في موضوع التكييف ده.'}
+      boss:{name:'سُبات', known:true, hp:12, time:30, heal:true, fav:['memory','memory','odd','major','color'], hint:'الوقت هنا أسرع، والأسئلة بتعتمد على الذاكرة. قول الألوان في سرك وهي بتنوّر.'},
+      sayedPre:['متنامش جوه الحلم، عشان مش هتعرف تطلع. صحّيه وارجع.'],
+      intro:['الضباب اللي حواليه تقّل عينك. غمّضت ثانية… وفتحتها جوه حلمه.', 'نفس الشركة. الموظفين كلهم على مكاتبهم، عينهم مفتوحة على الشاشات، ومحدش بيتحرك.'],
+      outro:[gh('سُبات فتح عينه، وبصلك كتير، وبعدين قال: «انتو فاكرين إني أنا اللي بنيّمكم؟»'), sab('«أنا مبعملش ضباب من عندي. أنا بتنفّس اللي في المكان. والمكان ده مليان تعب».'), sab('«صابر فهم ده من ٢٥ سنة. عشان كده مشي».'), nar('فتحت عينك على السطح. عم سيد واقف جنبك، ومكان سُبات بقى فاضي.')]}
   ];
   const SECRET_STARS = 10;
-  /* Uncle Sayed's notebook: story notes that unlock as you progress */
+  /* The old notebook (Uncle Sayed found it in the buffet drawer): story pages that unlock as you progress */
   const CODEX = [
-    {k:'fog', t:'ضباب النعاس', when:'شوف المقدمة', d:'ضباب بنفسجي طالع من التكييف المركزي. اللي بيشمّه بينام في دقايق. علاجه الوحيد إن دماغك تفضل شغالة، والقهوة بتساعد.'},
-    {k:'sayed', t:'عم سيد', when:'شوف المقدمة', d:'بتاع البوفيه من ٣٠ سنة. بيعمل ٢٠٠ فنجان في اليوم وبيشرب منهم ٧. محدش في الشركة يعرف اسمه بالكامل، ومحدش جرّب يسأل.'},
-    {k:'b1', ch:1, t:'الغول الصغير', when:'خلّص الفصل الأول', d:'حارس الدور. بيحب يلخبطك في الألوان ويقدّم الساعة. نقطة ضعفه: إنك تقرا السؤال قبل ما تبص على الكلمة.'},
-    {k:'b2', ch:2, t:'المدير الغول', when:'خلّص الفصل التاني', d:'المدير بعد ما الضباب لبسه. بيرمي أرقام ورسومات وشرايح ناقصة. نقطة ضعفه: الهدوء والعدّ الصح.'},
-    {k:'b3', ch:3, t:'غول المترو', when:'خلّص الفصل التالت', d:'راكب من غير تذكرة. بيعتمد على إنك تستعجل. نقطة ضعفه: الصبر لحد ما النور يخضر.'},
-    {k:'b4', ch:4, t:'الغول الكبير', when:'خلّص الفصل الأخير', d:'اللي كان بينفخ الضباب في التكييف من الأول. بيستخدم كل الحيل مع بعض. نقطة ضعفه: القدرات لما تستخدمها في وقتها.'},
-    {k:'ac', ch:4, t:'التكييف المركزي', when:'خلّص الفصل الأخير', d:'أول مرة يشتغل بجد، اشتغل غلط. رجع يطلّع هوا عادي بعد ما الغول اتطرد، والفني لسه ما جاش.'},
-    {k:'b5', ch:5, t:'الغول الحالم', when:'خلّص الفصل السري', d:'الغول الكبير وهو نايم. طلع إن كل مشكلته إنه كان تعبان، وكل اللي محتاجه فنجان قهوة مظبوط.'}
+    {k:'fog', t:'ضباب النعاس', when:'شوف المقدمة', d:'ضباب بنفسجي طالع من التكييف. اللي بيشمّه بينام في دقايق، والطريقة الوحيدة إنك تفضل صاحي إن دماغك تفضل شغالة.'},
+    {k:'sayed', t:'عم سيد', when:'شوف المقدمة', d:'بتاع البوفيه من تلاتين سنة. البوفيه هو المكان الوحيد في الشركة اللي مفيهوش تكييف.'},
+    {k:'b1', ch:1, t:'غفوة', when:'خلّص الفصل الأول', d:'بخط عم صابر: «أول واحد بيطلع. صغير وسريع، ومش بييجي لوحده».'},
+    {k:'b2', ch:2, t:'وَسَن', when:'خلّص الفصل التاني', d:'بخط عم صابر، والاسم كان ممسوح لحد ما اتطرد: «مش بيبان في الضباب. بيستخبى جوه الناس».'},
+    {k:'mgr', ch:2, t:'المدير', when:'خلّص الفصل التاني', d:'بخط عم سيد: «صحي ومفتكرش أي حاجة. قال عطل في التكييف، وطلّع الكل برّه».'},
+    {k:'b3', ch:3, t:'رُقاد', when:'خلّص الفصل التالت', d:'بخط عم سيد: «مش في الصفحات اللي فاضلة. يمكن كان في اللي اتقطعوا. قابلناه في المترو، وكان عارف إحنا رايحين لمين».'},
+    {k:'saber', ch:3, t:'عم صابر', when:'خلّص الفصل التالت', d:'كان في البوفيه قبل عم سيد. ساب الشغل من ٢٥ سنة فجأة، ورفض قبلها يدخّل تكييف للبوفيه.'},
+    {k:'b4', ch:3, t:'سُبات', when:'خلّص الفصل التالت', d:'نص الصفحة متقطع، ومفيش غير الاسم.'},
+    {k:'ac', ch:4, t:'التكييف المركزي', when:'خلّص الفصل الأخير', d:'كل فتحات الشركة طالعة من وحدة واحدة على السطح، وجنبها كان قاعد سُبات.'},
+    {k:'b5', ch:5, t:'سُبات في الحلم', when:'خلّص الفصل السري', d:'«أنا مبعملش ضباب من عندي. أنا بتنفّس اللي في المكان».'}
   ];
   const PROLOGUE = [
-    {t:'الغدا لسه نازل، والتكييف بيزن، والشغل ماشي زي كل يوم.', p:{fog:0, sleep:0, cup:0, eyes:0}},
-    {t:'وفجأة، من فتحات التكييف طلع ضباب بنفسجي تقيل، ريحته زي المخدة.', p:{fog:.45, sleep:.2, cup:0, eyes:0}},
-    {t:'زمايلك بدأوا يتاوبوا… وبعدين وقعوا على المكاتب واحد ورا التاني.', p:{fog:.55, sleep:1, cup:0, eyes:0}},
-    {t:'مفيش غير انت لسه صاحي… وعم سيد بتاع البوفيه.', p:{fog:.5, sleep:1, cup:1, eyes:0}},
-    {who:'sayed', t:'اشرب ده يا باشمهندس، وخليك صاحي. القهوة بتصحّي، بس مش بتفكّر بدالك. واللي بيبطّل يفكّر هنا… انت شايف بنفسك.', p:{fog:.5, sleep:1, cup:1, eyes:0}},
-    {t:'وفي مكان ما في الشركة… حاجة فتحت عينها.', p:{fog:.8, sleep:1, cup:0, eyes:1}}
+    {t:'بعد الغدا بنص ساعة. انت في البوفيه مع عم سيد، مستني فنجانك.', p:{fog:0, sleep:0, cup:0, eyes:0}},
+    {t:'فجأة بدأ يطلع من فتحات التكييف ضباب بنفسجي خفيف.', p:{fog:.45, sleep:.2, cup:0, eyes:0}},
+    {t:'في دقايق، الموظفين ناموا على مكاتبهم واحد ورا التاني.', p:{fog:.55, sleep:1, cup:0, eyes:0}},
+    {t:'مفضلش صاحي غيرك انت وعم سيد.', p:{fog:.5, sleep:1, cup:1, eyes:0}},
+    {who:'sayed', t:'البوفيه مفيهوش تكييف، عشان كده إحنا صاحيين. بس برّه الضباب مالي الدور، ولو طلعنا لازم دماغنا تفضل شغالة.', p:{fog:.5, sleep:1, cup:1, eyes:0}}
   ];
   const SKIN_WORD = 'ألوان';
   const NAMES = {color:'الألوان', math:'الحساب', num:'الأرقام', arrow:'الأسهم', odd:'المربع المختلف', reflex:'رد الفعل', memory:'الذاكرة', major:'أنهي لون أكتر', clock:'الساعة', seq:'الرقم الناقص', stations:'المحطات', windows:'الشبابيك'};
@@ -2405,10 +2408,10 @@ const SP = (function(){
   const WORLD = {scene:'office', p:{fog:.4, sleep:1, eyes:0, cup:0}};
   function renderWorld(){
     let sc = 'office', p, line;
-    if (story.stars[5]){ p = {fog:0, sleep:0, eyes:.55, cup:1, ghoul:'small'}; line = 'الشركة صاحية، والغول بقى بيعدّي على البوفيه كل يوم الساعة ٢ ياخد فنجانه.'; }
-    else if (story.stars[4]){ sc = 'roof'; p = {fog:0, sleep:0, eyes:0, cup:0}; line = 'السطح هادي، والتكييف رجع يطلّع هوا عادي. بس فين الغول؟'; }
-    else if (story.stars[3]){ sc = 'metro'; p = {fog:.05, sleep:0, eyes:0, cup:0}; line = 'المترو صاحي، وكل واحد نزل في محطته. والضباب؟ راح لآخر الخط.'; }
-    else if (story.stars[2]){ sc = 'meeting'; p = {fog:.05, sleep:0, eyes:0, cup:0}; line = 'الاجتماع خلص والكل صاحي. أول مرة حد يفهم الرسم البياني ده.'; }
+    if (story.stars[5]){ p = {fog:0, sleep:0, eyes:0, cup:1}; line = 'الشركة صاحية، وسُبات مشي. بس عم سيد مش مرتاح.'; }
+    else if (story.stars[4]){ sc = 'roof'; p = {fog:0, sleep:0, eyes:0, cup:0}; line = 'السطح هادي، والضباب وقف. بس سُبات لسه نايم.'; }
+    else if (story.stars[3]){ sc = 'metro'; p = {fog:.05, sleep:0, eyes:0, cup:0}; line = 'رُقاد قال إن سُبات صحي، وعم صابر مش في بيته.'; }
+    else if (story.stars[2]){ sc = 'meeting'; p = {fog:.05, sleep:0, eyes:0, cup:0}; line = 'المبنى اتقفل، والضباب طلع لفوق.'; }
     else if (story.stars[1]){ p = {fog:.05, sleep:0, eyes:0, cup:0}; line = 'الدور صحي، والناس رجعت لشغلها. بس أوضة الاجتماعات لسه قافلة.'; }
     else { p = {fog:.45, sleep:1, eyes:0, cup:0}; line = 'المكتب كله نايم، والضباب مغطي الدور.'; }
     WORLD.scene = sc; WORLD.p = p;
@@ -2507,10 +2510,11 @@ const SP = (function(){
   function hideBanner(){ $('bossBanner').hidden = true; }
   $('bossBanner').addEventListener('click', () => { if (st && st.bannerGo && !st.isPaused) st.bannerGo(); });
   function cpOf(){ return {score:st.score, right:st.right, wrong:st.wrong, rts:st.rts.slice(), by:JSON.parse(JSON.stringify(st.by)), maxCombo:st.maxCombo, goldRight:st.goldRight, powerUsed:st.powerUsed, powers:st.powers.slice()}; }
+  const STRAYS = ['نَعسة','هَجعة','نُعاس','كَرى','خُمول','قَيلولة'];
   function startFight(kind){
     const isS = kind === 'story', tut = kind === 'tut';
-    const b = isS ? chapter.boss : tut ? {name:'غول التدريب', hp:3, fav:['color','num','arrow']} : {name:'غول شارد', hp:3, fav:null};
-    st.fight = {hp:b.hp, max:b.hp, name:b.name, fav:b.fav, kind, won:false};
+    const b = isS ? chapter.boss : tut ? {name:'غول التدريب', hp:3, fav:['color','num','arrow']} : {name:STRAYS[Math.floor(Math.random()*STRAYS.length)], sub:'غول شارد', hp:3, fav:null};
+    st.fight = {hp:b.hp, max:b.hp, name:b.name, shown: isS ? bossShow(chapter) : b.name, sub: b.sub || '', fav:b.fav, kind, won:false};
     if (isS){ st.phase = 'boss'; st.cp = st.cp || cpOf(); st.time = b.time; st.fightMax = b.time; if (!story.met[chapter.id]){ story.met[chapter.id] = 1; store.put('fawwa2-story', story); } }
     st.paused = true; st.intro = true; st.golden = false;
     $('answers').innerHTML = ''; $('prompt').innerHTML = ''; $('stage').innerHTML = '';
@@ -2520,8 +2524,8 @@ const SP = (function(){
     musicScene('boss');
     const sub = isS ? `صحته ${hits(b.hp)}، ووقته ${ar(b.time)} ثانية.${b.heal ? ' وكل غلطة بترجّعله ضربة.' : ''} ${b.hint}`
       : tut ? 'كل إجابة صح بتضربه ضربة.'
-      : `اختياري: اطرده في ٣ ضربات وخد ١٥٠ نقطة و${mode === 'surv' ? 'روح زيادة' : '٥ ثواني'}.`;
-    showBanner(isS ? b.name + ' طلعلك!' : b.name + ' ظهر!', sub);
+      : `غول شارد. اختياري: اطرده في ٣ ضربات وخد ١٥٠ نقطة و${mode === 'surv' ? 'روح زيادة' : '٥ ثواني'}.`;
+    showBanner(isS ? st.fight.shown + ' طلعلك!' : b.name + ' ظهر!', sub);
     const vk = isS ? GHOUL_OF[chapter.scene] : 'stray'; setTimeout(() => ghoulVoice(vk, 'appear'), 350);
     hud();
     const go = st.bannerGo = () => {
@@ -2536,7 +2540,7 @@ const SP = (function(){
   function renderHp(){
     const f = st && st.fight; if (!f) return;
     $('hpFill').style.width = Math.max(0, f.hp/f.max*100) + '%';
-    $('hpTxt').textContent = f.won ? `${f.name} اتطرد!` : `${f.name}: فاضل ${ar(f.hp)} من ${ar(f.max)}`;
+    $('hpTxt').textContent = f.won ? `${f.name} اتطرد!` : `${f.shown}${f.sub ? ' — ' + f.sub : ''}: فاضل ${ar(f.hp)} من ${ar(f.max)}`;
   }
   function hitBoss(dmg){
     const f = st.fight; if (!f || f.won) return;
@@ -2633,7 +2637,7 @@ const SP = (function(){
     if (mode === 'tut') right = `خطوة ${ar(Math.min(st.tutI + 1, TUT.length))} من ${ar(TUT.length)}`;
     else if (mode === 'surv') right = '♥'.repeat(Math.max(0, st.lives));
     else if (mode === 'duel') right = esc(duel.names[duel.turn]);
-    else if (mode === 'story') right = st.phase === 'boss' ? `<span class="goal boss">${chapter.boss.name}</span>` : `<span class="goal">الهدف: ${ar(Math.min(st.score, chapter.target))} من ${ar(chapter.target)}</span>`;
+    else if (mode === 'story') right = st.phase === 'boss' ? `<span class="goal boss">${bossShow(chapter)}</span>` : `<span class="goal">الهدف: ${ar(Math.min(st.score, chapter.target))} من ${ar(chapter.target)}</span>`;
     $('lives').innerHTML = (st.shield ? '<span class="shield-on">درع </span>' : '') + right;
   }
 
@@ -2692,7 +2696,7 @@ const SP = (function(){
       }
     } else {
       st.wrong++; st.combo = 0; st.wrongStreak = (st.wrongStreak || 0) + 1;
-      if (st.fight && !st.fight.won && st.fight.kind === 'story' && chapter.boss.heal && st.fight.hp < st.fight.max){ st.fight.hp++; renderHp(); setTimeout(() => floatText(st.fight.name + ' استرجع ضربة', 'var(--boss)'), 420); }
+      if (st.fight && !st.fight.won && st.fight.kind === 'story' && chapter.boss.heal && st.fight.hp < st.fight.max){ st.fight.hp++; renderHp(); setTimeout(() => floatText(st.fight.shown + ' استرجع ضربة', 'var(--boss)'), 420); }
       st.fogBump = Math.min(.4, st.fogBump + .22);
       card.classList.add('flash-bad'); vib(70); sfx('bad');
       burst(bx, by, {n:10, color:[`rgba(${tok('--fogc')},.9)`], speed:2.5, g:-.03, grow:.25, size:6, life:40});
@@ -2783,7 +2787,7 @@ const SP = (function(){
     if (mode === 'story' && chapter.dreamy) $('card').classList.add('dreamy');
     ac();
     const cd = $('countdown'), n = $('countN'); cd.hidden = false; n.textContent = '';
-    $('countSub').textContent = mode === 'story' ? (st.resumeCp ? `راجع لـ ${chapter.boss.name}` : `الهدف: ${ar(chapter.target)} نقطة`) : mode === 'tut' ? 'تدريب من غير وقت' : '';
+    $('countSub').textContent = mode === 'story' ? (st.resumeCp ? `راجع لـ ${bossShow(chapter)}` : `الهدف: ${ar(chapter.target)} نقطة`) : mode === 'tut' ? 'تدريب من غير وقت' : '';
     const myRun = st;
     wake(() => {
       if (st !== myRun) return;
@@ -2957,7 +2961,9 @@ const SP = (function(){
   const totalStars = () => MAIN.reduce((a, c) => a + (story.stars[c.id] || 0), 0);
   const secretOpen = () => totalStars() >= SECRET_STARS;
   const isOpen = (c, i) => c.secret ? secretOpen() : i < story.open;
-  const bossKnown = ch => !!story.stars[ch.id] || !!story.met[ch.id];
+  /* a boss name is shown only after that boss was beaten (stars saved), except Subat who is named from the start */
+  const bossKnown = ch => !!story.stars[ch.id] || !!ch.boss.known;
+  const bossShow = ch => bossKnown(ch) ? ch.boss.name : '؟؟؟';
   const bossLabel = ch => bossKnown(ch) ? ch.boss.name : 'اللي هيطلعلك';
   const critText = ch => [`اطرد ${bossLabel(ch)}`, 'دقة ٨٥٪ أو أكتر في الفصل', 'اطرده وفاضل ١٠ ثواني أو أكتر من وقته'];
   function storyEnd(){
@@ -2985,12 +2991,12 @@ const SP = (function(){
       let extra = '';
       if (secretNow) extra = ' جمعت ١٠ نجوم، فالفصل السري اتفتح!';
       else if (ch.final && !secretOpen()) extra = ` في فصل سري بيتفتح لما تجمع ${ar(SECRET_STARS)} نجوم، ومعاك ${ar(totalStars())}.`;
-      const sayed = ch.sayedPost, gains = takeGains();
+      const gains = takeGains();
       const advice = stars === 3 ? '' : !crit[1] ? sayedLine() : 'عشان النجمة التالتة، اطرده أسرع. «تجميد» بيوقف وقته هو كمان، والقدرات اللي معاك اتعملت للحظة دي.';
       const crits = critText(ch).map((t, i) => ({t: i === 1 ? `${t} (دقتك ${ar(Math.round(acc*100))}٪)` : i === 2 ? `${t} (فاضل ${ar(st.bossLeft || 0)})` : t, ok: crit[i]}));
-      blink(() => cine(Object.assign(outroOpt(ch, sayed), {
+      blink(() => cine(Object.assign(outroOpt(ch), {
         title: {h: ch.secret ? 'النهاية الحقيقية!' : ch.final ? 'الشركة صحيت!' : 'الفصل خلص!', stars, crit: crits,
-          p: `جبت ${ar(s)} نقطة، وكسبت ${ar(s + bonus + starBonus)} حبّة بُن.` + extra + (advice ? '\n\nعم سيد: ' + advice : ''), gains,
+          p: `طردت ${ch.boss.name}. جبت ${ar(s)} نقطة، وكسبت ${ar(s + bonus + starBonus)} حبّة بُن.` + extra + (advice ? '\n\nعم سيد: ' + advice : ''), gains,
           btn: nextCh ? (nextCh.secret ? 'ادخل الفصل السري' : 'الفصل الجاي') : (ch.secret ? 'كمّل' : 'رجوع للخريطة'), alt: nextCh ? 'الخريطة' : null, re: stars < 3 ? 'عيد الفصل' : null},
         onTitle: () => { motif(true); confetti(); [0,1,2].slice(0, stars).forEach(i => setTimeout(() => sfx('star', i*4), 500 + i*260)); },
         done: () => { if (ch.secret) credits(); else if (nextCh) playChapter(nextCh); else { musicScene('menu', {set:0}); show('mapScreen'); } },
@@ -3006,7 +3012,7 @@ const SP = (function(){
       blink(() => {
         showGains($('endGains'), gains);
         $('endTitle').textContent = ch.label + ': ' + ch.name;
-        $('rank').textContent = atBoss ? `${ch.boss.name} لسه صامد` : 'الضباب كسب المرة دي';
+        $('rank').textContent = atBoss ? `${bossShow(ch)} لسه صامد` : 'الضباب كسب المرة دي';
         $('endNote').textContent = atBoss
           ? `صحّيت ${ch.place}، بس الوقت خلص والغول فاضل عليه ${hits(left)}. ترجعله على طول، ومن غير ما تعيد المرحلة الأولى.`
           : `كنت محتاج ${ar(ch.target)} نقطة عشان تصحّي ${ch.place}، وجبت ${ar(s)}. كل غلطة بتاكل ٣ ثواني، فالدقة أهم من السرعة.`;
@@ -3020,14 +3026,15 @@ const SP = (function(){
     }
   }
   function introOpt(ch, withChoice){
+    const pre = ch.sayedPre, eyes = ch.intro.length > 1 ? 1 : 0;
     const lines = (ch.recap ? [{t: ch.recap, p:{fog:.2, sleep:.6, cup:0, eyes:0}}] : [])
-      .concat([{who:'sayed', t: ch.sayedPre, p:{fog:.3, sleep:1, cup:0, eyes:0}, choice: withChoice ? ch.choice : null}])
-      .concat(ch.intro.map((t, i) => ({t, p:{fog: .35 + i*.2, sleep: 1, cup: 0, eyes: i === 1 ? 1 : 0, ghoul: null}})));
+      .concat(ch.intro.map((t, i) => ({t, p:{fog: .35 + i*.2, sleep: 1, cup: 0, eyes: i === 1 ? 1 : 0, ghoul: null}})))
+      .concat(pre.map((t, i) => ({who:'sayed', t, p:{fog:.55, sleep:1, cup:0, eyes}, choice: withChoice && ch.choice && i === pre.length - 1 ? ch.choice : null})));
     return {scene: ch.scene, label: ch.label, music: ch.music, slate: {k: ch.label, t: ch.name, c: ch.clock}, from: {fog:.05, sleep:.2, cup:0, eyes:0}, lines};
   }
-  function outroOpt(ch, sayed){
+  function outroOpt(ch){
     return {scene: ch.scene, label: ch.label, music: ch.music, from: {fog:.7, sleep:1, cup:0, eyes:1}, noRumble: true,
-      lines: [{t: ch.outro, p:{fog:0, sleep:0, cup:0, eyes:0}}, {who:'sayed', t: sayed || ch.sayedPost, p:{fog:0, sleep:0, cup:0, eyes:0}}]};
+      lines: ch.outro.map(o => Object.assign({}, o, {p:{fog:0, sleep:0, cup:0, eyes:0}}))};
   }
   function playChapter(ch){
     chapter = ch; mode = 'story'; retryCp = null;
@@ -3049,8 +3056,8 @@ const SP = (function(){
       L.push({t:`${ch.label}: البداية`, d: ch.name, ok: !!story.seen['i' + ch.id] || !!story.stars[ch.id], play: () => replay(Object.assign(introOpt(ch, false), {title:{h: ch.name, p: ch.clock, btn:'رجوع للمشاهد'}}))});
       L.push({t:`${ch.label}: النهاية`, d: `طرد ${ch.boss.name}`, ok: !!story.stars[ch.id], play: () => replay(Object.assign(outroOpt(ch), {title:{h: ch.secret ? 'النهاية الحقيقية!' : ch.final ? 'الشركة صحيت!' : 'الفصل خلص!', btn:'رجوع للمشاهد'}}))});
     });
-    L.push({t:'التترات', d:'عم سيد بيعمل قهوة للغول', ok: !!story.stars[5], play: () => credits(true)});
-    L.push({t:'بعد التترات', d:'قعدة في البوفيه', ok: !!story.stars[5], play: () => postCredits(true)});
+    L.push({t:'التترات', d:'آخر الليل على السطح', ok: !!story.stars[5], play: () => credits(true)});
+    L.push({t:'بعد التترات', d:'تليفون الساعة ٢', ok: !!story.stars[5], play: () => postCredits(true)});
     return L;
   }
   function openScenes(){
@@ -3158,7 +3165,9 @@ const SP = (function(){
     if (!L){ return cineTitle(); }
     if (L.p.eyes && !(CI.opt.lines[i-1] && CI.opt.lines[i-1].p.eyes) && !CI.opt.noRumble){ sfx('rumble'); vib([60,40,90]); shakeCine(); setTimeout(() => ghoulVoice(L.p.ghoul || GHOUL_OF[CI.opt.scene], 'appear'), 500); }
     $('cineText').hidden = false; $('cineTitle').hidden = true;
-    $('cineWho').hidden = L.who !== 'sayed'; $('cineText').classList.toggle('talk', L.who === 'sayed'); $('cineText').classList.toggle('me', L.who === 'me');
+    const SPK = {sayed:'عم سيد', manager:'المدير', sabat:'سُبات'};
+    $('cineWho').hidden = !SPK[L.who]; $('cinePor').hidden = L.who !== 'sayed'; $('cineWhoName').textContent = SPK[L.who] || '';
+    $('cineText').classList.toggle('talk', L.who === 'sayed'); $('cineText').classList.toggle('other', L.who === 'manager'); $('cineText').classList.toggle('ghoul', !!L.g); $('cineText').classList.toggle('me', L.who === 'me');
     $('cineChoice').hidden = true;
     const line = $('cineLine'); line.textContent = ''; let k = 0;
     clearInterval(CI.typing);
@@ -3234,24 +3243,29 @@ const SP = (function(){
   }
   function credits(fromGallery){
     cine({scene:'office', label:'النهاية', music:1,
-      lines:[{who:'sayed', t:'اتفضل يا غول، قهوتك مظبوط. ومن هنا ورايح ممنوع النوم بعد الغدا… إلا لو أنا اللي نايم.', p:{fog:0, sleep:0, cup:1, eyes:.8, ghoul:'small'}}],
+      lines:[
+        {who:'sayed', t:'مشي. قالك حاجة؟', p:{fog:0, sleep:0, cup:1, eyes:0}},
+        {t:'حكيتله كل اللي سُبات قاله، حتى اسم عم صابر.', p:{fog:0, sleep:0, cup:1, eyes:0}},
+        {who:'sayed', t:'يعني عم صابر مسابش الشغل عشان كبر. ساب عشان فهم.', p:{fog:0, sleep:0, cup:1, eyes:0}},
+        {t:'تاني يوم، الساعة ٢ الضهر. الدور صاحي، والتكييف شغال عادي.', p:{fog:0, sleep:0, cup:1, eyes:0}},
+        {who:'sayed', t:'الضباب مشي. بس التعب اللي جابه لسه هنا.', p:{fog:0, sleep:0, cup:1, eyes:0}}
+      ],
       title:{h:'شكرا إنك صحيت', p:'الضباب راح… المرة دي.', btn:'كمّل'},
       onTitle: () => { $('cine').classList.add('credits-on'); const cr = $('credits'); cr.hidden = false; cr.classList.remove('roll'); void cr.offsetWidth; cr.classList.add('roll'); motif(true); },
       done: () => { $('credits').hidden = true; if (fromGallery){ musicScene('menu', {set:0}); openScenes(); } else postCredits(false); }
     });
   }
-  /* After the credits: Uncle Sayed and the ghoul at the buffet, and a small hook */
+  /* After the credits: a phone call in the buffet, and a hook for the next story */
   function postCredits(fromGallery){
-    cine({scene:'office', label:'بعد التترات', music:5, noRumble:true, from:{fog:0, sleep:0, cup:1, eyes:.6, ghoul:'small'},
-      slate:{k:'بعد التترات', t:'البوفيه', c:'الساعة ٢ الضهر، تاني يوم'},
+    cine({scene:'office', label:'بعد التترات', music:5, noRumble:true, from:{fog:0, sleep:0, cup:1, eyes:0},
+      slate:{k:'بعد التترات', t:'نفس اليوم، الساعة ٢ وخمس دقايق', c:''},
       lines:[
-        {t:'تاني يوم، الساعة ٢ الضهر بالظبط. الدور كله صاحي، وعم سيد قاعد في البوفيه مع ضيف جديد.', p:{fog:0, sleep:0, cup:1, eyes:.6, ghoul:'small'}},
-        {who:'sayed', t:'بس قولي يا غول، انت كنت بتنفخ الضباب ده ليه أصلا؟', p:{fog:0, sleep:0, cup:1, eyes:.6, ghoul:'small'}},
-        {t:'الغول بص في فنجانه، وقال بصوت واطي: «كنت تعبان، وكنت فاكر لو الكل نام، محدش هياخد باله إني نايم».', p:{fog:0, sleep:0, cup:1, eyes:.6, ghoul:'small'}},
-        {who:'sayed', t:'يا ابني ده انت كنت محتاج إجازة، مش ضباب. اشرب قهوتك… وأوعى تكون ليك قرايب.', p:{fog:0, sleep:0, cup:1, eyes:.6, ghoul:'small'}},
-        {t:'وفي نفس اللحظة، في مكان تاني في القاهرة… حد تاني بيتاوب.', p:{fog:.5, sleep:0, cup:0, eyes:1}}
+        {t:'موبايل عم سيد رن في البوفيه.', p:{fog:0, sleep:0, cup:1, eyes:0}},
+        {who:'sayed', t:'ألو… مين؟ حسن ابن عم صابر؟', p:{fog:0, sleep:0, cup:1, eyes:0}},
+        {who:'sayed', t:'أبوك عايز يشوفني؟ … ضباب إيه؟ عندكم فين؟', p:{fog:0, sleep:0, cup:1, eyes:0}},
+        {t:'عم سيد حط الفنجان من إيده، وبص ناحيتك.', p:{fog:0, sleep:0, cup:1, eyes:0}}
       ],
-      title:{h:'فوّق!', p:'شكرا إنك لعبت للآخر.', btn: fromGallery ? 'رجوع للمشاهد' : 'رجوع للخريطة'},
+      title:{h:'فوّق!', p:'الضباب مشي من الشركة… بس مش من القاهرة.', btn: fromGallery ? 'رجوع للمشاهد' : 'رجوع للخريطة'},
       onTitle: () => motif(true),
       done: () => { musicScene('menu', {set:0}); if (fromGallery) openScenes(); else show('mapScreen'); }
     });
@@ -3333,7 +3347,7 @@ const SP = (function(){
     document.querySelectorAll('.skin').forEach(b => b.addEventListener('click', () => { applySkin(b.dataset.skin); openVault(); }));
     const open = c => c.ch ? !!story.stars[c.ch] : !!store.get('fawwa2-intro');
     const nOpen = CODEX.filter(open).length;
-    $('codexHead').textContent = `دفتر عم سيد (${ar(nOpen)} من ${ar(CODEX.length)})`;
+    $('codexHead').textContent = `الدفتر القديم (${ar(nOpen)} من ${ar(CODEX.length)})`;
     $('codex').innerHTML = CODEX.map(c => open(c)
       ? `<div class="note"><b>${c.t}</b><p>${c.d}</p></div>`
       : `<div class="note locked"><b>؟؟؟</b><p>الصفحة دي لسه مقفولة: ${c.when}.</p></div>`).join('');
