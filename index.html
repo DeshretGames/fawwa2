@@ -181,11 +181,11 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
 .endstats b{display:block;font-size:1.3rem;font-variant-numeric:tabular-nums}
 .endstats small{color:var(--muted);font-size:.78rem}
 .chapters{display:grid;grid-template-columns:1fr;gap:12px;width:100%}
-@media (min-width:560px){.chapters{grid-template-columns:1fr 1fr}}
+@media (min-width:560px){.chap canvas{aspect-ratio:16/4}}
 .chap{font:inherit;color:inherit;text-align:start;background:var(--tile);border:2px solid var(--line);border-radius:14px;padding:0;overflow:hidden;cursor:pointer;display:flex;flex-direction:column}
-.chap canvas{width:100%;aspect-ratio:16/8;display:block;background:#000}
+.chap canvas{width:100%;aspect-ratio:16/6;display:block;background:#000}
 .chap .info{padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.chap .info b{display:block;font-size:1rem}
+.chap .info b{display:block;font-size:.95rem}.chap .stars{font-size:1.1rem;letter-spacing:2px;white-space:nowrap}
 .chap .info small{color:var(--muted);font-size:.78rem}
 .chap.locked{opacity:.5;cursor:default}
 .chap.next{border-color:var(--accent)}
@@ -258,7 +258,7 @@ footer{display:flex;justify-content:space-between;align-items:center;gap:10px;co
 .danger-zone{display:flex;flex-direction:column;gap:8px;align-items:center;border-top:1px solid var(--line);padding-top:12px}
 .danger-zone p{color:var(--bad);margin:0;text-align:center}
 .btn.bad{background:var(--bad);color:#fff}
-.news{width:100%}.news summary{cursor:pointer;list-style:none;padding:6px 0}.news summary::-webkit-details-marker{display:none}.news summary::after{content:" ▾"}.news[open] summary::after{content:" ▴"}.changes{margin:6px 0 0;padding-inline-start:18px;color:var(--muted);font-size:.8rem;line-height:1.8}
+.news{width:100%}#newsBody{padding-top:6px}.changes{margin:6px 0 0;padding-inline-start:18px;color:var(--muted);font-size:.8rem;line-height:1.8}
 .changes b{color:var(--fg)}
 .quip{font-size:.88rem;color:var(--fg);background:var(--tile);border-radius:12px;padding:8px 12px;margin:0;max-width:36ch}
 .card.dreamy .stage{animation:dreamwob 3.4s ease-in-out infinite}
@@ -487,10 +487,10 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 .nbfrag.locked{background:rgba(90,60,20,.12);text-align:center;color:var(--nb-faint)}
 @media (prefers-reduced-motion:reduce){.cine-slate.in *{animation:none}.cine-slate i{width:min(220px,50vw)}#cine.shake{animation:none}}
 .sub.world{margin-top:-4px;color:var(--fg);opacity:.85;font-size:.82rem}
-.scene-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;text-align:start}
-.scene-item{font:inherit;color:var(--fg);background:var(--tile);border:2px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:3px;cursor:pointer;text-align:start;min-height:64px}
+.scene-list{display:grid;grid-template-columns:1fr;gap:8px;width:100%;text-align:start}
+.scene-item{font:inherit;color:var(--fg);background:var(--tile);border:2px solid var(--line);border-radius:12px;padding:8px 12px;display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:10px;cursor:pointer;text-align:start;min-height:46px}
 .scene-item b{font-size:.9rem;color:var(--accent)}
-.scene-item small{font-size:.76rem;color:var(--muted)}
+.scene-item small{font-size:.76rem;color:var(--muted);text-align:end}
 .scene-item.locked{opacity:.45;cursor:default}
 .scene-item.locked b{color:var(--muted)}
 
@@ -568,13 +568,12 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
         <div class="bar"><i id="lvlBar"></i></div>
       </div>
       <div class="sect">أوضاع سريعة</div>
-      <p class="sub">جولات قصيرة، وفي آخرها غول صغير اختياري.</p>
-      <div class="modes" id="modes">
+            <div class="modes" id="modes">
         <button class="mode daily" id="mode-daily" data-mode="daily" aria-pressed="false"><b>تحدي النهارده</b><small id="dailySub">نفس الأسئلة للكل</small></button>
         <button class="mode" id="mode-classic" data-mode="classic" aria-pressed="true"><b>فنجان</b><small>٤٠ ثانية</small></button>
-        <button class="mode" id="mode-esp" data-mode="esp" aria-pressed="false"><b>إسبريسو</b><small>٢٠ ثانية، أصعب</small></button>
+        <button class="mode" id="mode-esp" data-mode="esp" aria-pressed="false"><b>إسبريسو</b><small>٢٠ ثانية</small></button>
         <button class="mode" id="mode-surv" data-mode="surv" aria-pressed="false"><b>٣ أرواح</b><small>كل سؤال بوقته</small></button>
-        <button class="mode duel" id="mode-duel" data-mode="duel" aria-pressed="false"><b>اتنين على موبايل واحد</b><small>الأعلى يكسب</small></button>
+        <button class="mode duel" id="mode-duel" data-mode="duel" aria-pressed="false"><b>اتنين على موبايل واحد</b></button>
       </div>
       <button class="btn" id="startBtn" style="width:100%">العب</button>
       <div class="mis" id="misBox"><button type="button" class="mis-head" id="misToggle" aria-expanded="false" aria-controls="misBody"><span>مهمات النهارده</span><small id="misSum"></small></button>
@@ -582,7 +581,7 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
       <div class="row wrap3">
         <button class="ghost" id="guideBtn">إزاي تلعب</button>
         <button class="ghost" id="vaultBtn">خزنتي</button>
-        <button class="ghost" id="nbBtn" hidden>الدفتر القديم</button>
+        <button class="ghost" id="nbBtn" hidden>الدفتر</button>
       </div>
     </section>
 
@@ -602,33 +601,31 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
       <h2>إزاي تلعب</h2>
       <button class="btn" id="guideTut" style="width:100%">جرّب التدريب</button>
       <div class="guide">
-        <section><h3>الفكرة</h3><p>ضباب نعاس طالع من تكييف الشركة، وأي حد بيشمّه بينام. انت بتطرده بإنك تجاوب أسئلة سريعة صح. الصح بيجيب نقط ويطرد الضباب، والغلط بياكل من وقتك.</p></section>
-        <section><h3>تتنقل إزاي</h3>
-          <div class="flow"><span>الصفحة الرئيسية</span><em>←</em><span>طور القصة</span><em>←</em><span>الخريطة</span><em>←</em><span>فصل</span><em>←</em><span>مشهد</span><em>←</em><span>اللعب</span></div>
-          <p>كارت «الخطوة الجاية» فوق في الصفحة الرئيسية بيقولك تعمل إيه دلوقتي. وأثناء اللعب، زرار «إيقاف» فوق بيوقف الوقت، ومنه تقدر ترجع للرئيسية أو للخريطة. والإعدادات وزرار «صامت» تحت خالص.</p></section>
+<section><h3>الفكرة</h3><p>ضباب نعاس طالع من تكييف الشركة. جاوب أسئلة سريعة صح عشان تطرده، والغلط بياكل من وقتك.</p></section>
+        <section><h3>تتنقل إزاي</h3><p>كارت «الخطوة الجاية» في الرئيسية بيقولك تعمل إيه. وزرار «إيقاف» بيوقف الوقت.</p></section>
         <section><h3>أنواع الأسئلة</h3><ul>
-          <li><b>الألوان:</b> «لون الحبر» يعني اللون اللي الكلمة متلونة بيه، و«معنى الكلمة» يعني اللون اللي الكلمة بتقوله.</li>
+          <li><b>الألوان:</b> لون الحبر هو لون الكلمة نفسه، ومعنى الكلمة هو اللون اللي بتقوله.</li>
           <li><b>الحساب:</b> المعادلة صح ولا غلط.</li>
-          <li><b>الأرقام:</b> السهم لفوق يعني الأكبر، ولتحت يعني الأصغر.</li>
-          <li><b>الأسهم:</b> نفس الاتجاه ولا عكسه، ولون السهم ملوش دعوة.</li>
-          <li><b>المربع المختلف:</b> واحد بس درجته مختلفة.</li>
-          <li><b>أنهي لون أكتر:</b> اللون اللي ليه نقط أكتر.</li>
+          <li><b>الأرقام:</b> السهم لفوق للأكبر، ولتحت للأصغر.</li>
+          <li><b>الأسهم:</b> نفس الاتجاه ولا عكسه. تجاهل لون السهم.</li>
+          <li><b>المربع المختلف:</b> اللي درجته مختلفة.</li>
+          <li><b>أنهي لون أكتر:</b> اللون اللي نقطه أكتر.</li>
           <li><b>الذاكرة:</b> كرر ترتيب الأزرار اللي نوّرت.</li>
           <li><b>رد الفعل:</b> استنى الأخضر وبعدين دوس.</li>
-          <li><b>ساعة الحضور:</b> اقرا الساعة. العقرب القصير للساعات، والطويل للدقايق.</li>
-          <li><b>الرقم الناقص:</b> الأرقام ماشية بنظام ثابت، اعرف الرقم اللي ناقص.</li>
+          <li><b>ساعة الحضور:</b> القصير للساعات والطويل للدقايق.</li>
+          <li><b>الرقم الناقص:</b> اعرف النظام وهات الرقم الناقص.</li>
           <li><b>عدّ المحطات:</b> كام محطة بينك وبين محطتك.</li>
-          <li><b>الشبابيك المنورة:</b> شبابيك بتنوّر ثانية وتطفي، وانت تقول كانوا كام.</li></ul>
-          <p>الأربعة الأخيرين بيبدأوا يظهروا في فصول القصة، كل واحد في الفصل بتاعه، وبعدين في الأوضاع السريعة.</p></section>
+          <li><b>الشبابيك المنورة:</b> عدّ الشبابيك اللي نوّرت.</li></ul>
+          <p>الأربعة الأخيرين بيظهروا في فصول القصة.</p></section>
         <section><h3>حاجات بتساعدك</h3><ul>
-          <li><b>الكومبو:</b> كل ٤ صح ورا بعض المضاعف بيكبر، والغلط بيرجّعه لأول.</li>
-          <li><b>وضع النار:</b> ١٢ صح ورا بعض، والنقط مضاعفة ٦ ثواني.</li>
-          <li><b>سؤال الدهب:</b> الكارت بينوّر دهبي، ونقطه ×٣.</li>
-          <li><b>سؤال الوقت:</b> الكارت بينوّر لبني وفوقه شريط بيخلص. جاوب صح قبل ما يخلص، وتكسب ثواني زيادة.</li>
-          <li><b>القدرات:</b> بتظهر تحت الأسئلة. بتبدأ كل جولة بواحدة، وكل ٨ صح ورا بعض بتكسبك واحدة كمان (لحد ٣). «تجميد» بيوقف الوقت ٥ ثواني، «تخطي» بيعدّي السؤال، و«درع» بيحميك من غلطة.</li></ul></section>
-        <section><h3>الغيلان</h3><p>في القصة، كل فصل على مرحلتين: الأول تجمع النقط المطلوبة عشان تصحّي المكان، وبعدها الغول بيطلعلك بشريط صحة. كل إجابة صح بتضربه، ولازم تطرده قبل وقته ما يخلص عشان تعدّي الفصل. لو خسرت قدامه، تقدر ترجعله على طول.</p><p>في الأوضاع السريعة، غول صغير بيطلع قرب الآخر. طرده اختياري، بس بيديك نقط ووقت.</p></section>
-        <section><h3>النجوم</h3><p>كل فصل فيه ٣ نجوم: نجمة لما تطرد الغول، ونجمة لو دقتك ٨٥٪ أو أكتر، ونجمة لو طردته وفاضل ١٠ ثواني من وقته. ولو جمعت ١٠ نجوم، بيتفتح فصل سري.</p></section>
-        <section><h3>حبّات البُن</h3><p>كل نقطة بتبقى حبّة بُن. الحبّات بتطلّع مستواك من «زبون جديد» لحد «أسطورة البُن»، وبتفتح ألوان جديدة للعبة من «خزنتي». وفي «خزنتي» كمان «الدفتر القديم»، فيه صفحات عن القصة والغيلان بتتفتح وانت بتلعب. ومهمات النهارده بتديك حبّات زيادة.</p></section>
+          <li><b>الكومبو:</b> كل ٤ صح ورا بعض المضاعف بيكبر.</li>
+          <li><b>وضع النار:</b> ١٢ صح ورا بعض، نقط مضاعفة ٦ ثواني.</li>
+          <li><b>سؤال الدهب:</b> نقطه ×٣.</li>
+          <li><b>سؤال الوقت:</b> جاوب قبل ما الشريط يخلص وتكسب ثواني.</li>
+          <li><b>القدرات:</b> تحت الأسئلة. «تجميد» بيوقف الوقت ٥ ثواني، «تخطي» بيعدّي السؤال، و«درع» بيحميك من غلطة. بتكسب واحدة كل ٨ صح ورا بعض (لحد ٣).</li></ul></section>
+        <section><h3>الغيلان</h3><p>في القصة، تجمع نقط الفصل، وبعدها الغول بيطلع بشريط صحة. كل صح بيضربه، وطرده قبل وقته ما يخلص بيعدّيك. لو خسرت ترجعله على طول. في الأوضاع السريعة غول صغير اختياري بيديك نقط ووقت.</p></section>
+        <section><h3>النجوم</h3><p>٣ نجوم في كل فصل: طرد الغول، ودقة ٨٥٪ أو أكتر، وطرده وفاضل ١٠ ثواني. ١٠ نجوم بتفتح فصل سري.</p></section>
+        <section><h3>حبّات البُن</h3><p>كل نقطة بتبقى حبّة بُن. بتطلّع مستواك وبتفتح ألوان جديدة في «خزنتي». ومهمات النهارده بتديك حبّات زيادة.</p></section>
       </div>
       <div class="row"><button class="ghost" id="guideBack">رجوع</button></div>
     </section>
@@ -710,20 +707,19 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
         <div class="set-row"><span>التأثيرات البصرية</span><div class="segs"><button data-fx="full" id="fxFull">كاملة</button><button data-fx="light" id="fxLight">خفيفة</button></div></div>
         <div class="set-row"><span>التلميحات أول مرة</span><button class="seg" id="sTips" aria-pressed="true">شغالة</button></div>
         <div class="set-row"><span>سرعة كلام القصة</span><div class="segs"><button data-tx="normal" id="txNormal">عادية</button><button data-tx="fast" id="txFast">سريعة</button></div></div>
-        <div class="set-note" id="saveStatus"></div>
         <div class="row"><button class="ghost" id="tipsReset">رجّع التلميحات</button></div>
+        <div class="set-note" id="saveStatus"></div>
         <div class="row"><button class="ghost" id="saveNow" hidden>احفظ دلوقتي</button></div>
         <div class="sect">نسخة احتياطية</div>
-        <p class="set-note">التقدم محفوظ على المتصفح ده. خد نسخة منه عشان تنقله لموبايل تاني، أو ترجعه لو بيانات المتصفح اتمسحت.</p>
         <div class="row"><button class="ghost" id="bkExport">احفظ نسخة</button><button class="ghost" id="bkImport">استرجع نسخة</button></div>
         <input type="file" id="bkFile" accept=".json,application/json,text/plain" hidden>
         <div class="danger-zone">
-          <button class="ghost" id="resetBtn">ابدأ اللعبة من جديد (يمسح التقدم)</button>
-          <div id="resetConfirm" hidden><p>متأكد؟ كل النجوم والحبّات والإنجازات هتتمسح ومش هترجع.</p>
+          <button class="ghost" id="resetBtn">ابدأ اللعبة من جديد</button>
+          <div id="resetConfirm" hidden><p>متأكد؟ النجوم والحبّات والإنجازات هتتمسح ومش هترجع.</p>
             <div class="row" style="margin-top:8px"><button class="btn bad" id="resetYes">أيوه امسح</button><button class="ghost" id="resetNo">لأ، رجوع</button></div></div>
         </div>
-        <details class="news"><summary class="sect">إيه الجديد</summary>
-        <ul class="changes" id="changelog"></ul></details>
+        <div class="news"><button type="button" class="mis-head" id="newsToggle" aria-expanded="false" aria-controls="newsBody"><span>إيه الجديد</span></button>
+        <div id="newsBody" hidden><ul class="changes" id="changelog"></ul></div></div>
       </div>
       <p class="set-note" style="text-align:center;margin-top:14px">فوّق! من <span dir="ltr">Deshret Games</span></p>
       <button class="ghost" id="setBack">رجوع</button>
@@ -1379,8 +1375,9 @@ const SP = (function(){
 (function(){
   const $ = id => document.getElementById(id);
   document.documentElement.setAttribute('dir', 'rtl'); document.documentElement.setAttribute('lang', 'ar');
-  const VERSION = 24;
+  const VERSION = 25;
   const CHANGELOG = [
+    [25, 'شاشات أبسط وأهدى: الرئيسية والدليل والخزنة والإعدادات والخريطة والمشاهد بنص أقل وترتيب أنضف، وكل حاجة مهمة لسه موجودة.'],
     [24, '«المربع المختلف» بقى واضح: المربع المختلف بيبان من أول نظرة حتى في الشمس، والصعوبة بتزيد بالتدريج من غير ما يختفي الفرق، والـ١٦ مربع مابيظهروش غير في آخر مستوى.'],
     [23, 'الدفتر القديم: الهوامش بقت متساوية يمين وشمال، والكلام والأزرار قاعدين على سطور الورق، والنقط الحمرا في ركن واحد ثابت.'],
     [22, 'الدفتر القديم بقى صفحاته كلها بنفس الحجم ونفس ترتيب الكلام، وشلنا حركة قلب الصفحة وصوتها: الصفحة بتتغير فوراً.'],
@@ -1711,7 +1708,7 @@ const SP = (function(){
     const el = $('saveStatus'); if (!el) return;
     el.textContent = ({
       cloud:'تقدمك محفوظ على حسابك، وهيرجعلك كل ما تفتح اللعبة من أي جهاز.',
-      local:'الحفظ دلوقتي على المتصفح ده بس، وممكن يتمسح لو بيانات المتصفح اتمسحت.',
+      local:'الحفظ على المتصفح ده بس. خد نسخة عشان تنقلها أو ترجعها لو اتمسحت.',
       readonly:'الحفظ على المتصفح ده بس.',
       error:'في مشكلة في الحفظ على حسابك دلوقتي. تقدمك محفوظ على المتصفح ده لحد ما الحفظ يرجع.',
       checking:'بنشوف مكان الحفظ…'
@@ -3177,8 +3174,8 @@ const SP = (function(){
   }
   function openScenes(){
     const L = sceneList();
-    $('scenesSub').textContent = `شفت ${ar(L.filter(x => x.ok).length)} مشهد من ${ar(L.length)}. المشاهد بتتفتح وانت بتكمّل القصة.`;
-    $('sceneList').innerHTML = L.map((x, i) => `<button class="scene-item${x.ok ? '' : ' locked'}" data-i="${i}" ${x.ok ? '' : 'aria-disabled="true"'}><b>${x.ok ? x.t : '؟؟؟'}</b><small>${x.ok ? x.d : 'لسه ما شفتهوش'}</small></button>`).join('');
+    $('scenesSub').textContent = `شفت ${ar(L.filter(x => x.ok).length)} من ${ar(L.length)} مشهد.`;
+    $('sceneList').innerHTML = L.map((x, i) => `<button class="scene-item${x.ok ? '' : ' locked'}" data-i="${i}" ${x.ok ? '' : 'aria-disabled="true"'}><b>${x.ok ? x.t : '؟؟؟'}</b>${x.ok ? `<small>${x.d}</small>` : ''}</button>`).join('');
     document.querySelectorAll('.scene-item').forEach(b => b.addEventListener('click', () => {
       const x = L[+b.dataset.i]; if (!x.ok){ toast('المشهد ده لسه ما شفتهوش'); return; }
       sfx('tick'); x.play();
@@ -3191,10 +3188,10 @@ const SP = (function(){
 
   function renderMap(){
     const ts = totalStars();
-    $('mapSub').textContent = `كل فصل على مرحلتين: صحّي المكان، وبعدين اطرد الغول. معاك ${ar(ts)} نجمة من ${ar(MAIN.length*3)}.`;
+    $('mapSub').textContent = `معاك ${ar(ts)} نجمة من ${ar(MAIN.length*3)}.`;
     $('chapters').innerHTML = CHAPTERS.map((c, i) => {
       const open = isOpen(c, i), s = story.stars[c.id] || 0, isNext = open && !s;
-      const lockTxt = c.secret ? `بيتفتح لما تجمع ${ar(SECRET_STARS)} نجوم (معاك ${ar(ts)})` : 'خلّص الفصل اللي قبله عشان يتفتح';
+      const lockTxt = c.secret ? `بيتفتح لما تجمع ${ar(SECRET_STARS)} نجوم (معاك ${ar(ts)})` : 'مقفول';
       const cr = story.crit[c.id] || [s > 0, false, false];
       const crList = open && s ? `<span class="mini-crit">${critText(c).map((t,k) => `<i class="${cr[k] ? 'on' : ''}" title="${t}">★</i>`).join('')}</span>` : '';
       return `<button class="chap${open ? '' : ' locked'}${isNext ? ' next' : ''}${c.secret ? ' secret' : ''}" data-ch="${i}" ${open ? '' : 'aria-disabled="true"'}>
@@ -3232,7 +3229,7 @@ const SP = (function(){
   function renderHero(){
     const ts = totalStars(), ch = currentChapter() || MAIN[MAIN.length - 1];
     const done = !currentChapter();
-    $('heroSub').textContent = done ? `خلصت القصة · ${ar(ts)} نجمة من ${ar(MAIN.length*3)}` : `${ch.label}: ${ch.name} · ${ar(ts)} نجمة`;
+    $('heroSub').textContent = done ? `خلصت القصة · ${ar(ts)} نجمة من ${ar(MAIN.length*3)}` : `${ch.label}: ${ch.name}`;
     $('heroPlay').textContent = 'الخريطة';
     requestAnimationFrame(() => thumb($('heroCv'), WORLD.scene, WORLD.p));
   }
@@ -3427,7 +3424,7 @@ const SP = (function(){
   /* ================= VAULT ================= */
   function chartHTML(){
     const h = prof.hist.filter(x => x.m !== 'duel').slice(-14);
-    if (h.length < 2) return '<p class="trend">العب جولتين على الأقل عشان يظهرلك رسم تقدمك.</p>';
+    if (h.length < 2) return '<p class="trend">العب جولتين وهيظهر الرسم.</p>';
     const W = 300, H = 120, P = 12, max = Math.max(...h.map(x => x.s), 100);
     const pts = h.map((x,i) => [P + i*(W - 2*P)/(h.length - 1), H - P - (x.s/max)*(H - 2*P - 8)]);
     const line = pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ');
@@ -3510,17 +3507,17 @@ const SP = (function(){
     $('chartBox').innerHTML = chartHTML();
     const acc = prof.answered ? Math.round(prof.right/prof.answered*100) : 0;
     const cells = [
-      [ar(prof.games), 'جولات لعبتها'], [ar(acc) + '٪', 'دقتك الكلية'],
-      [ar(totalStars()) + ' من ' + ar(MAIN.length*3), 'نجوم القصة'], [ar(prof.bosses), 'غيلان طردتها'],
+      [ar(prof.games), 'جولات'], [ar(acc) + '٪', 'الدقة'],
+      [ar(totalStars()) + ' من ' + ar(MAIN.length*3), 'نجوم القصة'], [ar(prof.bosses), 'غيلان'],
       [ar(prof.bestCombo), 'أطول كومبو'], [ar(getBest('classic')), 'أحسن فنجان'],
-      [ar(getBest('surv')), 'أحسن ٣ أرواح'], [ar(prof.streak), 'أيام التحدي ورا بعض']
+      [ar(getBest('surv')), 'أحسن ٣ أرواح'], [ar(prof.streak), 'أيام التحدي']
     ];
     $('vaultStats').innerHTML = cells.map(c => `<div><b>${c[0]}</b><small>${c[1]}</small></div>`).join('');
     $('skinHead').textContent = `ألوان اللعبة (معاك ${ar(prof.beans)} حبّة بُن)`;
     $('skins').innerHTML = SKINS.map(x => {
       const open = prof.beans >= x[2];
       return `<button class="skin" data-skin="${x[0]}" aria-pressed="${skin === x[0]}" ${open ? '' : 'disabled'} style="background:${x[3]};color:${x[0]==='milk'?'#3b2617':'#f6ead9'}">
-        <b style="color:${x[4]}">${x[1]}</b><small>${open ? (skin === x[0] ? 'شغال دلوقتي' : 'دوس عشان تلبسه') : 'يتفتح عند ' + ar(x[2]) + ' حبّة'}</small></button>`;
+        <b style="color:${x[4]}">${x[1]}</b><small>${open ? (skin === x[0] ? 'شغال' : 'البسه') : ar(x[2]) + ' حبّة'}</small></button>`;
     }).join('');
     document.querySelectorAll('.skin').forEach(b => b.addEventListener('click', () => { applySkin(b.dataset.skin); openVault(); }));
     const got = ACH.filter(a => ach[a[0]]).length;
@@ -3554,6 +3551,7 @@ const SP = (function(){
   $('nextSkip').addEventListener('click', () => { store.set('fawwa2-tut','1'); renderNext(); toast('تمام، التدريب موجود في «إزاي تلعب»'); });
   $('mapBack').addEventListener('click', () => { setMode(store.get('fawwa2-mode') || 'classic'); show('startScreen'); });
   $('vaultBtn').addEventListener('click', openVault);
+  $('newsToggle').addEventListener('click', () => { const o = $('newsToggle').getAttribute('aria-expanded') !== 'true'; $('newsToggle').setAttribute('aria-expanded', String(o)); $('newsBody').hidden = !o; });
   $('misToggle').addEventListener('click', () => { const o = $('misToggle').getAttribute('aria-expanded') !== 'true'; $('misToggle').setAttribute('aria-expanded', String(o)); $('misBody').hidden = !o; });
   $('vaultBack').addEventListener('click', () => goBack('vaultScreen'));
   $('nbBtn').addEventListener('click', openNb);
