@@ -694,8 +694,8 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
         <div class="endstats" id="vaultStats"></div>
         <div class="sect" id="skinHead">ألوان اللعبة</div>
         <div class="skins" id="skins"></div>
-        <div class="sect" id="badgeHead">الإنجازات</div>
-        <div class="badges" id="badges"></div>
+        <button type="button" class="mis-head" id="badgeToggle" aria-expanded="false" aria-controls="badgesWrap"><span id="badgeHead">الإنجازات</span></button>
+        <div id="badgesWrap" hidden><div class="badges" id="badges"></div></div>
       </div>
       <button class="ghost" id="vaultBack">رجوع</button>
     </section>
@@ -1376,8 +1376,9 @@ const SP = (function(){
 (function(){
   const $ = id => document.getElementById(id);
   document.documentElement.setAttribute('dir', 'rtl'); document.documentElement.setAttribute('lang', 'ar');
-  const VERSION = 26;
+  const VERSION = 27;
   const CHANGELOG = [
+    [27, 'الإنجازات في «خزنتي» بقت مقفولة في زرار، وبتتفتح لما تدوس عليه، فالصفحة مبقتش طويلة.'],
     [26, 'شاشات اللعب أبسط وأهدى: النتيجة بتدخل الشاشة من غير سكرول، وكروت الشرح أقصر وأقل، والإيقاف والغول والدوِل بنص أقل.'],
     [25, 'شاشات أبسط وأهدى: الرئيسية والدليل والخزنة والإعدادات والخريطة والمشاهد بنص أقل وترتيب أنضف، وكل حاجة مهمة لسه موجودة.'],
     [24, '«المربع المختلف» بقى واضح: المربع المختلف بيبان من أول نظرة حتى في الشمس، والصعوبة بتزيد بالتدريج من غير ما يختفي الفرق، والـ١٦ مربع مابيظهروش غير في آخر مستوى.'],
@@ -3523,6 +3524,7 @@ const SP = (function(){
     document.querySelectorAll('.skin').forEach(b => b.addEventListener('click', () => { applySkin(b.dataset.skin); openVault(); }));
     const got = ACH.filter(a => ach[a[0]]).length;
     $('badgeHead').textContent = `الإنجازات (${ar(got)} من ${ar(ACH.length)})`;
+    $('badgeToggle').setAttribute('aria-expanded', 'false'); $('badgesWrap').hidden = true;
     $('badges').innerHTML = ACH.map(a => `<div class="badge${ach[a[0]] ? '' : ' locked'}"><b>${a[1]}</b><small>${a[2]}</small></div>`).join('');
     show('vaultScreen');
   }
@@ -3552,6 +3554,7 @@ const SP = (function(){
   $('nextSkip').addEventListener('click', () => { store.set('fawwa2-tut','1'); renderNext(); toast('تمام، التدريب موجود في «إزاي تلعب»'); });
   $('mapBack').addEventListener('click', () => { setMode(store.get('fawwa2-mode') || 'classic'); show('startScreen'); });
   $('vaultBtn').addEventListener('click', openVault);
+  $('badgeToggle').addEventListener('click', () => { const o = $('badgeToggle').getAttribute('aria-expanded') !== 'true'; $('badgeToggle').setAttribute('aria-expanded', String(o)); $('badgesWrap').hidden = !o; });
   $('newsToggle').addEventListener('click', () => { const o = $('newsToggle').getAttribute('aria-expanded') !== 'true'; $('newsToggle').setAttribute('aria-expanded', String(o)); $('newsBody').hidden = !o; });
   $('misToggle').addEventListener('click', () => { const o = $('misToggle').getAttribute('aria-expanded') !== 'true'; $('misToggle').setAttribute('aria-expanded', String(o)); $('misBody').hidden = !o; });
   $('vaultBack').addEventListener('click', () => goBack('vaultScreen'));
