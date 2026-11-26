@@ -485,6 +485,14 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 .nbweak b{color:var(--nb-saber)}
 .nbfresh{position:relative}
 .nbbig{font-size:2.6rem;line-height:56px;text-align:center;letter-spacing:6px;color:rgba(90,60,20,.78);margin:28px 0 0}
+.nbbuy{display:flex;flex-direction:column;width:100%;height:56px;box-sizing:border-box;font:inherit;line-height:28px;text-align:center;padding:0 12px;margin:0;border:0;border-radius:10px;background:var(--nb-ink);color:var(--nb-paper);cursor:pointer}
+.nbbuy b{display:block;line-height:28px;font-size:.95rem}.nbbuy small{display:block;line-height:28px;font-size:.72rem}
+.nbbuy.off{background:rgba(255,255,255,.3);color:var(--nb-faint);box-shadow:inset 0 0 0 2px var(--nb-edge);cursor:default}
+.nbbuy.done{background:transparent;color:var(--nb-ink);box-shadow:none;cursor:default}
+.nbtq{font-weight:700}
+.nbq{display:block;margin:0;font-size:.9rem;line-height:28px;color:var(--nb-faint)}
+.nbnote{display:block;margin:0;text-align:end;font-size:.78rem;color:var(--nb-faint);line-height:28px}
+@media (prefers-reduced-motion:no-preference){.nbpour{animation:nbpour .7s ease-out}@keyframes nbpour{from{opacity:0}to{opacity:1}}}
 .nbblank{text-align:center;color:var(--nb-faint);font-size:.85rem;line-height:28px}
 .nbtear{position:absolute;top:0;left:0;right:0;height:14px;margin:0;background:var(--bg);clip-path:polygon(0 0,100% 0,100% 40%,96% 80%,92% 30%,87% 90%,82% 40%,76% 85%,70% 25%,64% 80%,58% 35%,52% 90%,46% 30%,40% 85%,34% 40%,28% 80%,22% 30%,16% 90%,10% 35%,5% 80%,0 40%)}
 .nbfragw{position:relative;margin:0 0 28px;font-size:.9rem;line-height:28px}
@@ -1380,8 +1388,9 @@ const SP = (function(){
 (function(){
   const $ = id => document.getElementById(id);
   document.documentElement.setAttribute('dir', 'rtl'); document.documentElement.setAttribute('lang', 'ar');
-  const VERSION = 29;
+  const VERSION = 30;
   const CHANGELOG = [
+    [30, 'قسم جديد في الدفتر اسمه «حكايات البوفيه»: اعمل لعم سيد فنجان بحبّات البُن واسمع حكاياته عن عم صابر. الحبّات اللي بتصرفها مبتنزّلش مستواك ولا بتقفل ألوانك.'],
     [29, 'ألوان أوضح في الضوء: نص أنصع، وحدود وأزرار بتبان حتى في الشمس، والإجابة الصح بتتوهج لحظة.'],
     [28, 'سطر الهدف (والخطوة والأرواح) بقى في نص الشاشة فوق السؤال.'],
     [27, 'الإنجازات في «خزنتي» بقت مقفولة في زرار، وبتتفتح لما تدوس عليه، فالصفحة مبقتش طويلة.'],
@@ -1474,7 +1483,7 @@ const SP = (function(){
   /* The old notebook (Uncle Sayed found it in the buffet drawer): story pages that unlock as you progress */
   const STRAYS = ['نَعسة','هَجعة','نُعاس','كَرى','خُمول','قَيلولة'];
   /* ---------- The old notebook (v18): pages with parts. A part shows when its condition holds; unseen parts get a red dot ---------- */
-  const NB_SECS = [['fog','الضباب'],['ppl','الناس'],['gh','الغيلان'],['stray','الشاردين'],['torn','الصفحة المتقطعة']];
+  const NB_SECS = [['fog','الضباب'],['ppl','الناس'],['gh','الغيلان'],['stray','الشاردين'],['torn','الصفحة المتقطعة'],['tales','حكايات البوفيه']];
   const nbCh = n => () => !!story.stars[n];
   const nbIntro = () => !!store.get('fawwa2-intro');
   const NB = [
@@ -1504,6 +1513,13 @@ const SP = (function(){
       {k:'f6', n:6, w:'saber', x:'«بيصحى لما المكان يتقل. والمكان ده كل سنة بيتقل أكتر».', ok:() => totalStars() >= 6},
       {k:'f9', n:9, w:'saber', x:'«رفضت التكييف في البوفيه. لازم يفضل في الشركة مكان واحد الهوا فيه بتاعنا».', ok:() => totalStars() >= 9},
       {k:'f12', n:12, w:'saber', x:'«ده مش أول مبنى. ومش هيبقى آخر واحد».', ok:() => totalStars() >= 12}]}
+    ,...[
+      ['tl1','الحكاية الأولى','ليه كان بيقفل الشباك الساعة ٢؟','«عم صابر كان بيقفل شباك البوفيه كل يوم الساعة ٢ بالظبط. كنا فاكرينه بيكره الدوشة».',500,1,'خلّص الفصل الأول'],
+      ['tl2','الحكاية التانية','إيه أول حاجة قالها لعم سيد؟','«أول يوم ليّا في الشركة، قالي: البوفيه ده بيتك. أي حاجة تحصل برّه، ادخل هنا واقفل الباب».',1000,1,'خلّص الفصل الأول'],
+      ['tl3','الحكاية التالتة','ليه مسابش الفني لحظة؟','«مرة المدير جاب فني يكشف على التكييف. عم صابر فضل واقف جنبه فوق السطح لحد ما خلص، ومرضيش يسيبه لحظة».',1500,2,'خلّص الفصل التاني'],
+      ['tl4','الحكاية الرابعة','إزاي مفتاح السطح وصل لعم سيد؟','«يوم ما ساب الشغل، مسلّمش على حد. ساب على ترابيزة البوفيه الدفتر… ومفتاح السطح».',2000,3,'خلّص الفصل التالت'],
+      ['tl5','الحكاية الخامسة','إزاي عم سيد عرف مكان صابر؟','«من كام سنة شفته صدفة في المترو. سألته ماله، قالي: لما تحتاجني، هتعرف مكاني».',3000,4,'خلّص الفصل الأخير']
+    ].map(([id, n, t, x, price, ch, when], i) => ({id, sec:'tales', tale:i, n, t, x, price, when, open:nbCh(ch), parts:[]}))
   ];
   const PROLOGUE = [
     {t:'بعد الغدا بنص ساعة. انت في البوفيه مع عم سيد، مستني فنجانك.', p:{fog:0, sleep:0, cup:0, eyes:0}},
@@ -1660,6 +1676,7 @@ const SP = (function(){
       if (a == null){ out[k] = b; continue; } if (b == null){ out[k] = a; continue; }
       if (k.startsWith('fawwa2-best')) out[k] = String(Math.max(+a || 0, +b || 0));
       else if (k === 'fawwa2-nb-seen' || k === 'fawwa2-nb-strays') out[k] = JSON.stringify(Object.assign({}, J(a), J(b)));
+      else if (k === 'fawwa2-tales') out[k] = JSON.stringify({bought: Object.assign({}, J(a).bought, J(b).bought)});
       else if (k === 'fawwa2-tips' || k === 'fawwa2-ach') out[k] = JSON.stringify(Object.assign({}, J(a), J(b), cloudNewer ? J(b) : J(a)));
       else if (k === 'fawwa2-tut' || k === 'fawwa2-intro') out[k] = a === '1' || b === '1' ? '1' : a;
       else if (k === 'fawwa2-story'){
@@ -1730,11 +1747,12 @@ const SP = (function(){
   const getBest = m => +store.get(bestKey(m)) || 0;
   const DEF_PROF = () => ({games:0, right:0, answered:0, streak:0, lastDaily:'', bestCombo:0, beans:0, golds:0, bosses:0, bonus:0, hist:[]});
   const DEF_SET = () => ({music:70, sfx:90, vib:true, fx:'full', text:'normal', tips:true});
-  let prof, ach, story, SET, muted, TIPSEEN, skin, nbSeen, nbStray, nbReady = false;
+  let prof, ach, story, SET, muted, TIPSEEN, skin, nbSeen, nbStray, nbReady = false, tales = {bought:{}};
   function loadAll(){
     prof = Object.assign(DEF_PROF(), store.json('fawwa2-profile', {}));
     ach = store.json('fawwa2-ach', {});
     nbReady = false;
+    tales = store.json('fawwa2-tales', {}); if (!tales.bought || typeof tales.bought !== 'object') tales.bought = {};
     story = Object.assign({open:1, stars:{}, crit:{}, seen:{}, met:{}}, store.json('fawwa2-story', {}));
     if (!story.seen) story.seen = {}; if (!story.met) story.met = {};
     if (!story.crit) story.crit = {};
@@ -1755,6 +1773,9 @@ const SP = (function(){
     }
   }
   const saveProf = () => store.put('fawwa2-profile', prof);
+  /* prof.beans = everything ever earned (level and skins). Balance = earned minus what the buffet tales cost */
+  const spentBeans = () => Object.values(tales.bought).reduce((a, v) => a + (+v || 0), 0);
+  const balance = () => Math.max(0, (prof.beans || 0) - spentBeans());
   const seenTip = k => !!TIPSEEN[k];
   const markTip = k => { TIPSEEN[k] = 1; store.put('fawwa2-tips', TIPSEEN); };
 
@@ -2243,7 +2264,7 @@ const SP = (function(){
   function renderLevel(){
     const i = levelOf(prof.beans), maxed = i === TITLES.length-1;
     $('lvlName').textContent = `مستوى ${ar(i+1)}: ${TITLES[i]}`;
-    $('lvlNext').textContent = maxed ? `${ar(prof.beans)} حبّة · وصلت للقمة` : `${ar(prof.beans)} حبّة · ${ar(lvlAt(i+1) - prof.beans)} للمستوى الجاي`;
+    $('lvlNext').textContent = maxed ? `كسبت ${ar(prof.beans)} حبّة · وصلت للقمة` : `كسبت ${ar(prof.beans)} حبّة · ${ar(lvlAt(i+1) - prof.beans)} للمستوى الجاي`;
     $('lvlBar').style.width = (maxed ? 100 : (prof.beans - lvlAt(i)) / (lvlAt(i+1) - lvlAt(i)) * 100) + '%';
   }
   function missionsToday(){
@@ -2528,7 +2549,7 @@ const SP = (function(){
       if (mode === 'story' && chapter){ $('best').textContent = ar(+store.get('fawwa2-best-ch' + chapter.id) || 0); $('bestLabel').textContent = 'أحسن رقم'; }
       return;
     }
-    $('score').textContent = ar(prof.beans || 0); $('scoreLabel').textContent = 'حبّة بُن';
+    $('score').textContent = ar(balance()); $('scoreLabel').textContent = 'حبّة بُن';
     $('best').textContent = ar(totalStars()); $('bestLabel').textContent = 'نجوم القصة';
   }
   /* The office on the home screen changes with the story: asleep, awake, fog gone, and finally a friendly visitor */
@@ -3464,7 +3485,10 @@ const SP = (function(){
     if (raw == null){ nbSeen = {}; NB.forEach(p => nbKeys(p).forEach(k => { nbSeen[k] = 1; })); store.put('fawwa2-nb-seen', nbSeen); }
     else nbSeen = raw;
   }
-  const nbKeys = p => p.open() ? p.parts.filter(x => !x.ok || x.ok()).map(x => p.id + ':' + x.k) : [];
+  /* Tales: chain = chapter reached and the previous tale bought; markers when a tale unlocks and when it becomes affordable */
+  const taleChain = p => p.open() && (p.tale === 0 || !!tales.bought[NB.find(x => x.tale === p.tale - 1).id]);
+  const taleKeys = p => { if (tales.bought[p.id] || !taleChain(p)) return []; return balance() >= p.price ? [p.id + ':open', p.id + ':aff'] : [p.id + ':open']; };
+  const nbKeys = p => !p.open() ? [] : p.tale != null ? taleKeys(p) : p.parts.filter(x => !x.ok || x.ok()).map(x => p.id + ':' + x.k);
   const nbNew = p => { nbEnsure(); return nbKeys(p).some(k => !nbSeen[k]); };
   const nbAnyNew = () => NB.some(nbNew);
   const nbVisible = () => !!story.stars[1];
@@ -3483,12 +3507,12 @@ const SP = (function(){
     nbEnsure(); NBV.page = null;
     const book = $('nbBook'), tabs = NB_SECS.map(([k, n]) => `<button class="nbtab" data-sec="${k}" aria-pressed="${NBV.sec === k}">${n}${NB.some(p => p.sec === k && nbNew(p)) ? '<i class="reddot"></i>' : ''}</button>`).join('');
     const items = NB.filter(p => p.sec === NBV.sec).map(p => {
-      const o = p.open(), nm = o ? p.t : '؟؟؟';
-      return `<button class="nbitem${o ? '' : ' locked'}" data-pg="${p.id}"><b>${nm}</b><small>${o ? '' : p.when}</small>${nbNew(p) ? '<i class="reddot"></i>' : ''}</button>`;
+      const o = p.open(), nm = o ? p.t : '؟؟؟', sub = !o ? p.when : p.tale == null ? '' : tales.bought[p.id] ? 'اتعملت' : ar(p.price) + ' حبّة';
+      return `<button class="nbitem${o ? '' : ' locked'}" data-pg="${p.id}"><b>${nm}</b><small>${sub}</small>${nbNew(p) ? '<i class="reddot"></i>' : ''}</button>`;
     }).join('');
-    const n = NB.filter(p => p.open()).length;
+    const reg = NB.filter(p => p.tale == null), n = reg.filter(p => p.open()).length;
     book.className = 'nbbook';
-    book.innerHTML = `<h2>الدفتر القديم (${ar(n)} من ${ar(NB.length)})</h2><div class="nbtabs">${tabs}</div>${items}`;
+    book.innerHTML = `<h2>الدفتر القديم (${ar(n)} من ${ar(reg.length)})</h2><div class="nbtabs">${tabs}</div>${NBV.sec === 'tales' ? `<span class="nbblank" style="display:block">معاك ${ar(balance())} حبّة بُن</span>` : ''}${items}`;
     book.querySelectorAll('.nbtab').forEach(b => b.addEventListener('click', () => { NBV.sec = b.dataset.sec; nbHomeRender(); }));
     book.querySelectorAll('.nbitem').forEach(b => b.addEventListener('click', () => nbPageRender(b.dataset.pg)));
   }
@@ -3498,6 +3522,7 @@ const SP = (function(){
     if (!p.open()){
       book.innerHTML = `<h2>؟؟؟</h2><div class="nbbig">؟؟؟</div><div class="nbblank">الصفحة دي لسه مقفولة: ${p.when}.</div>`; return;
     }
+    if (p.tale != null) return nbTaleRender(p);
     const keys = nbKeys(p), fresh = new Set(keys.filter(k => !nbSeen[k]));
     const rev = p.art ? (p.rev || p.open)() : false;
     let h = p.torn ? '<div class="nbtear"></div>' : '';
@@ -3518,6 +3543,28 @@ const SP = (function(){
     if (p.art){ const c = document.createElement('canvas'); c.width = 440; c.height = 260; try { SP.ghoul(c.getContext("2d"), 440, 260, 0, 1, 130, p.art); } catch(e){ console.error("nbart", e.message); } $('nbArt').appendChild(c); }
     keys.forEach(k => { nbSeen[k] = 1; }); store.put('fawwa2-nb-seen', nbSeen);
   }
+  function nbTaleRender(p){
+    const book = $('nbBook'), bought = tales.bought[p.id], keys = nbKeys(p), fresh = keys.some(k => !nbSeen[k]), bal = balance();
+    let h = `<h2>${p.n}</h2>${fresh ? DOT : ''}<span class="nbtext nbtq">${p.t}</span>`;
+    if (bought){
+      h += `<span class="nbq">&nbsp;</span><span class="nbpencil${p.fresh ? ' nbpour' : ''}">${p.x}</span><span class="nbnote">— عم سيد</span><span class="nbq">&nbsp;</span><button class="nbbuy done" disabled><b>✓ اتعملت</b><small>اتصرف ${ar(bought)} حبّة</small></button>`;
+    } else {
+      const chain = taleChain(p), prev = p.tale ? NB.find(x => x.tale === p.tale - 1) : null;
+      const sub = !chain ? `اسمع ${prev.n} الأول` : bal < p.price ? `ناقصك ${ar(p.price - bal)} حبّة · معاك ${ar(bal)}` : `${ar(p.price)} حبّة · معاك ${ar(bal)}`;
+      h += `<span class="nbq">عم سيد بيحكي لما تعمله فنجان.</span><span class="nbq">&nbsp;</span><button class="nbbuy${chain && bal >= p.price ? '' : ' off'}" id="nbBuy" ${chain && bal >= p.price ? '' : 'disabled'}><b>اعمل لعم سيد فنجان</b><small>${sub}</small></button>`;
+    }
+    p.fresh = false;
+    book.className = 'nbbook nbpg'; book.innerHTML = h;
+    const b = $('nbBuy'); if (b) b.addEventListener('click', () => buyTale(p.id));
+    keys.forEach(k => { nbSeen[k] = 1; }); store.put('fawwa2-nb-seen', nbSeen);
+  }
+  function buyTale(id){
+    const p = NB.find(x => x.id === id); nbEnsure();
+    if (!p || p.tale == null || tales.bought[id] || !taleChain(p) || balance() < p.price) return;
+    tales.bought[id] = p.price; store.put('fawwa2-tales', tales);
+    p.fresh = true; vib(20);
+    syncHeader('nbScreen'); nbPageRender(id); renderNbBtn();
+  }
   function openNb(){ nbEnsure(); NBV.sec = NBV.sec || 'fog'; nbHomeRender(); show('nbScreen'); }
   function openVault(){
     $('chartBox').innerHTML = chartHTML();
@@ -3529,7 +3576,7 @@ const SP = (function(){
       [ar(getBest('surv')), 'أحسن ٣ أرواح'], [ar(prof.streak), 'أيام التحدي']
     ];
     $('vaultStats').innerHTML = cells.map(c => `<div><b>${c[0]}</b><small>${c[1]}</small></div>`).join('');
-    $('skinHead').textContent = `ألوان اللعبة (معاك ${ar(prof.beans)} حبّة بُن)`;
+    $('skinHead').textContent = `ألوان اللعبة (كسبت ${ar(prof.beans)} حبّة بُن)`;
     $('skins').innerHTML = SKINS.map(x => {
       const open = prof.beans >= x[2];
       return `<button class="skin" data-skin="${x[0]}" aria-pressed="${skin === x[0]}" ${open ? '' : 'disabled'} style="background:${x[3]};color:${x[0]==='milk'?'#24150b':'#fff8ee'}">
