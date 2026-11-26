@@ -89,7 +89,7 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .card.sway{animation:sway 3.2s ease-in-out infinite}
 @keyframes sway{25%{transform:rotate(.6deg) translateX(2px)}75%{transform:rotate(-.6deg) translateX(-2px)}}
 @keyframes bosspulse{50%{box-shadow:0 0 0 3px var(--boss),0 0 60px 4px var(--boss)}}
-.hud{position:relative;align-self:stretch;display:flex;align-items:center;gap:8px;min-height:34px;font-weight:700;font-size:.92rem;z-index:1}.hud>.combo,.hud>.lives{flex:1}.hud>.lives{text-align:end}
+.hud{position:relative;align-self:stretch;display:flex;align-items:center;gap:8px;min-height:34px;font-weight:700;font-size:.92rem;z-index:1}.hud>.lives{flex:1;text-align:center}.hud>.lives.side{text-align:end}.hud>.combo{position:absolute;inset-block:0;inset-inline-start:0;display:flex;align-items:center}
 .hud .combo{color:var(--accent);display:inline-block}
 .hud .combo.pop{animation:pop .25s}
 @keyframes pop{50%{transform:scale(1.35)}}
@@ -1376,8 +1376,9 @@ const SP = (function(){
 (function(){
   const $ = id => document.getElementById(id);
   document.documentElement.setAttribute('dir', 'rtl'); document.documentElement.setAttribute('lang', 'ar');
-  const VERSION = 27;
+  const VERSION = 28;
   const CHANGELOG = [
+    [28, 'سطر الهدف (والخطوة والأرواح) بقى في نص الشاشة فوق السؤال.'],
     [27, 'الإنجازات في «خزنتي» بقت مقفولة في زرار، وبتتفتح لما تدوس عليه، فالصفحة مبقتش طويلة.'],
     [26, 'شاشات اللعب أبسط وأهدى: النتيجة بتدخل الشاشة من غير سكرول، وكروت الشرح أقصر وأقل، والإيقاف والغول والدوِل بنص أقل.'],
     [25, 'شاشات أبسط وأهدى: الرئيسية والدليل والخزنة والإعدادات والخريطة والمشاهد بنص أقل وترتيب أنضف، وكل حاجة مهمة لسه موجودة.'],
@@ -2753,6 +2754,7 @@ const SP = (function(){
     else if (mode === 'surv') right = '♥'.repeat(Math.max(0, st.lives));
     else if (mode === 'duel') right = esc(duel.names[duel.turn]);
     else if (mode === 'story') right = st.phase === 'boss' ? `<span class="goal boss">${bossShow(chapter)}</span>` : `<span class="goal">الهدف: ${ar(Math.min(st.score, chapter.target))} من ${ar(chapter.target)}</span>`;
+    $('lives').classList.toggle('side', fire);
     $('lives').innerHTML = (st.shield ? '<span class="shield-on">درع </span>' : '') + right;
   }
 
