@@ -49,7 +49,7 @@ body{overscroll-behavior-y:none;touch-action:manipulation}
 button,.answers,.card{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 input,textarea{-webkit-user-select:text;user-select:text}
 [hidden]{display:none!important}
-body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;-webkit-tap-highlight-color:transparent;
+body{margin:0 8px;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;-webkit-tap-highlight-color:transparent;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));overflow-x:hidden}
 #scene{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:var(--scene-op);pointer-events:none}
 #sceneShade{position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(to bottom,color-mix(in srgb,var(--bg) 35%,transparent),color-mix(in srgb,var(--bg) 70%,transparent))}
@@ -98,9 +98,8 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .hud .goal.done{color:var(--good)}
 .prompt{text-align:center;color:var(--muted);font-weight:600;font-size:1.05rem;min-height:1.5em}
 .prompt em{font-style:normal;color:var(--fg);background:var(--line);padding:1px 8px;border-radius:6px}
-.gold-tag,.boss-tag{display:inline-block;border-radius:6px;padding:0 8px;margin-inline-end:6px;font-weight:700}
+.gold-tag{display:inline-block;border-radius:6px;padding:0 8px;margin-inline-end:6px;font-weight:700}
 .gold-tag{background:var(--gold);color:#2a1d00}
-.boss-tag{background:var(--boss);color:#fff}
 .stage{text-align:center;font-family:var(--display);font-size:clamp(2.8rem,14vw,3.6rem);line-height:1.2;min-height:1.3em}
 .stage .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block;font-family:var(--body);font-weight:700;font-size:clamp(2rem,10vw,2.6rem);font-variant-numeric:tabular-nums}
 .stage .arrow{font-family:var(--body);font-size:5rem;line-height:1}
@@ -176,10 +175,13 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
 .rank{font-size:1.3rem;font-weight:700;color:var(--accent)}
 .stars{font-family:var(--body);color:var(--gold);letter-spacing:4px;font-size:1.4rem}
 .stars .off{color:var(--line)}
-.endstats{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
-.endstats div{background:var(--tile);border-radius:10px;padding:10px}
-.endstats b{display:block;font-size:1.3rem;font-variant-numeric:tabular-nums}
-.endstats small{color:var(--muted);font-size:.78rem}
+.endstats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%}
+.endstats div{background:var(--tile);border-radius:10px;padding:8px 2px}
+.endstats b{display:block;font-size:1.15rem;font-variant-numeric:tabular-nums}
+.endstats small{color:var(--muted);font-size:.72rem;white-space:nowrap}
+#endScreen{gap:8px}
+#endScreen .row .btn{flex:1 1 100%}
+#endScreen .row .ghost{flex:1 1 0;min-width:0;padding-inline:8px}
 .chapters{display:grid;grid-template-columns:1fr;gap:12px;width:100%}
 @media (min-width:560px){.chap canvas{aspect-ratio:16/4}}
 .chap{font:inherit;color:inherit;text-align:start;background:var(--tile);border:2px solid var(--line);border-radius:14px;padding:0;overflow:hidden;cursor:pointer;display:flex;flex-direction:column}
@@ -229,10 +231,10 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
 .toast span{font-weight:700;font-size:.95rem}
 .toast.in{animation:toastIn .35s ease-out}
 @keyframes toastIn{from{transform:translate(-50%,-140%);opacity:0}to{transform:translate(-50%,0);opacity:1}}
-.gains{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;width:100%;max-width:380px;margin-inline:auto}
-.gains li{display:flex;flex-direction:column;gap:2px;padding:9px 12px;border-radius:12px;border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);background:color-mix(in srgb,var(--accent) 10%,transparent);text-align:start}
-.gains li small{color:var(--accent);font-weight:700;font-size:.78rem}
-.gains li b{font-weight:700;font-size:.95rem}
+.gains{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;width:100%;max-width:380px;margin-inline:auto}
+.gains li{display:flex;align-items:center;gap:10px;padding:6px 12px;border-radius:12px;border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);background:color-mix(in srgb,var(--accent) 10%,transparent);text-align:start}
+.gains li small{color:var(--accent);font-weight:700;font-size:.78rem;white-space:nowrap;flex:none}
+.gains li b{font-weight:700;font-size:.9rem;flex:1;min-width:0}
 #cineGains li{border-color:rgba(242,169,59,.55);background:rgba(242,169,59,.1)}
 #cineGains li small{color:#f2a93b}
 .card.bonus{box-shadow:0 0 0 2px var(--blue),0 0 30px -4px var(--blue)}
@@ -244,6 +246,9 @@ button:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline
 footer{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--muted);font-size:.78rem}
 @media (hover:none){footer .hint{display:none}}
 .ver-tag{font-variant-numeric:tabular-nums;opacity:.8}
+.hint::before{content:' · '}
+body.playing .ver-tag{display:none}
+body.playing .hint::before{content:none}
 .settings{width:100%;display:flex;flex-direction:column;gap:10px;text-align:start}
 .set-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px 12px;background:var(--tile);border-radius:12px;padding:10px 12px}
 .set-row label,.set-row > span{font-weight:600}
@@ -367,8 +372,6 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 #misBody{padding-top:6px}
 
 .coach-ov{z-index:7;background:color-mix(in srgb,var(--panel) 97%,transparent)}
-.coach-ov .who{display:flex;align-items:center;gap:8px;color:var(--accent);font-weight:700;font-size:.85rem}
-.coach-ov .who i{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-style:normal;font-weight:700}
 .coach-ov h3{font-family:var(--display);font-weight:400;font-size:clamp(1.7rem,8vw,2.2rem);color:var(--fg);margin:0;line-height:1.2}
 .coach-ov p{white-space:pre-line;color:var(--fg);line-height:1.85;margin:0;max-width:32ch;text-align:start;background:var(--tile);border-radius:14px;padding:12px 14px;font-size:.95rem}
 .count-sub{color:var(--muted);font-weight:700;margin:0}
@@ -534,7 +537,6 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
   .cine-title .stars{font-size:1.5rem}
   .cine-slate{padding:12px}
   .coach-ov{gap:4px}
-  .coach-ov .who{display:none}
   .coach-ov .btn{padding-block:8px}
   .coach-ov h3{font-size:1.5rem}
   .coach-ov p{max-width:60ch;font-size:.82rem;line-height:1.5;padding:6px 12px}
@@ -648,7 +650,7 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
       <div class="hud"><span class="combo" id="combo"></span><span class="lives" id="lives"></span></div>
       <div class="gbody" style="display:flex;flex-direction:column;gap:16px">
         <div class="hp" id="hpWrap" hidden><div class="track"><i id="hpFill"></i></div><small id="hpTxt"></small></div>
-        <div class="bonus-tag" id="bonusTag" hidden><span>سؤال الوقت: +<b id="bonusSec"></b> ثواني لو لحقت</span><i id="bonusStrip"></i></div>
+        <div class="bonus-tag" id="bonusTag" hidden><span>سؤال الوقت: +<b id="bonusSec"></b> ثواني</span><i id="bonusStrip"></i></div>
         <div class="prompt" id="prompt"></div>
         <div class="stage" id="stage"></div>
         <div class="answers" id="answers"></div>
@@ -666,12 +668,12 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
       <div class="endstats">
         <div><b id="sAcc">٠٪</b><small>الدقة</small></div>
         <div><b id="sCombo">٠</b><small>أطول كومبو</small></div>
-        <div><b id="sSpeed">٠</b><small>متوسط سرعتك بالثانية</small></div>
+        <div><b id="sSpeed">٠</b><small>سرعة (ث)</small></div>
         <div><b id="sRight">٠</b><small>إجابات صح</small></div>
       </div>
       <div class="row">
         <button class="btn" id="againBtn">العب تاني</button>
-        <button class="ghost" id="againAlt" hidden>ابدأ الفصل من الأول</button>
+        <button class="ghost" id="againAlt" hidden>من أول الفصل</button>
         <button class="ghost" id="shareBtn">اتحدّى صاحبك</button>
         <button class="ghost" id="menuBtn">الرئيسية</button>
       </div>
@@ -727,7 +729,7 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 
     <section class="screen" id="duelScreen" hidden>
       <h2>مين هيلعب؟</h2>
-      <p>كل واحد بيبدأ بـ ٣٠ ثانية على نفس الأسئلة بالظبط. الصح بيزوّد الوقت والغلط بياكل منه، والأعلى نقط يكسب.</p>
+      <p>٣٠ ثانية لكل واحد على نفس الأسئلة. الأعلى نقط يكسب.</p>
       <div class="field"><label for="p1">اللاعب الأول</label><input id="p1" maxlength="14" value="عبدالرحمن"></div>
       <div class="field"><label for="p2">اللاعب التاني</label><input id="p2" maxlength="14" value="زميلي"></div>
       <div class="row"><button class="btn" id="duelGo">ابدأ الماتش</button><button class="ghost" id="duelBack">رجوع</button></div>
@@ -736,7 +738,7 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
     <section class="screen" id="handScreen" hidden>
       <p id="handNote">الدور الأول</p>
       <h2 id="handName"></h2>
-      <p>سلّمه الموبايل، ولما يبقى جاهز يدوس ابدأ.</p>
+      <p>سلّمه الموبايل.</p>
       <button class="btn" id="handGo">ابدأ</button>
     </section>
 
@@ -749,15 +751,14 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
 
     <div class="overlay pause-ov" id="pauseOv" hidden>
       <h2>واقف</h2>
-      <p id="pauseNote">الوقت واقف. خد نفسك.</p>
+      <p id="pauseNote" hidden></p>
       <div class="col">
         <button class="btn" id="resumeBtn">كمّل</button>
-        <button class="ghost" id="restartBtn">ابدأ الجولة من الأول</button>
+        <button class="ghost" id="restartBtn">ابدأ من الأول</button>
         <button class="ghost" id="quitBtn">اخرج للرئيسية</button>
       </div>
     </div>
     <div class="overlay coach-ov" id="coachOv" hidden>
-      <span class="who"><i>؟</i>شرح سريع</span>
       <h3 id="coachT"></h3>
       <p id="coachB"></p>
       <button class="btn" id="coachGo">فهمت</button>
@@ -771,7 +772,7 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
   </main>
 
   <footer>
-    <span><span class="ver-tag" id="verTag"></span><span class="hint"> · الكيبورد: الأرقام، الأسهم، المسطرة، وزرار <bdi>Esc</bdi> للإيقاف</span></span>
+    <span><span class="ver-tag" id="verTag"></span><span class="hint">الكيبورد: الأرقام، الأسهم، المسطرة، وزرار <bdi>Esc</bdi> للإيقاف</span></span>
     <div class="toggles">
       <button class="mute" id="pauseBtn" aria-label="وقفة مؤقتة" hidden>إيقاف</button>
       <button class="mute" id="muteBtn" aria-pressed="false">صامت</button>
@@ -795,7 +796,7 @@ body,.card,.stat,.cup,.answers button,.mode{transition:background-color .5s,bord
     <b>شكر خاص</b><span>لكل حد غمّض عينه في الشغل بعد الغدا</span>
     <b>استوديو</b><span class="en">Deshret Games</span>
   </div></div>
-  <div class="cine-slate" id="cineSlate" hidden><span id="slateK"></span><b id="slateT"></b><i></i><small id="slateC"></small><em>دوس عشان تكمل</em></div>
+  <div class="cine-slate" id="cineSlate" hidden><span id="slateK"></span><b id="slateT"></b><i></i><small id="slateC"></small><em>دوس للمتابعة</em></div>
   <div class="cine-gate" id="cineGate" hidden><b>فوّق!</b><div class="ring"></div><span>دوس عشان تبدأ</span></div>
   <div class="cine-title" id="cineTitle" hidden>
     <h1 id="cineH"></h1>
@@ -1375,8 +1376,9 @@ const SP = (function(){
 (function(){
   const $ = id => document.getElementById(id);
   document.documentElement.setAttribute('dir', 'rtl'); document.documentElement.setAttribute('lang', 'ar');
-  const VERSION = 25;
+  const VERSION = 26;
   const CHANGELOG = [
+    [26, 'شاشات اللعب أبسط وأهدى: النتيجة بتدخل الشاشة من غير سكرول، وكروت الشرح أقصر وأقل، والإيقاف والغول والدوِل بنص أقل.'],
     [25, 'شاشات أبسط وأهدى: الرئيسية والدليل والخزنة والإعدادات والخريطة والمشاهد بنص أقل وترتيب أنضف، وكل حاجة مهمة لسه موجودة.'],
     [24, '«المربع المختلف» بقى واضح: المربع المختلف بيبان من أول نظرة حتى في الشمس، والصعوبة بتزيد بالتدريج من غير ما يختفي الفرق، والـ١٦ مربع مابيظهروش غير في آخر مستوى.'],
     [23, 'الدفتر القديم: الهوامش بقت متساوية يمين وشمال، والكلام والأزرار قاعدين على سطور الورق، والنقط الحمرا في ركن واحد ثابت.'],
@@ -1506,26 +1508,24 @@ const SP = (function(){
   const SKIN_WORD = 'ألوان';
   const NAMES = {color:'الألوان', math:'الحساب', num:'الأرقام', arrow:'الأسهم', odd:'المربع المختلف', reflex:'رد الفعل', memory:'الذاكرة', major:'أنهي لون أكتر', clock:'الساعة', seq:'الرقم الناقص', stations:'المحطات', windows:'الشبابيك'};
   const TIPS = {
-    color:['الألوان','اقرا المطلوب فوق الأول.\n«لون الحبر» يعني اللون اللي الكلمة متلونة بيه.\n«معنى الكلمة» يعني اللون اللي الكلمة بتقوله.'],
+    color:['الألوان','اقرا المطلوب فوق الأول.\n«لون الحبر»: لون الكلمة نفسها.\n«معنى الكلمة»: اللون اللي بتقوله.'],
     math:['الحساب','المعادلة جاهزة قدامك. دوس «صح» لو الناتج مظبوط، و«غلط» لو مش مظبوط.'],
     num:['الأرقام','السهم بيقولك المطلوب: لفوق يعني اختار الرقم الأكبر، ولتحت يعني الأصغر.'],
-    arrow:['الأسهم','اقرا المطلوب: «نفس» الاتجاه ولا «عكس» الاتجاه، وبعدين دوس على السهم المناسب. لون السهم ملوش أي دعوة.'],
+    arrow:['الأسهم','اقرا المطلوب: «نفس» الاتجاه ولا «عكس»، وبعدين دوس على السهم المناسب. اللون ملوش دعوة.'],
     odd:['المربع المختلف','كل المربعات بنفس اللون إلا واحد درجته أفتح أو أغمق شوية. لاقيه.'],
     major:['أنهي لون أكتر','عدّ النقط بعينك، واختار اللون اللي ليه أكبر عدد.'],
     memory:['الذاكرة','الأزرار هتنوّر بترتيب، والوقت واقف وهي بتنوّر. بعدها دوس عليهم بنفس الترتيب.'],
-    reflex:['رد الفعل','الدايرة حمرا. استنى لحد ما تقلب خضرا، وبعدين دوس بسرعة. لو دوست بدري تتحسب غلطة.'],
+    reflex:['رد الفعل','استنى لحد ما الدايرة تقلب خضرا، وبعدين دوس بسرعة. لو دوست بدري تتحسب غلطة.'],
     clock:['ساعة الحضور','اقرا الساعة: العقرب القصير للساعات، والطويل للدقايق. واختار الوقت الصح.'],
-    seq:['الرقم الناقص','الأرقام ماشية بنظام ثابت. شوف الفرق بين كل رقمين جنب بعض، واعرف الرقم اللي مكان علامة الاستفهام.'],
+    seq:['الرقم الناقص','الأرقام ماشية بنظام ثابت. شوف الفرق بين كل رقمين، واعرف الرقم مكان علامة الاستفهام.'],
     stations:['عدّ المحطات','النقطة الزرقا هي انت، والدهبي محطتك. عدّ المحطات اللي فاضلة لحد ما توصل.'],
     windows:['الشبابيك المنورة','شوية شبابيك هتنوّر ثانية وتطفي. افتكر كانوا كام، واختار الرقم.'],
-    power:['القدرات الخاصة','الأزرار اللي تحت الأسئلة دي قدرات بتساعدك. دوس على أي واحدة وقت ما تحتاجها:\n«تجميد»: بيوقف الوقت ٥ ثواني.\n«تخطي»: بيعدّي السؤال من غير ما يتحسب غلط.\n«درع»: بيحميك من أول غلطة.\nبتبدأ كل جولة بقدرة، وكل ٨ إجابات صح ورا بعض بتكسبك واحدة كمان.'],
-    combo:['الكومبو','جاوبت ٤ صح ورا بعض، فنقطك بقت مضاعفة. كل ٤ صح كمان المضاعف بيكبر، وأي غلطة بترجّعه لأول.'],
-    bonus:['سؤال الوقت','الكارت لما ينوّر لبني ويظهر فوقه شريط بيخلص، ده سؤال الوقت.\nجاوب صح قبل الشريط ما يخلص، وهتكسب ثواني زيادة. ولو اتأخرت، بتاخد نقطك عادي من غير الثواني.'],
-    golden:['سؤال دهب','الكارت لما ينوّر دهبي، نقط السؤال ده بتتضرب في ٣. ركّز فيه.'],
-    fever:['وضع النار','جاوبت ١٢ صح ورا بعض! لمدة ٦ ثواني النقط مضاعفة. ولو فيه غول، ضربتك بتبقى مضاعفة كمان.'],
-    fight:['معركة الغول','الغول ليه شريط صحة فوق. كل إجابة صح بتضربه ضربة، والدهب ووضع النار ضربتهم بضربتين.\nاطرده قبل ما الوقت يخلص. الغلط مش بيضربك، بس بياكل من وقتك.'],
-    wake:['هدف الفصل','الفصل على مرحلتين:\n١. اجمع النقط المطلوبة قبل الوقت ما يخلص، عشان تصحّي المكان.\n٢. أول ما توصل للهدف، حد هيطلعلك من الضباب. اطرده عشان تعدّي الفصل.'],
-    mini:['غول صغير','في الأوضاع السريعة بيطلعلك غول صغير صحته ٣. طرده اختياري، بس بيديك ١٥٠ نقطة ووقت أو روح زيادة.']
+    power:['القدرات الخاصة','دوس على القدرة وقت ما تحتاجها.\nكل ٨ إجابات صح ورا بعض بتكسبك واحدة.'],
+    combo:['الكومبو','٤ صح ورا بعض ونقطك بتتضاعف. أي غلطة ترجّعه لأول.'],
+    bonus:['سؤال الوقت','الكارت اللبني اللي فوقه شريط بيخلص: جاوب صح قبل الشريط وتكسب ثواني زيادة.'],
+    golden:['سؤال دهب','الكارت الدهبي نقطه ×٣. ركّز فيه.'],
+    fever:['وضع النار','١٢ صح ورا بعض! ٦ ثواني نقطك مضاعفة، وضربتك للغول كمان.'],
+    fight:['معركة الغول','كل إجابة صح بتضربه ضربة. الدهب ووضع النار بضربتين.\nاطرده قبل ما الوقت يخلص. الغلط بياكل من وقتك بس.']
   };
   const TYPE_TIPS = {
     color:'الألوان لخبطتك شوية. اقرا المطلوب الأول، وبعدين بص على الكلمة. الكلمة بتكدب والحبر لأ… أو العكس، حسب السؤال.',
@@ -2406,7 +2406,7 @@ const SP = (function(){
     later(() => b.classList.remove('lit'), ms);
   }
   const hits = n => n === 1 ? 'ضربة واحدة' : n === 2 ? 'ضربتين' : n >= 3 && n <= 10 ? `${ar(n)} ضربات` : `${ar(n)} ضربة`;
-  function tagged(html){ return (st.fight && !st.fight.won ? '<span class="boss-tag">ضربة للغول</span>' : st.golden ? '<span class="gold-tag">دهب ×٣</span>' : '') + html; }
+  function tagged(html){ return (st.fight && !st.fight.won ? '' : st.golden ? '<span class="gold-tag">دهب ×٣</span>' : '') + html; }
   function playSeq(){
     const seq = st.ch.seq, step = Math.max(400, 640 - lvl()*50);
     st.paused = true; st.memPos = -1;
@@ -2435,7 +2435,7 @@ const SP = (function(){
     const urge = st.running && ((st.wrongStreak || 0) >= 2 || (st.fight && !st.fight.won && st.time <= 8));
     st.powers.forEach((p, i) => { h += `<button id="pw${i}" data-i="${i}"${urge ? ' class="urge"' : ''}><b>${POW[p][0]}</b><small>${POW[p][1]}</small></button>`; });
     const n = st.combo % 8, full = st.powers.length >= 3;
-    const prog = full ? 'معاك أقصى عدد قدرات (٣)' : `القدرة الجاية: ${ar(n)} من ٨ إجابات صح ورا بعض`;
+    const prog = full ? 'القدرات ممتلئة' : `القدرة الجاية: ${ar(n)} من ٨`;
     box.innerHTML = (h ? `<div class="pw-row">${h}</div>` : '') + `<div class="pw-prog"><span>${prog}</span><i style="width:${full ? 100 : n/8*100}%"></i></div>`;
     box.querySelectorAll('button').forEach(b => b.addEventListener('click', () => usePower(+b.dataset.i)));
   }
@@ -2504,13 +2504,15 @@ const SP = (function(){
     try { const se = document.scrollingElement || document.documentElement; se.scrollTop = 0; document.body.scrollTop = 0; window.scrollTo(0, 0); $(id).scrollTop = 0; } catch(e){}
     syncHeader(id);
     $('setBtn').hidden = id === 'gameScreen';
+    document.body.classList.toggle('playing', id === 'gameScreen');
+    $('best').parentElement.hidden = id === 'gameScreen' && (mode === 'duel' || mode === 'tut');
     $('pauseBtn').hidden = id !== 'gameScreen';
   }
   /* The two boxes at the top always describe the screen you're on: score and the matching best in a run, beans and the right record elsewhere */
   function syncHeader(id){
     if (id === 'gameScreen') return;
     if (id === 'endScreen'){
-      if (mode === 'story' && chapter){ $('best').textContent = ar(+store.get('fawwa2-best-ch' + chapter.id) || 0); $('bestLabel').textContent = 'أحسن رقم للفصل'; }
+      if (mode === 'story' && chapter){ $('best').textContent = ar(+store.get('fawwa2-best-ch' + chapter.id) || 0); $('bestLabel').textContent = 'أحسن رقم'; }
       return;
     }
     $('score').textContent = ar(prof.beans || 0); $('scoreLabel').textContent = 'حبّة بُن';
@@ -2635,14 +2637,14 @@ const SP = (function(){
     musicScene('boss');
     const sub = isS ? `صحته ${hits(b.hp)}، ووقته ${ar(b.time)} ثانية.${b.heal ? ' وكل غلطة بترجّعله ضربة.' : ''} ${b.hint}`
       : tut ? 'كل إجابة صح بتضربه ضربة.'
-      : `غول شارد. اختياري: اطرده في ٣ ضربات وخد ١٥٠ نقطة و${mode === 'surv' ? 'روح زيادة' : '٥ ثواني'}.`;
+      : `غول شارد، اختياري: ٣ ضربات = ١٥٠ نقطة و${mode === 'surv' ? 'روح زيادة' : '٥ ثواني'}.`;
     showBanner(isS ? st.fight.shown + ' طلعلك!' : b.name + ' ظهر!', sub);
     const vk = isS ? GHOUL_OF[chapter.scene] : 'stray'; setTimeout(() => ghoulVoice(vk, 'appear'), 350);
     hud();
     const go = st.bannerGo = () => {
       if (!st || st.bannerGo !== go) return;
       st.bannerGo = null; hideBanner(); st.intro = false; st.paused = false;
-      const k = kind === 'mini' ? 'mini' : 'fight';
+      const k = 'fight';
       if (SET.tips && mode !== 'tut' && mode !== 'duel' && !seenTip(k)){ markTip(k); return coach(TIPS[k][0], TIPS[k][1], () => next()); }
       next();
     };
@@ -2651,7 +2653,7 @@ const SP = (function(){
   function renderHp(){
     const f = st && st.fight; if (!f) return;
     $('hpFill').style.width = Math.max(0, f.hp/f.max*100) + '%';
-    $('hpTxt').textContent = f.won ? `${f.name} اتطرد!` : `${f.shown}${f.sub ? ' — ' + f.sub : ''}: فاضل ${ar(f.hp)} من ${ar(f.max)}`;
+    $('hpTxt').textContent = f.won ? `${f.name} اتطرد!` : `${f.shown}: فاضل ${ar(f.hp)} من ${ar(f.max)}`;
   }
   function hitBoss(dmg){
     const f = st.fight; if (!f || f.won) return;
@@ -2705,8 +2707,8 @@ const SP = (function(){
     st.isPaused = true; st.pauseStart = performance.now();
     clearTimers(); cancelAnimationFrame(raf);
     document.body.classList.remove('danger'); M.danger = 0;
-    $('pauseOv').hidden = false; $('pauseNote').textContent = auto ? 'وقفنا اللعبة لما خرجت منها. كمّل لما تكون جاهز.' : 'الوقت واقف. خد نفسك.';
-    $('restartBtn').textContent = mode === 'tut' ? 'ابدأ التدريب من الأول' : 'ابدأ الجولة من الأول';
+    $('pauseOv').hidden = false; $('pauseNote').hidden = !auto; $('pauseNote').textContent = auto ? 'وقفنا اللعبة لما خرجت منها. كمّل لما تكون جاهز.' : '';
+    $('restartBtn').textContent = mode === 'tut' ? 'ابدأ التدريب من الأول' : 'ابدأ من الأول';
     $('quitBtn').textContent = mode === 'story' ? 'اخرج للخريطة' : 'اخرج للرئيسية';
     duckMusic(.35);
     try { $('resumeBtn').focus({preventScroll:true}); } catch(e){}
@@ -2891,7 +2893,7 @@ const SP = (function(){
     $('hpWrap').hidden = true; $('pauseOv').hidden = true; $('coachOv').hidden = true; $('cup').classList.remove('boss');
     $('bar').style.width = '100%';
     $('best').textContent = mode === 'duel' || mode === 'tut' ? '—' : ar(bestBefore);
-    $('bestLabel').textContent = mode === 'story' ? 'أحسن رقم للفصل' : mode === 'daily' ? 'رقم النهارده' : (mode === 'duel' || mode === 'tut') ? 'أحسن رقم' : 'أحسن ' + MODES[mode].name;
+    $('bestLabel').textContent = mode === 'story' ? 'أحسن رقم' : mode === 'daily' ? 'رقم النهارده' : (mode === 'duel' || mode === 'tut') ? 'أحسن رقم' : 'أحسن ' + MODES[mode].name;
     $('pauseBtn').hidden = false;
     GAINS.on = mode !== 'tut'; GAINS.list = [];
     show('gameScreen'); hud();
@@ -2917,7 +2919,6 @@ const SP = (function(){
     st.starting = false; st.running = true;
     last = performance.now(); raf = requestAnimationFrame(tick);
     if (st.resumeCp){ Object.assign(st, JSON.parse(JSON.stringify(st.resumeCp))); st.cp = st.resumeCp; st.shownScore = st.score; return startFight('story'); }
-    if (mode === 'story' && SET.tips && !seenTip('wake')){ markTip('wake'); return coach(TIPS.wake[0], TIPS.wake[1], () => next()); }
     next();
   }
   function snapshot(){ return {maxCombo:st.maxCombo, score:st.score, by:st.by, bossWins:st.bossWins, goldRight:st.goldRight, powerUsed:st.powerUsed, mode}; }
@@ -2985,7 +2986,7 @@ const SP = (function(){
     ];
     const r = ranks.filter(x => s >= x[0]*k).pop();
     let note = r[2], record = false;
-    if (s > getBest(mode) && s > 0){ store.set(bestKey(mode), s); record = true; note += mode === 'daily' ? ' وده أحسن رقم ليك النهارده.' : ' ورقم قياسي جديد.'; }
+    if (s > getBest(mode) && s > 0){ store.set(bestKey(mode), s); record = true; note += ' ورقم قياسي جديد.'; }
     if (mode === 'daily'){
       const today = dayKey(), y = new Date(); y.setDate(y.getDate() - 1);
       if (prof.lastDaily !== today){ prof.streak = prof.lastDaily === dayKey(y) ? prof.streak + 1 : 1; prof.lastDaily = today; }
@@ -3108,7 +3109,7 @@ const SP = (function(){
       const crits = critText(ch).map((t, i) => ({t: i === 1 ? `${t} (دقتك ${ar(Math.round(acc*100))}٪)` : i === 2 ? `${t} (فاضل ${ar(st.bossLeft || 0)})` : t, ok: crit[i]}));
       blink(() => cine(Object.assign(outroOpt(ch), {
         title: {h: ch.secret ? 'النهاية الحقيقية!' : ch.final ? 'الشركة صحيت!' : 'الفصل خلص!', stars, crit: crits,
-          p: `طردت ${ch.boss.name}. جبت ${ar(s)} نقطة، وكسبت ${ar(s + bonus + starBonus)} حبّة بُن.` + extra + (advice ? '\n\nعم سيد: ' + advice : ''), gains,
+          p: `جبت ${ar(s)} نقطة، وكسبت ${ar(s + bonus + starBonus)} حبّة بُن.` + extra + (advice ? '\n\nعم سيد: ' + advice : ''), gains,
           btn: nextCh ? (nextCh.secret ? 'ادخل الفصل السري' : 'الفصل الجاي') : (ch.secret ? 'كمّل' : 'رجوع للخريطة'), alt: nextCh ? 'الخريطة' : null, re: stars < 3 ? 'عيد الفصل' : null},
         onTitle: () => { motif(true); confetti(); [0,1,2].slice(0, stars).forEach(i => setTimeout(() => sfx('star', i*4), 500 + i*260)); },
         done: () => { if (ch.secret) credits(); else if (nextCh) playChapter(nextCh); else { musicScene('menu', {set:0}); show('mapScreen'); } },
@@ -3126,10 +3127,10 @@ const SP = (function(){
         $('endTitle').textContent = ch.label + ': ' + ch.name;
         $('rank').textContent = atBoss ? `${bossShow(ch)} لسه صامد` : 'الضباب كسب المرة دي';
         $('endNote').textContent = atBoss
-          ? `صحّيت ${ch.place}، بس الوقت خلص والغول فاضل عليه ${hits(left)}. ترجعله على طول، ومن غير ما تعيد المرحلة الأولى.`
-          : `كنت محتاج ${ar(ch.target)} نقطة عشان تصحّي ${ch.place}، وجبت ${ar(s)}. كل غلطة بتاكل ٣ ثواني، فالدقة أهم من السرعة.`;
+          ? `صحّيت ${ch.place}، والغول فاضله ${hits(left)}. ترجعله على طول من غير ما تعيد.`
+          : `محتاج ${ar(ch.target)} نقطة عشان تصحّي ${ch.place}، وجبت ${ar(s)}. الغلطة بتاكل ٣ ثواني، فالدقة أهم.`;
         $('againBtn').textContent = atBoss ? 'ارجع للغول على طول' : 'جرّب الفصل تاني';
-        $('againAlt').hidden = !atBoss; $('againAlt').textContent = 'ابدأ الفصل من الأول';
+        $('againAlt').hidden = !atBoss; $('againAlt').textContent = 'من أول الفصل';
         $('menuBtn').textContent = 'الخريطة'; $('shareBtn').hidden = true;
         $('quip').textContent = 'عم سيد: ' + (atBoss ? ch.boss.hint : line);
         fillStats(); show('endScreen'); countUp($('finalScore'), s); sfx('lose');
@@ -3153,7 +3154,7 @@ const SP = (function(){
     if (!story.seen['i' + ch.id]){ story.seen['i' + ch.id] = 1; store.put('fawwa2-story', story); }
     blink(() => cine(Object.assign(introOpt(ch, !story.stars[ch.id]), {
       title: {h: ch.name, crit: critText(ch).map(t => ({t, ok: null})),
-        p: `١. اجمع ${ar(ch.target)} نقطة في ${ar(ch.time)} ثانية عشان تصحّي ${ch.place}.\n٢. ` + (bossKnown(ch) ? `اطرد ${ch.boss.name}: صحته ${hits(ch.boss.hp)}، ووقته ${ar(ch.boss.time)} ثانية.` : 'حد هيطلعلك من الضباب، ولازم تطرده عشان تعدّي.') + (ch.newType ? `\nتحدي جديد في الفصل ده: «${TIPS[ch.newType][0]}».` : '') + (ch.speed ? '\nالوقت هنا بيجري أسرع من العادي.' : ''),
+        p: `١. اجمع ${ar(ch.target)} نقطة في ${ar(ch.time)} ثانية.\n٢. ` + (bossKnown(ch) ? `اطرد ${ch.boss.name}: ${hits(ch.boss.hp)} في ${ar(ch.boss.time)} ثانية.` : 'حد هيطلعلك من الضباب، اطرده.') + (ch.newType ? `\nتحدي جديد: «${TIPS[ch.newType][0]}».` : '') + (ch.speed ? '\nالوقت هنا بيجري أسرع من العادي.' : ''),
         btn: 'ابدأ الفصل', alt: 'رجوع'},
       onTitle: () => { sfx('rumble'); setTimeout(() => motif(true), 300); },
       done: () => start(),
@@ -3254,7 +3255,7 @@ const SP = (function(){
     CI.opt = opt; CI.idx = -1; CI.on = true;
     $('cineChoice').hidden = true; $('credits').hidden = true; $('cine').classList.remove('credits-on');
     CI.p = Object.assign({}, opt.from || opt.lines[0].p);
-    $('cine').hidden = false; $('cineLabel').textContent = opt.label || '';
+    $('cine').hidden = false; $('cineLabel').textContent = opt.label || ''; $('cineLabel').style.visibility = '';
     $('cineText').hidden = true; $('cineTitle').hidden = true; $('cineSlate').hidden = true;
     const needGate = !A.ctx || A.ctx.state !== 'running';
     $('cineGate').hidden = !needGate;
@@ -3266,11 +3267,11 @@ const SP = (function(){
     const S = CI.opt.slate;
     if (!S) return cineLine(0);
     $('slateK').textContent = S.k; $('slateT').textContent = S.t; $('slateC').textContent = S.c || '';
-    const el = $('cineSlate'); el.hidden = false; el.classList.remove('in'); void el.offsetWidth; el.classList.add('in');
+    $('cineLabel').style.visibility = 'hidden'; const el = $('cineSlate'); el.hidden = false; el.classList.remove('in'); void el.offsetWidth; el.classList.add('in');
     if (ac()){ const t = A.ctx.currentTime; iTock(t, .12, 1300); iTock(t + .5, .1, 1100); iDum(t + 1, .35, A.s); }
     CI.slateT = setTimeout(() => { if (CI.on && !$('cineSlate').hidden) slateDone(); }, 5200);
   }
-  function slateDone(){ clearTimeout(CI.slateT); $('cineSlate').hidden = true; cineLine(0); }
+  function slateDone(){ clearTimeout(CI.slateT); $('cineLabel').style.visibility = ''; $('cineSlate').hidden = true; cineLine(0); }
   function cineLine(i){
     CI.idx = i;
     const L = CI.opt.lines[i];
@@ -3571,7 +3572,7 @@ const SP = (function(){
   $('rematch').addEventListener('click', () => { newDuel([duel.names[1], duel.names[0]]); handoff(); });
   $('duelMenu').addEventListener('click', () => { $('bar').style.width = '100%'; setMode('classic'); show('startScreen'); });
   $('cine').addEventListener('click', cineTap);
-  $('cineSkip').addEventListener('click', () => { if (!$('cineTitle').hidden) return cineDone(); clearInterval(CI.typing); clearTimeout(CI.slateT); CI.typing = null; $('cineChoice').hidden = true; $('cineSlate').hidden = true; $('cineGate').hidden = true; ac(); cineTitle(); });
+  $('cineSkip').addEventListener('click', () => { if (!$('cineTitle').hidden) return cineDone(); clearInterval(CI.typing); clearTimeout(CI.slateT); CI.typing = null; $('cineChoice').hidden = true; $('cineLabel').style.visibility = ''; $('cineSlate').hidden = true; $('cineGate').hidden = true; ac(); cineTitle(); });
   $('cineGo').addEventListener('click', () => cineDone(false));
   $('cineAlt').addEventListener('click', () => cineDone(true));
   $('cineRe').addEventListener('click', () => cineDone('re'));
